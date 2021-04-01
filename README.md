@@ -42,7 +42,7 @@ laravel login system must have same 3 place name.
 ```
 3.Database Column name
 <img src="data.png">
-<hr>
+
 ## Multiple login system
 ```phpregexp
  /**
