@@ -7,4 +7,4 @@ This is a learning purpose project for laravel developers. There are some featur
 - Multilevel Auth System
 - Blog app with all blog features
 - eCommerce system with cart managements, orders system, customer managements etc
-- Page managements - Homepage, About us, Contact us page etc
+- Page managements - Homepage, About us, Contact us, Prizing page etc
