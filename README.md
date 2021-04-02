@@ -43,7 +43,7 @@ laravel login system must have same 3 place name.
 3.Database Column name
 <img src="data.png">
 
-## Multiple login system
+## Multiple login system username, email, phone number
 ```phpregexp
  /**
      * Get the login username to be used by the controller.

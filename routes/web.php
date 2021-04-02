@@ -20,3 +20,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('admin')->group(function (){
+    Route::get('login', [App\Http\Controllers\Backend\AdminController::class, 'showAdminLogin'])->name('admin.login');
+    Route::get('register', [App\Http\Controllers\Backend\AdminController::class, 'showAdminRegister'])->name('admin.register');
+    Route::get('dashboard', [App\Http\Controllers\Backend\AdminController::class, 'showAdminDashboard'])->name('admin.dashboard');
+});
