@@ -32,3 +32,5 @@
 <script src="{{ asset('backend/assets/dist/') }}/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('backend/assets/dist/') }}/js/pages/dashboard.js"></script>
+<!-- Comet Custom JS -->
+<script src="{{ asset('backend/assets/dist/') }}/js/comet/custom.js"></script>

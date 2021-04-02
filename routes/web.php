@@ -27,4 +27,5 @@ Route::prefix('admin')->group(function (){
     Route::get('dashboard', [App\Http\Controllers\Backend\AdminController::class, 'showAdminDashboard'])->name('admin.dashboard');
     //admin login
     Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('admin.login');
+    Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('admin.logout');
 });

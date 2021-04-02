@@ -35,11 +35,14 @@
             <!-- Notifications Dropdown Menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
-                    <span>Admin</span>
+                    <span>{{ Auth::user()->name }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                    <a id="logout_btn" href="#" class="dropdown-item dropdown-footer">Logout</a>
+                    <form id="logout_form" action="{{ route('admin.logout') }}" method="POST">
+                        @csrf
+                    </form>
                 </div>
             </li>
         </ul>
