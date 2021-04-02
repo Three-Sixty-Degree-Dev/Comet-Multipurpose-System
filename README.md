@@ -12,7 +12,7 @@ This is a learning purpose project for laravel developers. There are some featur
 ## User Login System 
 laravel login system must have same 3 place name.
 *Example:*
- 1. User Form 
+ 1. User Form name
 ```html
 <div class="form-group row">
     <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
@@ -28,7 +28,7 @@ laravel login system must have same 3 place name.
     </div>
 </div>
 ```
-2. Login Controller
+2. Login Controller return type
 ```phpregexp
      /**
      * Get the login username to be used by the controller.
@@ -37,7 +37,7 @@ laravel login system must have same 3 place name.
      */
     public function username()
     {
-    return 'email';
+        return 'email';
     }
 ```
 3.Database Column name
