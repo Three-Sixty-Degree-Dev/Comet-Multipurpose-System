@@ -18,3 +18,11 @@
 <link rel="stylesheet" href="{{ asset('backend/assets/plugins/') }}/daterangepicker/daterangepicker.css">
 <!-- summernote -->
 <link rel="stylesheet" href="{{ asset('backend/assets/plugins/') }}/summernote/summernote-bs4.min.css">
+<!-- Notify  -->
+<script src="{{ asset('backend/assets/plugins/') }}/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js"></script>
+<style type="text/css">
+    .notifyjs-corner{
+        z-index: 10000 !important;
+    }
+</style>

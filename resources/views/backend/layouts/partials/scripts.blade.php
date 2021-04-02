@@ -1,5 +1,5 @@
 <!-- jQuery -->
-<script src="{{ asset('backend/assets/plugins/') }}/jquery/jquery.min.js"></script>
+
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('backend/assets/plugins/') }}/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -34,3 +34,22 @@
 <script src="{{ asset('backend/assets/dist/') }}/js/pages/dashboard.js"></script>
 <!-- Comet Custom JS -->
 <script src="{{ asset('backend/assets/dist/') }}/js/comet/custom.js"></script>
+
+<!-- notify -->
+@if(session()->has('success'))
+    <script text="text/javascript">
+        $(function(){
+            $.notify("{{session()->get('success')}}", {globalPosition: 'top right', className:'success'});
+        });
+    </script>
+@endif
+@if(session()->has('error'))
+    <script text="text/javascript">
+        $(function(){
+            $.notify("{{session()->get('error')}}", {globalPosition: 'top right', className:'error'});
+        });
+    </script>
+@endif
+
+{{--Toster Notification--}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
