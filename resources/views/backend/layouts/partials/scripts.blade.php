@@ -32,6 +32,9 @@
 <script src="{{ asset('backend/assets/dist/') }}/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('backend/assets/dist/') }}/js/pages/dashboard.js"></script>
+<!-- jquery-validation -->
+<script src="{{ asset('backend/assets/plugins/') }}/jquery-validation/jquery.validate.min.js"></script>
+<script src="{{ asset('backend/assets/plugins/') }}/jquery-validation/additional-methods.min.js"></script>
 <!-- Comet Custom JS -->
 <script src="{{ asset('backend/assets/dist/') }}/js/comet/custom.js"></script>
 

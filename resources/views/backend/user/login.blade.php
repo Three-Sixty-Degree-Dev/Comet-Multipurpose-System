@@ -14,7 +14,7 @@
             <div class="card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                <form action="{{ route('admin.login') }}" method="POST">
+                <form action="{{ route('admin.login') }}" method="POST" id="loginValidate">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="text" name="login_data" class="form-control" placeholder="Email / Cell / Username">
@@ -63,7 +63,7 @@
                     <a href="forgot-password.html">I forgot my password</a>
                 </p>
                 <p class="mb-0">
-                    <a href="register.html" class="text-center">Register a new membership</a>
+                    <a href="{{ route('admin.register') }}" class="text-center">Register a new membership</a>
                 </p>
             </div>
             <!-- /.card-body -->
@@ -75,5 +75,39 @@
 {{--Toster Notification--}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
 @include('validation')
+<script>
+    $(function () {
+        $('#loginValidate').validate({
+            rules: {
+                login_data: {
+                    required: true,
+                },
+                password: {
+                    required: true,
+                    minlength: 5
+                },
+            },
+            messages: {
+                login_data: {
+                    required: "Please enter a email or cell",
+                },
+                password: {
+                    required: "Please provide a password",
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>
 @endsection
 

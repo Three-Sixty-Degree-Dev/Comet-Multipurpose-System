@@ -28,4 +28,6 @@ Route::prefix('admin')->group(function (){
     //admin login
     Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('admin.login');
     Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('admin.logout');
+    //admin register
+    Route::post('register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('admin.register');
 });
