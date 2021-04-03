@@ -31,3 +31,7 @@ Route::prefix('admin')->group(function (){
     //admin register
     Route::post('register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('admin.register');
 });
+
+Route::prefix('post')->group(function (){
+    Route::resource('', 'App\Http\Controllers\Backend\PostController');
+});

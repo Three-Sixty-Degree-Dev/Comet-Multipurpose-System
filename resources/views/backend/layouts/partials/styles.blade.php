@@ -18,6 +18,10 @@
 <link rel="stylesheet" href="{{ asset('backend/assets/plugins/') }}/daterangepicker/daterangepicker.css">
 <!-- summernote -->
 <link rel="stylesheet" href="{{ asset('backend/assets/plugins/') }}/summernote/summernote-bs4.min.css">
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('backend/assets/plugins/') }}/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="{{ asset('backend/assets/plugins/') }}/datatables-responsive/css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" href="{{ asset('backend/assets/plugins/') }}/datatables-buttons/css/buttons.bootstrap4.min.css">
 <!-- Notify  -->
 <script src="{{ asset('backend/assets/plugins/') }}/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js"></script>
@@ -26,3 +30,5 @@
         z-index: 10000 !important;
     }
 </style>
+
+

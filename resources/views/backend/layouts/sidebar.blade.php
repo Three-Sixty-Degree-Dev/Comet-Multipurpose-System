@@ -1,3 +1,7 @@
+@php
+    $prefix = Request::route()->getPrefix();
+    $route = Route::current()->getName();
+@endphp
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
@@ -22,9 +26,9 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
+                <li class="nav-item {{ ($prefix == '/post')? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ ($prefix == '/post')? 'active' : '' }}">
+                        <i class="nav-icon fas fa-blog"></i>
                         <p>
                             Blog
                             <i class="fas fa-angle-left right"></i>
@@ -32,9 +36,9 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/layout/top-nav.html" class="nav-link">
+                            <a href="{{ route('index') }}" class="nav-link {{ ($route == 'index')? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Post</p>
+                                <p>Posts</p>
                             </a>
                         </li>
                         <li class="nav-item">
