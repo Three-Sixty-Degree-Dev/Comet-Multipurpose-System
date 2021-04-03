@@ -34,4 +34,5 @@ Route::prefix('admin')->group(function (){
 
 Route::prefix('post')->group(function (){
     Route::resource('', 'App\Http\Controllers\Backend\PostController');
+    Route::resource('category', 'App\Http\Controllers\Backend\CategoryController');
 });
