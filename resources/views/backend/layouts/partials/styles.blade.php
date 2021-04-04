@@ -31,5 +31,8 @@
         z-index: 10000 !important;
     }
 </style>
+{{-- Sweetalert --}}
+<script src="{{asset('backend/assets/')}}/sweetalert/sweetalert.js"></script>
+<link href="{{asset('backend/assets/')}}/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
 
 

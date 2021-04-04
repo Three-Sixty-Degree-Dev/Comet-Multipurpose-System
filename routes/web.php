@@ -37,4 +37,5 @@ Route::prefix('post')->group(function (){
     Route::resource('category', 'App\Http\Controllers\Backend\CategoryController');
     Route::get('category/status-inactive/{id}', 'App\Http\Controllers\Backend\CategoryController@categoryUpdatedInactive');
     Route::get('category/status-active/{id}', 'App\Http\Controllers\Backend\CategoryController@categoryUpdatedActive');
+    Route::post('category/delete', 'App\Http\Controllers\Backend\CategoryController@categoryDelete')->name('post.category.delete');
 });

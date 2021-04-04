@@ -55,7 +55,7 @@
                             </thead>
                             <tbody>
                                 @foreach($all_data as $data)
-                                <tr>
+                                <tr class="{{ $data->id }}">
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $data->name }}</td>
                                     <td>{{ $data->slug }}</td>
@@ -69,7 +69,7 @@
                                     <td>
 {{--                                        <a title="View" href="" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>--}}
                                         <a title="Edit" href="" class="btn btn-sm btn-warning"><i class="fas fa-edit text-white"></i></a>
-                                        <a title="Delete" href="" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                        <a title="Delete" class="btn btn-sm btn-danger delete" href="{{route('post.category.delete')}}" data-token="{{ csrf_token() }}" data-id="{{ $data->id }}" ><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

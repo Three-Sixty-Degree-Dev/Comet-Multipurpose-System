@@ -96,6 +96,16 @@ class CategoryController extends Controller
         //
     }
 
+    public function categoryDelete(Request $request){
+        $category_info = Category::find($request->id);
+        if($category_info != NULL){
+            $category_info->delete();
+            return redirect()->route('category.index')->with('success', 'Category deleted successfully ):');
+        }else {
+            return redirect()->route('category.index')->with('error', 'Sorry! No data found');
+        }
+    }
+
     /**
      * Category inactive
      * @param $id
