@@ -62,7 +62,7 @@
                                     <td>{{ $data->created_at->diffForHumans() }}</td>
                                     <td>
                                         <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                            <input type="checkbox" customer_id="{{ $data->id }}" class="custom-control-input cust_ststus" {{ ($data->status == true)? 'checked="checked"' : '' }} id="customSwitch_{{ $loop->index+1 }}">
+                                            <input type="checkbox" category_id="{{ $data->id }}" class="custom-control-input cust_ststus" {{ ($data->status == true)? 'checked="checked"' : '' }} id="customSwitch_{{ $loop->index+1 }}">
                                             <label class="custom-control-label" for="customSwitch_{{ $loop->index+1 }}"></label>
                                         </div>
                                     </td>

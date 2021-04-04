@@ -48,7 +48,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/layout/boxed.html" class="nav-link">
+                            <a href="{{ route('tag.index') }}" class="nav-link {{ ($route == 'tag.index')? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tag</p>
                             </a>

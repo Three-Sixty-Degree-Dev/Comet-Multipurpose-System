@@ -6,10 +6,10 @@
             $('#logout_form').submit();
         });
 
-        //Customer Status
+        //Category Status
         $(document).on('click', 'input.cust_ststus', function (){
             let checked = $(this).attr('checked');
-            let id = $(this).attr('customer_id');
+            let id = $(this).attr('category_id');
 
             if(checked == 'checked'){
                 $.ajax({
@@ -23,6 +23,28 @@
                     url:'category/status-active/'+id,
                     success: function (data){
                         $.notify('Category active successfully!', {globalPosition: 'top right', className:'success'});
+                    }
+                });
+            }
+        });
+
+        //Tag Status
+        $(document).on('click', 'input.tag_status', function (){
+            let checked = $(this).attr('checked');
+            let id = $(this).attr('tag_id');
+
+            if(checked == 'checked'){
+                $.ajax({
+                    url:'tag/status-inactive/'+id,
+                    success: function (data){
+                        $.notify('Tag inactive successfully!', {globalPosition: 'top right', className:'success'});
+                    }
+                });
+            }else {
+                $.ajax({
+                    url:'tag/status-active/'+id,
+                    success: function (data){
+                        $.notify('Tag active successfully!', {globalPosition: 'top right', className:'success'});
                     }
                 });
             }
@@ -83,5 +105,21 @@
                 }
             });
         });
+
+        //Tag edit
+        $('.edit_tag').click(function(e){
+            e.preventDefault();
+            let id = $(this).attr('edit_id');
+
+            $.ajax({
+                url: 'tag/' +id+ '/edit',
+                success: function(data){
+                    $('#edit_tag_modal form input[name="id"]').val(data.id);
+                    $('#edit_tag_modal form input[name="name"]').val(data.name);
+                    $('#edit_tag_modal').modal('show');
+                }
+            });
+        });
+
     });
 })(jQuery);

@@ -33,9 +33,18 @@ Route::prefix('admin')->group(function (){
 });
 
 Route::prefix('post')->group(function (){
+    //post
     Route::resource('', 'App\Http\Controllers\Backend\PostController');
+
+    //Category
     Route::resource('category', 'App\Http\Controllers\Backend\CategoryController');
     Route::get('category/status-inactive/{id}', 'App\Http\Controllers\Backend\CategoryController@categoryUpdatedInactive');
     Route::get('category/status-active/{id}', 'App\Http\Controllers\Backend\CategoryController@categoryUpdatedActive');
     Route::post('category/delete', 'App\Http\Controllers\Backend\CategoryController@categoryDelete')->name('post.category.delete');
+
+    //Tag
+    Route::resource('tag', 'App\Http\Controllers\Backend\TagController');
+    Route::get('tag/status-inactive/{id}', 'App\Http\Controllers\Backend\TagController@tagUpdatedInactive');
+    Route::get('tag/status-active/{id}', 'App\Http\Controllers\Backend\TagController@tagUpdatedActive');
+    Route::post('tag/delete', 'App\Http\Controllers\Backend\TagController@tagDelete')->name('post.tag.delete');
 });
