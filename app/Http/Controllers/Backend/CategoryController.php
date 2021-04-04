@@ -88,6 +88,10 @@ class CategoryController extends Controller
     {
         $category_update = Category::find($request->id);
         if($category_update != NULL){
+            $this->validate($request, [
+                'name' => "required | unique:categories,name,".$request->id,
+            ]);
+
             $category_update->name = $request->name;
             $category_update->slug = Str::slug($request->name);
             $category_update->update();
