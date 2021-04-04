@@ -68,7 +68,7 @@
                                     </td>
                                     <td>
 {{--                                        <a title="View" href="" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>--}}
-                                        <a title="Edit" href="" class="btn btn-sm btn-warning"><i class="fas fa-edit text-white"></i></a>
+                                        <a title="Edit" edit_id="{{ $data->id }}" href="" class="btn btn-sm btn-warning edit_cats"><i class="fas fa-edit text-white"></i></a>
                                         <a title="Delete" class="btn btn-sm btn-danger delete" href="{{route('post.category.delete')}}" data-token="{{ csrf_token() }}" data-id="{{ $data->id }}" ><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
@@ -97,6 +97,7 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
 {{--    Add Category Modal--}}
     <div id="add_category_modal" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
@@ -104,7 +105,7 @@
                 <div class="modal-body">
                     <h2>Add New Category <button class="close" data-dismiss="modal">&times;</button></h2>
                     <hr>
-                    <form action="{{ route('category.store') }}" method="POST" id="categoryValidate">
+                    <form action="{{ route('category.store') }}" method="POST" class="categoryValidate">
                         @csrf
                         <div class="form-group">
                             <label>Name</label>
@@ -119,10 +120,36 @@
         </div>
     </div>
 
+
+{{--    Edit Category Modal--}}
+    <div id="edit_category_modal" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h2>Edit Category <button class="close" data-dismiss="modal">&times;</button></h2>
+                    <hr>
+                    <form action="{{ route('category.update', 1) }}" method="POST" class="categoryValidate">
+                        @csrf
+                        @method('PATCH')
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="hidden" name="id">
+                            <input type="text" name="name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-sm btn-primary" value="Update">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 {{--    jquery Validation--}}
 <script>
     $(function () {
-        $('#categoryValidate').validate({
+        $('.categoryValidate').validate({
             rules: {
                 name: {
                     required: true,

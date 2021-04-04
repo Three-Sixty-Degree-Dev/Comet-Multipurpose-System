@@ -70,7 +70,11 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category_edit = Category::find($id);
+        return [
+            'id' => $category_edit->id,
+            'name' => $category_edit->name,
+        ];
     }
 
     /**
@@ -82,7 +86,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category_update = Category::find($request->id);
+        if($category_update != NULL){
+            $category_update->name = $request->name;
+            $category_update->slug = Str::slug($request->name);
+            $category_update->update();
+            return redirect()->route('category.index')->with('success', 'Category updated successfully ):');
+        }else{
+            return redirect()->route('category.index')->with('error', 'Sorry! No data found');
+        }
     }
 
     /**
@@ -96,6 +108,11 @@ class CategoryController extends Controller
         //
     }
 
+    /**
+     * Category delete
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function categoryDelete(Request $request){
         $category_info = Category::find($request->id);
         if($category_info != NULL){
