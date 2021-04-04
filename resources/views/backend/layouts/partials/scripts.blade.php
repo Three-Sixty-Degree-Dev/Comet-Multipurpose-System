@@ -45,6 +45,8 @@
 <script src="{{ asset('backend/assets/plugins/') }}/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="{{ asset('backend/assets/plugins/') }}/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="{{ asset('backend/assets/plugins/') }}/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- Bootstrap Switch -->
+<script src="{{ asset('backend/assets/plugins/') }}/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <!-- jquery-validation -->
 <script src="{{ asset('backend/assets/plugins/') }}/jquery-validation/jquery.validate.min.js"></script>
 <script src="{{ asset('backend/assets/plugins/') }}/jquery-validation/additional-methods.min.js"></script>
@@ -66,9 +68,6 @@
         });
     </script>
 @endif
-
-{{--Toster Notification--}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
 
 <!-- Page specific script -->
 <script>

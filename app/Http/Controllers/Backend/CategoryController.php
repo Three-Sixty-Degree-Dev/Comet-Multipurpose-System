@@ -41,7 +41,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => "required"
+            'name' => "required | unique:categories,name"
         ]);
 
         Category::create([
@@ -94,5 +94,35 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Category inactive
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function categoryUpdatedInactive($id){
+        $customer_info = Category::find($id);
+        if($customer_info != NULL){
+            $customer_info->status = false;
+            $customer_info->update();
+        }else{
+            return redirect()->route('customer.index')->with('error', 'Sorry!, no data available');
+        }
+    }
+
+    /**
+     * Category active
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function categoryUpdatedActive($id){
+        $customer_info = Category::find($id);
+        if($customer_info != NULL){
+            $customer_info->status = true;
+            $customer_info->update();
+        }else{
+            return redirect()->route('customer.index')->with('error', 'Sorry!, no data available');
+        }
     }
 }

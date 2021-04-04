@@ -35,4 +35,6 @@ Route::prefix('admin')->group(function (){
 Route::prefix('post')->group(function (){
     Route::resource('', 'App\Http\Controllers\Backend\PostController');
     Route::resource('category', 'App\Http\Controllers\Backend\CategoryController');
+    Route::get('category/status-inactive/{id}', 'App\Http\Controllers\Backend\CategoryController@categoryUpdatedInactive');
+    Route::get('category/status-active/{id}', 'App\Http\Controllers\Backend\CategoryController@categoryUpdatedActive');
 });

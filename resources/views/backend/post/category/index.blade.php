@@ -2,6 +2,8 @@
 
 @section('main-content')
 <div class="wrapper">
+    {{--Toster CSS--}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
 
     <!-- Navbar -->
     @include('backend.layouts.header')
@@ -59,15 +61,14 @@
                                     <td>{{ $data->slug }}</td>
                                     <td>{{ $data->created_at->diffForHumans() }}</td>
                                     <td>
-                                        @if($data->status == true)
-                                            <span class="badge badge-success">Published</span>
-                                        @else
-                                            <span class="badge badge-danger">Unpublished</span>
-                                        @endif
+                                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                            <input type="checkbox" customer_id="{{ $data->id }}" class="custom-control-input cust_ststus" {{ ($data->status == true)? 'checked="checked"' : '' }} id="customSwitch_{{ $loop->index+1 }}">
+                                            <label class="custom-control-label" for="customSwitch_{{ $loop->index+1 }}"></label>
+                                        </div>
                                     </td>
                                     <td>
-                                        <a title="View" href="" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
-                                        <a title="Edit" href="" class="btn btn-sm btn-warning"><i class="fa fa-pen"></i></a>
+{{--                                        <a title="View" href="" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>--}}
+                                        <a title="Edit" href="" class="btn btn-sm btn-warning"><i class="fas fa-edit text-white"></i></a>
                                         <a title="Delete" href="" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
@@ -146,4 +147,6 @@
         });
     });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
+@include('validation')
 @endsection
