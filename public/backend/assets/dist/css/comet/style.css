@@ -1,0 +1,14 @@
+.post_image, .post_image_g, .post_image_a, .post_image_v {
+    display: none;
+}
+
+.post_gallery_image img {
+    height: 180px;
+    width: 180px;
+    border: 5px solid #fff;
+    margin: 10px;
+}
+
+
+
+

@@ -32,6 +32,8 @@
 <script src="{{ asset('backend/assets/dist/') }}/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('backend/assets/dist/') }}/js/pages/dashboard.js"></script>
+<!-- Select2 -->
+<script src="{{ asset('backend/assets/plugins/') }}/select2/js/select2.full.min.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="{{ asset('backend/assets/plugins/') }}/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ asset('backend/assets/plugins/') }}/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -45,6 +47,8 @@
 <script src="{{ asset('backend/assets/plugins/') }}/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="{{ asset('backend/assets/plugins/') }}/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="{{ asset('backend/assets/plugins/') }}/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- CKEDITOR -->
+<script src="//cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>
 <!-- Bootstrap Switch -->
 <script src="{{ asset('backend/assets/plugins/') }}/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <!-- jquery-validation -->
@@ -87,3 +91,4 @@
         });
     });
 </script>
+

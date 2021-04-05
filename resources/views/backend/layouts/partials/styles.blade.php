@@ -18,11 +18,13 @@
 <link rel="stylesheet" href="{{ asset('backend/assets/plugins/') }}/daterangepicker/daterangepicker.css">
 <!-- summernote -->
 <link rel="stylesheet" href="{{ asset('backend/assets/plugins/') }}/summernote/summernote-bs4.min.css">
+<!-- Select2 -->
+<link rel="stylesheet" href="{{ asset('backend/assets/plugins/') }}/select2/css/select2.min.css">
+<link rel="stylesheet" href="{{ asset('backend/assets/plugins/') }}/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ asset('backend/assets/plugins/') }}/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="{{ asset('backend/assets/plugins/') }}/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="{{ asset('backend/assets/plugins/') }}/datatables-buttons/css/buttons.bootstrap4.min.css">
-
 <!-- Notify  -->
 <script src="{{ asset('backend/assets/plugins/') }}/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.js"></script>
@@ -31,8 +33,11 @@
         z-index: 10000 !important;
     }
 </style>
-{{-- Sweetalert --}}
+<!-- Sweetalert -->
 <script src="{{asset('backend/assets/')}}/sweetalert/sweetalert.js"></script>
 <link href="{{asset('backend/assets/')}}/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+
+<!-- comet style -->
+<link rel="stylesheet" href="{{ asset('backend/assets/dist/css/comet/style.css') }}">
 
 

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -14,7 +17,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('backend.post.index');
+        $data = Post::latest()->get();
+        return view('backend.post.index', [
+            'all_data' => $data
+        ]);
     }
 
     /**
@@ -24,7 +30,12 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $all_cats = Category::all();
+        $all_tags = Tag::all();
+        return view('backend.post.create', [
+            'all_cats' => $all_cats,
+            'all_tags' => $all_tags,
+        ]);
     }
 
     /**
@@ -35,7 +46,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => "required | unique:tags,name"
+        ]);
+
+        Tag::create([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+        ]);
+        return redirect()->route('tag.index')->with('success', 'Tag added successfully ):');
     }
 
     /**
@@ -57,7 +76,11 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tag_edit = Tag::find($id);
+        return [
+            'id' => $tag_edit->id,
+            'name' => $tag_edit->name,
+        ];
     }
 
     /**
@@ -69,7 +92,19 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tag_update = Tag::find($request->id);
+        if($tag_update != NULL){
+            $this->validate($request, [
+                'name' => "required | unique:tags,name,".$request->id,
+            ]);
+
+            $tag_update->name = $request->name;
+            $tag_update->slug = Str::slug($request->name);
+            $tag_update->update();
+            return redirect()->route('tag.index')->with('success', 'Tag updated successfully ):');
+        }else{
+            return redirect()->route('tag.index')->with('error', 'Sorry! No data found');
+        }
     }
 
     /**
@@ -81,5 +116,50 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Tag delete
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function tagDelete(Request $request){
+        $tag_info = Tag::find($request->id);
+        if($tag_info != NULL){
+            $tag_info->delete();
+            return redirect()->route('tag.index')->with('success', 'Tag deleted successfully ):');
+        }else {
+            return redirect()->route('tag.index')->with('error', 'Sorry! No data found');
+        }
+    }
+
+    /**
+     * Tag inactive
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function tagUpdatedInactive($id){
+        $tag_info = Tag::find($id);
+        if($tag_info != NULL){
+            $tag_info->status = false;
+            $tag_info->update();
+        }else{
+            return redirect()->route('tag.index')->with('error', 'Sorry!, no data available');
+        }
+    }
+
+    /**
+     * Tag active
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function tagUpdatedActive($id){
+        $tag_info = Tag::find($id);
+        if($tag_info != NULL){
+            $tag_info->status = true;
+            $tag_info->update();
+        }else{
+            return redirect()->route('tag.index')->with('error', 'Sorry!, no data available');
+        }
     }
 }
