@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name')->unique();
             $table->string('slug');
             $table->boolean('status')->default(true);
+            $table->boolean('trash')->default(false);
             $table->timestamps();
         });
     }

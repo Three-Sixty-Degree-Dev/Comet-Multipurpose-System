@@ -38,7 +38,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">All Categories</h2>
-                        <a class="btn btn-sm btn-primary float-right" data-toggle="modal" href="#add_category_modal" ><i class="fas fa-plus"> Add New Category</i></a>
+                        <a class="btn btn-sm btn-primary float-right" href="{{ route('category.index') }}"><i class="fas fa-list"> Category List</i></a>
                         <div style="display: flex; margin-left: 0px; width: 100%;">
                             <a class="badge badge-primary" href="{{ route('category.index') }}">Published {{ ($published)? $published : '' }}</a>
                             <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('post.category.trash') }}">Trash {{ ($trash)? $trash : '' }}</a>
@@ -52,8 +52,6 @@
                                     <th>SL</th>
                                     <th>Category Name</th>
                                     <th>Category Slug</th>
-                                    <th>Time</th>
-                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -63,17 +61,10 @@
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $data->name }}</td>
                                     <td>{{ $data->slug }}</td>
-                                    <td>{{ $data->created_at->diffForHumans() }}</td>
-                                    <td>
-                                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                            <input type="checkbox" category_id="{{ $data->id }}" class="custom-control-input cust_ststus" {{ ($data->status == true)? 'checked="checked"' : '' }} id="customSwitch_{{ $loop->index+1 }}">
-                                            <label class="custom-control-label" for="customSwitch_{{ $loop->index+1 }}"></label>
-                                        </div>
-                                    </td>
                                     <td>
 {{--                                        <a title="View" href="" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>--}}
-                                        <a title="Edit" edit_id="{{ $data->id }}" href="" class="btn btn-sm btn-warning edit_cats"><i class="fas fa-edit text-white"></i></a>
-                                        <a title="Trash" class="btn btn-sm btn-danger" href="{{route('post.category.trash.update', $data->id)}}"><i class="fa fa-trash"></i></a>
+                                        <a title="Data Recover" class="btn btn-sm btn-success" href="{{ route('post.category.trash.update', $data->id) }}"><i class="fas fa-trash-restore"></i></a>
+                                        <a title="Permanent Delete" class="btn btn-sm btn-danger delete" href="{{route('post.category.delete')}}" data-token="{{ csrf_token() }}" data-id="{{ $data->id }}" ><i class="fa fa-skull-crossbones"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

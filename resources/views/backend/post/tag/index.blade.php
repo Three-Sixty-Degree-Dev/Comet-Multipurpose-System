@@ -39,6 +39,10 @@
                     <div class="card-header">
                         <h2 class="card-title">All Tag</h2>
                         <a class="btn btn-sm btn-primary float-right" data-toggle="modal" href="#add_tag_modal" ><i class="fas fa-plus"> Add New Tag</i></a>
+                        <div style="display: flex; margin-left: 0px; width: 100%;">
+                            <a class="badge badge-primary" href="{{ route('tag.index') }}">Published {{ ($published)? $published : '' }}</a>
+                            <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('post.tag.trash') }}">Trash {{ ($trash)? $trash : '' }}</a>
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -69,7 +73,7 @@
                                     <td>
 {{--                                        <a title="View" href="" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>--}}
                                         <a title="Edit" edit_id="{{ $data->id }}" href="" class="btn btn-sm btn-warning edit_tag"><i class="fas fa-edit text-white"></i></a>
-                                        <a title="Delete" class="btn btn-sm btn-danger delete" href="{{route('post.tag.delete')}}" data-token="{{ csrf_token() }}" data-id="{{ $data->id }}" ><i class="fa fa-trash"></i></a>
+                                        <a title="Trash" class="btn btn-sm btn-danger" href="{{route('post.tag.trash.update', $data->id)}}"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

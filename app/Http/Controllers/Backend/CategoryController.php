@@ -16,10 +16,40 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = Category::latest()->get();
+        $data = Category::where('trash', false)->orderBy('id', 'desc')->get();
+        $published = Category::where('trash', false)->get()->count();
+        $trash = Category::where('trash', true)->get()->count();
         return view('backend.post.category.index', [
-            'all_data' => $data
+            'all_data' => $data,
+            'published' => $published,
+            'trash' => $trash,
         ]);
+    }
+
+    //category trash page
+    public function categoryTrash(){
+        $data = Category::where('trash', true)->orderBy('id', 'desc')->get();
+        $published = Category::where('trash', false)->get()->count();
+        $trash = Category::where('trash', true)->get()->count();
+        return view('backend.post.category.trash', [
+            'all_data' => $data,
+            'published' => $published,
+            'trash' => $trash,
+        ]);
+    }
+
+    //category trash update
+    public function categoryTrashUpdate($id){
+        $data = Category::find($id);
+        if($data->trash == false){
+            $data->trash = true;
+            $data->update();
+            return redirect()->back()->with('warning', 'Trash updated successfully ):');
+        }else {
+            $data->trash = false;
+            $data->update();
+            return redirect()->back()->with('success', 'Trash data recover successfully ):');
+        }
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -135,6 +136,7 @@ class PostController extends Controller
             'slug' => Str::slug($request->title),
             'featured' => json_encode($post_featured),
             'content' => $request->content,
+            'created_by' => Auth::user()->id,
         ]);
         return redirect()->back()->with('success', 'Post added successfully ):');
     }

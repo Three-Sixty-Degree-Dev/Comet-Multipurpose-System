@@ -19,12 +19,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Manage Category</h1>
+                        <h1 class="m-0">Manage Tag</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Category</li>
+                            <li class="breadcrumb-item active">Tag</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -37,11 +37,11 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">All Categories</h2>
-                        <a class="btn btn-sm btn-primary float-right" data-toggle="modal" href="#add_category_modal" ><i class="fas fa-plus"> Add New Category</i></a>
+                        <h2 class="card-title">All Tag</h2>
+                        <a class="btn btn-sm btn-primary float-right" href="{{ route('tag.index') }}" ><i class="fas fa-list"> Tag List</i></a>
                         <div style="display: flex; margin-left: 0px; width: 100%;">
-                            <a class="badge badge-primary" href="{{ route('category.index') }}">Published {{ ($published)? $published : '' }}</a>
-                            <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('post.category.trash') }}">Trash {{ ($trash)? $trash : '' }}</a>
+                            <a class="badge badge-primary" href="{{ route('tag.index') }}">Published {{ ($published)? $published : '' }}</a>
+                            <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('post.tag.trash') }}">Trash {{ ($trash)? $trash : '' }}</a>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -50,10 +50,8 @@
                             <thead>
                                 <tr>
                                     <th>SL</th>
-                                    <th>Category Name</th>
-                                    <th>Category Slug</th>
-                                    <th>Time</th>
-                                    <th>Status</th>
+                                    <th>Tag Name</th>
+                                    <th>Tag Slug</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -63,17 +61,10 @@
                                     <td>{{ $loop->index+1 }}</td>
                                     <td>{{ $data->name }}</td>
                                     <td>{{ $data->slug }}</td>
-                                    <td>{{ $data->created_at->diffForHumans() }}</td>
-                                    <td>
-                                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                            <input type="checkbox" category_id="{{ $data->id }}" class="custom-control-input cust_ststus" {{ ($data->status == true)? 'checked="checked"' : '' }} id="customSwitch_{{ $loop->index+1 }}">
-                                            <label class="custom-control-label" for="customSwitch_{{ $loop->index+1 }}"></label>
-                                        </div>
-                                    </td>
                                     <td>
 {{--                                        <a title="View" href="" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>--}}
-                                        <a title="Edit" edit_id="{{ $data->id }}" href="" class="btn btn-sm btn-warning edit_cats"><i class="fas fa-edit text-white"></i></a>
-                                        <a title="Trash" class="btn btn-sm btn-danger" href="{{route('post.category.trash.update', $data->id)}}"><i class="fa fa-trash"></i></a>
+                                        <a title="Data Recover" class="btn btn-sm btn-success" href="{{route('post.tag.trash.update', $data->id)}}"><i class="fas fa-trash-restore"></i></a>
+                                        <a title="Permanent Delete" class="btn btn-sm btn-danger delete" href="{{route('post.tag.delete')}}" data-token="{{ csrf_token() }}" data-id="{{ $data->id }}" ><i class="fa fa-skull-crossbones"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -103,13 +94,13 @@
 <!-- ./wrapper -->
 
 {{--    Add Category Modal--}}
-    <div id="add_category_modal" class="modal fade">
+    <div id="add_tag_modal" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h2>Add New Category <button class="close" data-dismiss="modal">&times;</button></h2>
+                    <h2>Add New Tag <button class="close" data-dismiss="modal">&times;</button></h2>
                     <hr>
-                    <form action="{{ route('category.store') }}" method="POST" class="categoryValidate">
+                    <form action="{{ route('tag.store') }}" method="POST" class="tagValidate">
                         @csrf
                         <div class="form-group">
                             <label>Name</label>
@@ -126,13 +117,13 @@
 
 
 {{--    Edit Category Modal--}}
-    <div id="edit_category_modal" class="modal fade">
+    <div id="edit_tag_modal" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h2>Edit Category <button class="close" data-dismiss="modal">&times;</button></h2>
+                    <h2>Edit Tag <button class="close" data-dismiss="modal">&times;</button></h2>
                     <hr>
-                    <form action="{{ route('category.update', 1) }}" method="POST" class="categoryValidate">
+                    <form action="{{ route('tag.update', 1) }}" method="POST" class="categoryValidate">
                         @csrf
                         @method('PATCH')
                         <div class="form-group">
@@ -153,7 +144,7 @@
 {{--    jquery Validation--}}
 <script>
     $(function () {
-        $('.categoryValidate').validate({
+        $('.tagValidate').validate({
             rules: {
                 name: {
                     required: true,
@@ -161,7 +152,7 @@
             },
             messages: {
                 name: {
-                    required: "Please enter a category name",
+                    required: "Please enter a tag name",
                 },
             },
             errorElement: 'span',

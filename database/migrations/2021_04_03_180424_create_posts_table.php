@@ -21,6 +21,8 @@ class CreatePostsTable extends Migration
             $table->longText('content');
             $table->boolean('status')->default(true);
             $table->boolean('trash')->default(false);
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

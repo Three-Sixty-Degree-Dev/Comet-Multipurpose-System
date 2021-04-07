@@ -16,10 +16,40 @@ class TagController extends Controller
      */
     public function index()
     {
-        $data = Tag::latest()->get();
+        $data = Tag::where('trash', false)->orderBy('id', 'desc')->get();
+        $published = Tag::where('trash', false)->get()->count();
+        $trash = Tag::where('trash', true)->get()->count();
         return view('backend.post.tag.index', [
-            'all_data' => $data
+            'all_data' => $data,
+            'published' => $published,
+            'trash' => $trash,
         ]);
+    }
+
+    //tag trash page
+    public function tagTrash(){
+        $data = Tag::where('trash', true)->orderBy('id', 'desc')->get();
+        $published = Tag::where('trash', false)->get()->count();
+        $trash = Tag::where('trash', true)->get()->count();
+        return view('backend.post.tag.trash', [
+            'all_data' => $data,
+            'published' => $published,
+            'trash' => $trash,
+        ]);
+    }
+
+    //tag trash update
+    public function tagTrashUpdate($id){
+        $tag_data = Tag::find($id);
+        if($tag_data->trash == false){
+            $tag_data->trash = true;
+            $tag_data->update();
+            return redirect()->back()->with('warning', 'Trash updated successfully ):');
+        }else {
+            $tag_data->trash = false;
+            $tag_data->update();
+            return redirect()->back()->with('success', 'Trash data recover successfully ):');
+        }
     }
 
     /**
