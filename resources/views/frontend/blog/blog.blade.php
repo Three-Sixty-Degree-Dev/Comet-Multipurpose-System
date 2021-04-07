@@ -56,6 +56,14 @@
                                 </div>
                             @endif
 
+                            @if($media_data->post_type == 'Video')
+                            <div class="post-media">
+                                <div class="media-video">
+                                    <iframe src="{{ $media_data->post_video }}" frameborder="0"></iframe>
+                                </div>
+                            </div>
+                            @endif
+
                             <div class="post-body">
                                 <p>
                                     {!! Str::of(htmlspecialchars_decode($data->content))->words('50', '<span style="color: red;"> >>></span>') !!}

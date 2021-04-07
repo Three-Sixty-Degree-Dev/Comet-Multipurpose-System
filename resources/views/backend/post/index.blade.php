@@ -68,7 +68,9 @@
                                             @if($featured_info -> post_image != NULL)
                                                 <img width="50" src="{{ URL::to('/') }}/media/posts/{{ $featured_info -> post_image }}" alt="">
                                             @elseif($featured_info -> post_gallery != NULL)
-                                                    <img width="50" src="{{ URL::to('/') }}/media/posts/{{ $featured_info -> post_gallery[0] }}" alt="">
+                                                <img width="50" src="{{ URL::to('/') }}/media/posts/{{ $featured_info -> post_gallery[0] }}" alt="">
+                                            @elseif($featured_info->post_video != NULL)
+                                                <iframe width="50" height="50" src="{{ $featured_info->post_video }}" frameborder="0"></iframe>
                                             @endif
                                         </td>
                                         <td>{{ $data->created_at->diffForHumans() }}</td>

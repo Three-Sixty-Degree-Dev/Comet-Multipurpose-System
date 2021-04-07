@@ -35,7 +35,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h2 class="card-title">All Posts (Trash)</h2>
-                            <a class="btn btn-sm btn-primary float-right" href="{{ route('index') }}" ><i class="fas fa-list"> Published Post List</i></a><br>
+                            <a class="btn btn-sm btn-primary float-right" href="{{ route('index') }}" ><i class="fas fa-list"> Post List</i></a><br>
                             <div style="display: flex; margin-left: 0px; width: 100%;">
                                 <a class="badge badge-primary" href="{{ route('index') }}">Published {{ ($published)? $published : '' }}</a>
                                 <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('post.trash') }}">Trash {{ ($trash)? $trash : '' }}</a>

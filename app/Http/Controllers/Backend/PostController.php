@@ -84,6 +84,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'title' => "required | unique:posts,title",
             'content' => "required"
@@ -121,12 +122,23 @@ class PostController extends Controller
             }
         }
 
+        //fix youtube and vimeo url
+        $url = $request->post_video;
+        $video_url = '';
+        if(strpos($url,'youtube')){
+            $video_url = str_replace('watch?v=', 'embed/', $url);
+        }elseif (strpos($url, 'vimeo')){
+            $video_url = str_replace('vimeo.com', 'player.vimeo.com/video', $url);
+        }
+
+
+
         $post_featured = [
             'post_type' => $request->post_type,
             'post_image' => $image_unique_name,
             'post_gallery' => $gallery_image_u_n,
             'post_audio' => $request->post_audio,
-            'post_video' => $request->post_video,
+            'post_video' => $video_url,
         ];
 
 
