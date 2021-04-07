@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->string('slug');
-            $table->string('featured');
+            $table->string('featured')->nullable();
             $table->longText('content');
             $table->boolean('status')->default(true);
             $table->boolean('trash')->default(false);

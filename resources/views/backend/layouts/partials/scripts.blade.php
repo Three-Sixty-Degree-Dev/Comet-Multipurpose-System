@@ -72,6 +72,13 @@
         });
     </script>
 @endif
+@if(session()->has('warning'))
+    <script text="text/javascript">
+        $(function(){
+            $.notify("{{session()->get('warning')}}", {globalPosition: 'top right', className:'warning'});
+        });
+    </script>
+@endif
 
 <!-- Page specific script -->
 <script>

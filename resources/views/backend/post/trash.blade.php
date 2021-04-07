@@ -21,7 +21,7 @@
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Posts</li>
+                                <li class="breadcrumb-item active">Posts/trash</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
@@ -34,8 +34,8 @@
                 <div class="container-fluid">
                     <div class="card">
                         <div class="card-header">
-                            <h2 class="card-title">All Post (Published)</h2>
-                            <a class="btn btn-sm btn-primary float-right" href="{{ route('create') }}" ><i class="fas fa-plus"> Add New Post</i></a><br>
+                            <h2 class="card-title">All Posts (Trash)</h2>
+                            <a class="btn btn-sm btn-primary float-right" href="{{ route('index') }}" ><i class="fas fa-list"> Published Post List</i></a><br>
                             <div style="display: flex; margin-left: 0px; width: 100%;">
                                 <a class="badge badge-primary" href="{{ route('index') }}">Published {{ ($published)? $published : '' }}</a>
                                 <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('post.trash') }}">Trash {{ ($trash)? $trash : '' }}</a>
@@ -49,10 +49,7 @@
                                     <th>SL</th>
                                     <th>Post Title</th>
                                     <th>Post Type</th>
-                                    <th>Featured</th>
-                                    <th>Time</th>
-                                    <th>Status</th>
-                                    <th width="90">Action</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -65,23 +62,8 @@
                                         <td>{{ $data->title }}</td>
                                         <td>{{ $featured_info->post_type }}</td>
                                         <td>
-                                            @if($featured_info -> post_image != NULL)
-                                                <img width="50" src="{{ URL::to('/') }}/media/posts/{{ $featured_info -> post_image }}" alt="">
-                                            @elseif($featured_info -> post_gallery != NULL)
-                                                    <img width="50" src="{{ URL::to('/') }}/media/posts/{{ $featured_info -> post_gallery[0] }}" alt="">
-                                            @endif
-                                        </td>
-                                        <td>{{ $data->created_at->diffForHumans() }}</td>
-                                        <td>
-                                            <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                                <input type="checkbox" post_id="{{ $data->id }}" class="custom-control-input post_status" {{ ($data->status == true)? 'checked="checked"' : '' }} id="customSwitch_{{ $loop->index+1 }}">
-                                                <label class="custom-control-label" for="customSwitch_{{ $loop->index+1 }}"></label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a title="View" id="Post_view" post_view="{{ $data->id }}" class="btn btn-sm btn-info" href="#" data-toggle="modal"><i class="fa fa-eye"></i></a>
-                                            <a title="Edit" edit_id="{{ $data->id }}" href="" class="btn btn-sm btn-warning edit_cats"><i class="fas fa-edit text-white"></i></a>
-                                            <a title="Trash" class="btn btn-sm btn-danger" href="{{route('post.trash.update', $data->id)}}"><i class="fa fa-trash"></i></a>
+                                            <a title="Data Recover" href="{{ route('post.trash.update', $data->id) }}" class="btn btn-sm btn-info"><i class="fas fa-trash-restore"></i></a>
+                                            <a title="Permanent Delete" class="btn btn-sm btn-danger delete" href="{{route('post.delete')}}" data-token="{{ csrf_token() }}" data-id="{{ $data->id }}" ><i class="fas fa-skull-crossbones"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

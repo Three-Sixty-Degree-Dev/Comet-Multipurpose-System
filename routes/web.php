@@ -35,6 +35,12 @@ Route::prefix('admin')->group(function (){
 Route::prefix('post')->group(function (){
     //post
     Route::resource('', 'App\Http\Controllers\Backend\PostController');
+    Route::get('status-inactive/{id}', 'App\Http\Controllers\Backend\PostController@postUpdatedInactive');
+    Route::get('status-active/{id}', 'App\Http\Controllers\Backend\PostController@postUpdatedActive');
+    Route::post('delete', 'App\Http\Controllers\Backend\PostController@postDelete')->name('post.delete');
+    Route::get('single-view/{id}', 'App\Http\Controllers\Backend\PostController@singlePostView')->name('post.show');
+    Route::get('trash', 'App\Http\Controllers\Backend\PostController@postTrashShow')->name('post.trash');
+    Route::get('trash/update/{id}', 'App\Http\Controllers\Backend\PostController@postTrashUpdate')->name('post.trash.update');
 
     //Category
     Route::resource('category', 'App\Http\Controllers\Backend\CategoryController');

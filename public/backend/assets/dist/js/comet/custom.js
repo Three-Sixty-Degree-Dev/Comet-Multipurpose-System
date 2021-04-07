@@ -61,6 +61,28 @@
             }
         });
 
+        //Post Status
+        $(document).on('click', 'input.post_status', function (){
+            let checked = $(this).attr('checked');
+            let id = $(this).attr('post_id');
+
+            if(checked == 'checked'){
+                $.ajax({
+                    url:'post/status-inactive/'+id,
+                    success: function (data){
+                        $.notify('Post inactive successfully!', {globalPosition: 'top right', className:'success'});
+                    }
+                });
+            }else {
+                $.ajax({
+                    url:'post/status-active/'+id,
+                    success: function (data){
+                        $.notify('Post active successfully!', {globalPosition: 'top right', className:'success'});
+                    }
+                });
+            }
+        });
+
         //sweetalert wise delete
         $(document).on('click', '.delete', function(){
             var actionTo = $(this).attr('href');
@@ -178,6 +200,38 @@
                 $('.post_image_v').hide();
             }
 
+        });
+
+        //single post view
+        $(document).on('click', '#Post_view', function (event){
+            event.preventDefault();
+            const id = $(this).attr('post_view');
+
+            $.ajax({
+                url: 'post/single-view/'+id,
+                success: function (data){
+                    $('#post_details_modal #post_title').html(data.title);
+                    $('#post_details_modal #post_slug').html(data.slug);
+                    $('#post_details_modal #post_status').html(data.status);
+                    $('#post_details_modal #post_content').html(data.content);
+                    $('#post_details_modal #post_image img').attr('src', '/media/posts/' +data.post_image);
+                    for (const gallery of data.post_gallery) {
+                        $('#post_details_modal #post_g_image').append('' +
+                            '<span class="gallery_image"><img width="100" style="margin: 5px;" src="/media/posts/'+gallery+'" alt=""></span>');
+                    }
+                    $('#post_details_modal #post_audio').html(data.post_audio);
+                    $('#post_details_modal #post_video').html(data.post_video);
+
+                    $('#post_details_modal').modal('show');
+                }
+            });
+
+        });
+
+        // post gallery image problem solve
+        $(document).on('click', '#remove_gallary_image', function (event){
+            event.preventDefault();
+            $('.gallery_image').remove();
         });
 
     });

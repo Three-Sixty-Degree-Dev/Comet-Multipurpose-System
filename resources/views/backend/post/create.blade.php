@@ -39,21 +39,24 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form action="">
+                            <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data" class="postValidate">
+                                @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="">Post Format</label>
-                                        <select name="" id="post_format" class="form-control">
+                                        <select name="post_type" id="post_format" class="form-control">
                                             <option value="">--Select--</option>
                                             <option value="Image">Image</option>
                                             <option value="Gallery">Gallery</option>
                                             <option value="Audio">Audio</option>
                                             <option value="Video">Video</option>
                                         </select>
+                                        <font style="color: red;">{{ ($errors->has('post_type'))? $errors->first('post_type') : '' }}</font>
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for="">Post Title</label>
                                         <input type="text" name="title" class="form-control">
+                                        <font style="color: red;">{{ ($errors->has('title'))? $errors->first('title') : '' }}</font>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="">Category</label>
@@ -74,25 +77,31 @@
                                     <div class="form-group col-md-12 post_image">
                                         <img id="post_image_load" style="width: 400px;" src="" class="d-block" alt="">
                                         <label for="post_image"><img style="width: 100px; cursor: pointer;" src="{{ URL::to('/') }}/backend/assets/dist/img/image-file.png" alt=""></label>
-                                        <input type="file" name="image" class="form-control d-none" id="post_image">
+                                        <input type="file" name="post_image" class="form-control d-none" id="post_image">
                                     </div>
                                     <div class="form-group col-md-12 post_image_g">
                                         <div class="post_gallery_image"></div>
                                         <br>
                                         <br>
                                         <label for="post_image_g"><img style="width: 100px; cursor: pointer;" src="{{ URL::to('/') }}/backend/assets/dist/img/image-file.png" alt=""></label>
-                                        <input type="file" name="image[]" class="form-control dropzone" id="post_image_g" multiple>
+                                        <input type="file" name="post_gallery_image[]" class="form-control d-none" id="post_image_g" multiple>
                                     </div>
                                     <div class="form-group col-md-12 post_image_a">
                                         <label for="">Post Audio Link</label>
-                                        <input type="text" name="title" class="form-control">
+                                        <input type="text" name="post_audio" class="form-control">
+                                        <font style="color: red;">{{ ($errors->has('post_audio'))? $errors->first('post_audio') : '' }}</font>
                                     </div>
                                     <div class="form-group col-md-12 post_image_v">
                                         <label for="">Post Video Link</label>
-                                        <input type="text" name="title" class="form-control">
+                                        <input type="text" name="post_video" class="form-control">
+                                        <font style="color: red;">{{ ($errors->has('post_video'))? $errors->first('post_video') : '' }}</font>
                                     </div>
                                     <div class="form-group col-md-12">
                                         <textarea name="content" id="content"></textarea>
+                                        <font style="color: red;">{{ ($errors->has('content'))? $errors->first('content') : '' }}</font>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <input type="submit" class="btn btn-primary float-right mt-4" value="Submit">
                                     </div>
                                 </div>
                             </form>
@@ -122,15 +131,21 @@
     <!--   jquery Validation-->
     <script>
         $(function () {
-            $('.categoryValidate').validate({
+            $('.postValidate').validate({
                 rules: {
-                    name: {
+                    title: {
+                        required: true,
+                    },
+                    content: {
                         required: true,
                     },
                 },
                 messages: {
-                    name: {
-                        required: "Please enter a category name",
+                    title: {
+                        required: "Please insert title",
+                    },
+                    content: {
+                        required: "Please insert post content",
                     },
                 },
                 errorElement: 'span',
