@@ -136,7 +136,7 @@ class PostController extends Controller
             'featured' => json_encode($post_featured),
             'content' => $request->content,
         ]);
-        return redirect()->route('index')->with('success', 'Post added successfully ):');
+        return redirect()->back()->with('success', 'Post added successfully ):');
     }
 
     /**

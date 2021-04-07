@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//frontend routes
+Route::get('blog', [App\Http\Controllers\Frontend\BlogPageController::class, 'showBlogPage'])->name('show.blog.page');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
