@@ -23,100 +23,49 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="blog-posts">
-                    <article class="post-single">
-                        <div class="post-info">
-                            <h2><a href="#">Checklists for Startups</a></h2>
-                            <h6 class="upper"><span>By</span><a href="#"> Admin</a><span class="dot"></span><span>28 September 2015</span><span class="dot"></span><a href="#" class="post-tag">Startups</a></h6>
-                        </div>
-                        <div class="post-media">
-                            <div data-options="{&quot;animation&quot;: &quot;slide&quot;, &quot;controlNav&quot;: true" class="flexslider nav-outside">
-                                <ul class="slides">
-                                    <li>
-                                        <img src="{{ asset('frontend/assets/images/') }}/blog/1.jpg" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="{{ asset('frontend/assets/images/') }}/blog/2.jpg" alt="">
-                                    </li>
-                                    <li>
-                                        <img src="{{ asset('frontend/assets/images/') }}/blog/3.jpg" alt="">
-                                    </li>
-                                </ul>
+
+                    @foreach($all_data as $data)
+                        @php
+                            $media_data = json_decode($data->featured);
+                        @endphp
+                        <article class="post-single">
+                            <div class="post-info">
+                                <h2><a href="#">{{ $data->title }}</a></h2>
+                                <h6 class="upper"><span>By</span><a href="#"> Admin</a><span class="dot"></span><span>28 September 2015</span><span class="dot"></span><a href="#" class="post-tag">Startups</a></h6>
                             </div>
-                        </div>
-                        <div class="post-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae ut ratione similique temporibus tempora dicta soluta? Qui hic, voluptatem nemo quo corporis dignissimos voluptatum debitis cumque fugiat mollitia quasi quod. Repudiandae
-                                possimus quas odio nisi optio asperiores, vitae error laudantium, ratione odit ipsa obcaecati debitis deleniti minus, illo maiores placeat omnis magnam.</p>
-                            <p><a href="#" class="btn btn-color btn-sm">Read More</a>
-                            </p>
-                        </div>
-                    </article>
-                    <!-- end of article-->
-                    <article class="post-single">
-                        <div class="post-info">
-                            <h2><a href="#">Never Tell People What You Do</a></h2>
-                            <h6 class="upper"><span>By</span><a href="#"> Admin</a><span class="dot"></span><span>28 September 2015</span><span class="dot"></span><a href="#" class="post-tag">Entrepreneurship</a></h6>
-                        </div>
-                        <div class="post-media">
-                            <div class="media-video">
-                                <iframe src="https://www.youtube.com/embed/rrT6v5sOwJg" frameborder="0"></iframe>
+
+                            @if($media_data->post_type == 'Image')
+                                <div class="post-media">
+                                    <a href="#">
+                                        <img src="{{ URL::to('/') }}/media/posts/{{ $media_data->post_image }}" alt="">
+                                    </a>
+                                </div>
+                            @endif
+
+                            @if($media_data->post_type == 'Gallery')
+                                <div class="post-media">
+                                    <div data-options="{&quot;animation&quot;: &quot;slide&quot;, &quot;controlNav&quot;: true" class="flexslider nav-outside">
+                                        <ul class="slides">
+                                            @foreach($media_data->post_gallery as $gallery)
+                                            <li style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 1; display: block; z-index: 2;" class="flex-active-slide">
+                                                <img src="{{ URL::to('/') }}/media/posts/{{ $gallery }}" alt="" draggable="false">
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div class="post-body">
+                                <p>
+                                    {!! Str::of(htmlspecialchars_decode($data->content))->words('50', '<span style="color: red;"> >>></span>') !!}
+                                </p>
+                                <p><a href="#" class="btn btn-color btn-sm">Read More</a>
+                                </p>
                             </div>
-                        </div>
-                        <div class="post-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae ut ratione similique temporibus tempora dicta soluta? Qui hic, voluptatem nemo quo corporis dignissimos voluptatum debitis cumque fugiat mollitia quasi quod. Repudiandae
-                                possimus quas odio nisi optio asperiores, vitae error laudantium, ratione odit ipsa obcaecati debitis deleniti minus, illo maiores placeat omnis magnam.</p>
-                            <p><a href="#" class="btn btn-color btn-sm">Read More</a>
-                            </p>
-                        </div>
-                    </article>
-                    <!-- end of article-->
-                    <article class="post-single">
-                        <div class="post-info">
-                            <h2><a href="#">Give It Five Minutes</a></h2>
-                            <h6 class="upper"><span>By</span><a href="#"> Admin</a><span class="dot"></span><span>28 September 2015</span><span class="dot"></span><a href="#" class="post-tag">Startups</a></h6>
-                        </div>
-                        <div class="post-body">
-                            <blockquote class="italic">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et quam neque facilis similique laborum, nihil id ratione, error illum. Porro quas maxime accusamus numquam consequatur consequuntur eveniet quis, fuga repellendus.</p>
-                            </blockquote>
-                        </div>
-                    </article>
-                    <!-- end of article-->
-                    <article class="post-single">
-                        <div class="post-info">
-                            <h2><a href="#">Uber Launches in Las Vegas</a></h2>
-                            <h6 class="upper"><span>By</span><a href="#"> Admin</a><span class="dot"></span><span>28 September 2015</span><span class="dot"></span><a href="#" class="post-tag">Startups</a></h6>
-                        </div>
-                        <div class="post-media">
-                            <a href="#">
-                                <img src="{{ asset('frontend/assets/images/') }}/blog/4.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="post-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae ut ratione similique temporibus tempora dicta soluta? Qui hic, voluptatem nemo quo corporis dignissimos voluptatum debitis cumque fugiat mollitia quasi quod. Repudiandae
-                                possimus quas odio nisi optio asperiores, vitae error laudantium, ratione odit ipsa obcaecati debitis deleniti minus, illo maiores placeat omnis magnam.</p>
-                            <p><a href="#" class="btn btn-color btn-sm">Read More</a>
-                            </p>
-                        </div>
-                    </article>
-                    <!-- end of article-->
-                    <article class="post-single">
-                        <div class="post-info">
-                            <h2><a href="#">Fun With Product Hunt</a></h2>
-                            <h6 class="upper"><span>By</span><a href="#"> Admin</a><span class="dot"></span><span>28 September 2015</span><span class="dot"></span><a href="#" class="post-tag">Tech</a></h6>
-                        </div>
-                        <div class="post-media">
-                            <div class="media-audio">
-                                <iframe src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/51057943&amp;amp;color=ff5500&amp;amp;auto_play=false&amp;amp;hide_related=false&amp;amp;show_comments=true&amp;amp;show_user=true&amp;amp;show_reposts=false"
-                                        frameborder="0"></iframe>
-                            </div>
-                        </div>
-                        <div class="post-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae ut ratione similique temporibus tempora dicta soluta? Qui hic, voluptatem nemo quo corporis dignissimos voluptatum debitis cumque fugiat mollitia quasi quod. Repudiandae
-                                possimus quas odio nisi optio asperiores, vitae error laudantium, ratione odit ipsa obcaecati debitis deleniti minus, illo maiores placeat omnis magnam.</p>
-                            <p><a href="#" class="btn btn-color btn-sm">Read More</a>
-                            </p>
-                        </div>
-                    </article>
+                        </article>
+                    @endforeach
+
                     <!-- end of article-->
                 </div>
                 <ul class="pagination">
