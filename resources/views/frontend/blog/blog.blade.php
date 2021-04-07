@@ -68,6 +68,11 @@
 
                     <!-- end of article-->
                 </div>
+
+
+                {{ $all_data->links('pagination::bootstrap-4') }}
+
+
                 <ul class="pagination">
                     <li><a href="#" aria-label="Previous"><span aria-hidden="true"><i class="ti-arrow-left"></i></span></a>
                     </li>
@@ -85,6 +90,8 @@
                     </li>
                 </ul>
                 <!-- end of pagination-->
+
+
             </div>
             <div class="col-md-3 col-md-offset-1">
                 <div class="sidebar hidden-sm hidden-xs">

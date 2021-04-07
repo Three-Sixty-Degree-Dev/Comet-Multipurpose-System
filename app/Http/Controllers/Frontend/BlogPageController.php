@@ -10,7 +10,7 @@ class BlogPageController extends Controller
 {
     //show blog page
     public function showBlogPage(){
-        $all_data = Post::where('status', true)->orderBy('id', 'desc')->get();
+        $all_data = Post::where('status', true)->orderBy('id', 'desc')->paginate(5);
         return view('frontend.blog.blog', [
             'all_data' => $all_data
         ]);
