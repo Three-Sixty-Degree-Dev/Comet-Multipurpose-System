@@ -31,7 +31,11 @@
                         <article class="post-single">
                             <div class="post-info">
                                 <h2><a href="#">{{ $data->title }}</a></h2>
-                                <h6 class="upper"><span>By</span><a href="#"> {{ @$data->user->name }}</a><span class="dot"></span><span>{{ date('d F, Y', strtotime($data->created_at)) }}</span><span class="dot"></span><a href="#" class="post-tag">Startups</a></h6>
+                                <h6 class="upper"><span>By</span><a href="#"> {{ @$data->user->name }}</a><span class="dot"></span><span>{{ date('d F, Y', strtotime($data->created_at)) }}</span><span class="dot"></span>
+                                @foreach($data->categories as $category)
+                                    <a href="{{ $category->slug }}" class="post-tag">{{ $category->name }}</a>,
+                                @endforeach
+                                </h6>
                             </div>
 
                             @if($media_data->post_type == 'Image')

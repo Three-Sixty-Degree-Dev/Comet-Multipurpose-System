@@ -231,6 +231,26 @@
                         $('#p_s').hide();
                     }
 
+                    if (data.categories != ''){
+                        $('#p_c').show();
+                        for (const category of data.categories) {
+                            $('#post_details_modal #post_category').append('' +
+                                '<span>'+category['name']+','+'</span>');
+                        }
+                    }else {
+                        $('#p_c').hide();
+                    }
+
+                    if (data.tags != ''){
+                        $('#p_tag').show();
+                        for (const tag of data.tags) {
+                            $('#post_details_modal #post_tag').append('' +
+                                '<span>'+tag['name']+','+'</span>');
+                        }
+                    }else {
+                        $('#p_tag').hide();
+                    }
+
                     if (data.status != '') {
                         $('#p_sta').show();
                         $('#post_details_modal #post_status').html(data.status);
@@ -262,7 +282,7 @@
                         $('#p_g').hide();
                     }
 
-                    if (data.post_audio != null) {
+                    if (data.post_audio != null && data.post_audio != '') {
                         $('#p_a').show();
                         $('#post_details_modal #post_audio').append('' +
                             '<span class="p_audio"><iframe width="400" height="250" src="'+data.post_audio+'" frameborder="0"></iframe></span>');

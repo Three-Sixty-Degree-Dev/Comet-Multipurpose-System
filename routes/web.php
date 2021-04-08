@@ -45,6 +45,8 @@ Route::prefix('post')->group(function (){
     Route::get('single-view/{id}', 'App\Http\Controllers\Backend\PostController@singlePostView')->name('post.show');
     Route::get('trash', 'App\Http\Controllers\Backend\PostController@postTrashShow')->name('post.trash');
     Route::get('trash/update/{id}', 'App\Http\Controllers\Backend\PostController@postTrashUpdate')->name('post.trash.update');
+    Route::get('post-edit/{id}', 'App\Http\Controllers\Backend\PostController@postEdit')->name('post.edit');
+    Route::patch('post-update/{id}', 'App\Http\Controllers\Backend\PostController@postUpdate')->name('post.update');
 
     //Category
     Route::resource('category', 'App\Http\Controllers\Backend\CategoryController');

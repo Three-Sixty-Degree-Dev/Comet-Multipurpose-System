@@ -86,7 +86,7 @@
                                         </td>
                                         <td>
                                             <a title="View" id="Post_view" post_view="{{ $data->id }}" class="btn btn-sm btn-info" href="#" data-toggle="modal"><i class="fa fa-eye"></i></a>
-                                            <a title="Edit" edit_id="{{ $data->id }}" href="" class="btn btn-sm btn-warning edit_cats"><i class="fas fa-edit text-white"></i></a>
+                                            <a title="Edit" href="{{ route('post.edit', $data->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit text-white"></i></a>
                                             <a title="Trash" class="btn btn-sm btn-danger" href="{{route('post.trash.update', $data->id)}}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
@@ -141,7 +141,7 @@
                             <td style="font-weight: bold" width="200">Post Category</td>
                             <td id="post_category"></td>
                         </tr>
-                        <tr id="p_t">
+                        <tr id="p_tag">
                             <td style="font-weight: bold" width="200">Post Tag</td>
                             <td id="post_tag"></td>
                         </tr>

@@ -153,13 +153,17 @@ class PostController extends Controller
 
 
 
-        Post::create([
+        $post_data = Post::create([
             'user_id' => Auth::user()->id,
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'featured' => json_encode($post_featured),
             'content' => $request->content,
         ]);
+
+        $post_data->categories()->attach($request->category);
+        $post_data->tags()->attach($request->tag);
+
         return redirect()->back()->with('success', 'Post added successfully ):');
     }
 
@@ -184,6 +188,8 @@ class PostController extends Controller
             'title' => $single_post->title,
             'slug' => $single_post->slug,
             'status' => $single_post->status,
+            'categories' => $single_post->categories,
+            'tags' => $single_post->tags,
             'content' => $single_post->content,
             'post_type' => $post_fet->post_type,
             'post_image' => $post_fet->post_image,
@@ -201,11 +207,25 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $tag_edit = Tag::find($id);
-        return [
-            'id' => $tag_edit->id,
-            'name' => $tag_edit->name,
-        ];
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function postEdit($id)
+    {
+        $data = Post::find($id);
+        $all_cats = Category::all();
+        $all_tags = Tag::all();
+        return view('backend.post.edit', [
+            'data' => $data,
+            'all_cats' => $all_cats,
+            'all_tags' => $all_tags,
+        ]);
     }
 
     /**
@@ -217,19 +237,32 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tag_update = Tag::find($request->id);
-        if($tag_update != NULL){
-            $this->validate($request, [
-                'name' => "required | unique:tags,name,".$request->id,
-            ]);
+        return $request->all();
+        $tag_update = Post::find($id);
+//        if($tag_update != NULL){
+//
+//        }else{
+//            return redirect()->back()->with('error', 'Sorry! No data found');
+//        }
+    }
 
-            $tag_update->name = $request->name;
-            $tag_update->slug = Str::slug($request->name);
-            $tag_update->update();
-            return redirect()->route('tag.index')->with('success', 'Tag updated successfully ):');
-        }else{
-            return redirect()->route('tag.index')->with('error', 'Sorry! No data found');
-        }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function postUpdate(Request $request, $id)
+    {
+        return $request->all();
+        return $request->all();
+        $tag_update = Post::find($id);
+//        if($tag_update != NULL){
+//
+//        }else{
+//            return redirect()->back()->with('error', 'Sorry! No data found');
+//        }
     }
 
     /**
