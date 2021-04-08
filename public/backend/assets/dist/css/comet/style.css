@@ -9,6 +9,8 @@
     margin: 10px;
 }
 
-
+#p_type, #p_t, #p_s, #p_c, #p_t, #p_s, #p_sta, #p_i, #p_g, #p_a, #p_v, #p_con {
+    display: none;
+}
 
 

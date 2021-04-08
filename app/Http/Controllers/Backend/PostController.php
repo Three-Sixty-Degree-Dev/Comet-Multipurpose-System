@@ -175,6 +175,7 @@ class PostController extends Controller
             'slug' => $single_post->slug,
             'status' => $single_post->status,
             'content' => $single_post->content,
+            'post_type' => $post_fet->post_type,
             'post_image' => $post_fet->post_image,
             'post_gallery' => $post_fet->post_gallery,
             'post_audio' => $post_fet->post_audio,

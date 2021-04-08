@@ -121,43 +121,47 @@
                 </div>
                 <div class="modal-body">
                     <table class="table table-striped table-hover">
-                        <tr>
+                        <tr id="p_type">
+                            <td style="font-weight: bold" width="200">Post Type</td>
+                            <td id="post_type"></td>
+                        </tr>
+                        <tr id="p_t">
                             <td style="font-weight: bold" width="200">Post Title</td>
                             <td id="post_title"></td>
                         </tr>
-                        <tr>
+                        <tr id="p_s">
                             <td style="font-weight: bold" width="200">Post Slug</td>
                             <td id="post_slug"></td>
                         </tr>
-                        <tr>
+                        <tr id="p_c">
                             <td style="font-weight: bold" width="200">Post Category</td>
                             <td id="post_category"></td>
                         </tr>
-                        <tr>
+                        <tr id="p_t">
                             <td style="font-weight: bold" width="200">Post Tag</td>
                             <td id="post_tag"></td>
                         </tr>
-                        <tr>
+                        <tr id="p_sta">
                             <td style="font-weight: bold" width="200">Post Status</td>
                             <td id="post_status"></td>
                         </tr>
-                        <tr>
+                        <tr id="p_i">
                             <td style="font-weight: bold" width="200">Post Image</td>
-                            <td id="post_image"><img width="100" src="" alt=""></td>
+                            <td id="post_image"><img width="300" src="" alt=""></td>
                         </tr>
-                        <tr>
+                        <tr id="p_g">
                             <td style="font-weight: bold" width="200">Post Gallery Image</td>
                             <td id="post_g_image"></td>
                         </tr>
-                        <tr>
+                        <tr id="p_a">
                             <td style="font-weight: bold" width="200">Post Audio</td>
                             <td id="post_audio"></td>
                         </tr>
-                        <tr>
+                        <tr id="p_v">
                             <td style="font-weight: bold" width="200">Post Video</td>
                             <td id="post_video"></td>
                         </tr>
-                        <tr>
+                        <tr id="p_con">
                             <td style="font-weight: bold" width="200">Post Content</td>
                             <td id="post_content"></td>
                         </tr>
