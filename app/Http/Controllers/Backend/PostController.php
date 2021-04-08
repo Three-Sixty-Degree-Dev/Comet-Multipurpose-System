@@ -131,13 +131,23 @@ class PostController extends Controller
             $video_url = str_replace('vimeo.com', 'player.vimeo.com/video', $url);
         }
 
+        //fix audio url
+        $a_url = $request->post_audio;
+        $audio_url = '';
+        if(strpos($a_url, 'soundcloud')){
+            $u = substr($a_url, 0,8);
+            $b = 'w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/51057943&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false
+';
+            $audio_url = $u.$b;
+        }
+
 
 
         $post_featured = [
             'post_type' => $request->post_type,
             'post_image' => $image_unique_name,
             'post_gallery' => $gallery_image_u_n,
-            'post_audio' => $request->post_audio,
+            'post_audio' => $audio_url,
             'post_video' => $video_url,
         ];
 

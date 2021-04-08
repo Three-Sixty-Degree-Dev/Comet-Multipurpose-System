@@ -264,12 +264,13 @@
 
                     if (data.post_audio != null) {
                         $('#p_a').show();
-                        $('#post_details_modal #post_audio').html(data.post_audio);
+                        $('#post_details_modal #post_audio').append('' +
+                            '<span class="p_audio"><iframe width="400" height="250" src="'+data.post_audio+'" frameborder="0"></iframe></span>');
                     }else {
                         $('#p_a').hide();
                     }
 
-                    if(data.post_video != null){
+                    if(data.post_video != null && data.post_video != ''){
                         $('#p_v').show();
                         $('#post_details_modal #post_video').append('' +
                             '<span class="p_video"><iframe width="400" height="250" src="'+data.post_video+'" frameborder="0"></iframe></span>');
@@ -289,6 +290,7 @@
             event.preventDefault();
             $('.gallery_image').remove();
             $('.p_video').remove();
+            $('.p_audio').remove();
         });
 
     });

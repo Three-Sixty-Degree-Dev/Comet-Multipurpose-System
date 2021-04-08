@@ -56,6 +56,15 @@
                                 </div>
                             @endif
 
+                            @if($media_data->post_type == 'Audio')
+                                <div class="post-media">
+                                    <div class="media-audio">
+                                        <iframe src="{{ $media_data->post_audio }}"
+                                                frameborder="0"></iframe>
+                                    </div>
+                                </div>
+                            @endif
+
                             @if($media_data->post_type == 'Video')
                             <div class="post-media">
                                 <div class="media-video">

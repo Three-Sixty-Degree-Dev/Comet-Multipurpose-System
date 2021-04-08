@@ -71,6 +71,8 @@
                                                 <img width="50" src="{{ URL::to('/') }}/media/posts/{{ $featured_info -> post_gallery[0] }}" alt="">
                                             @elseif($featured_info->post_video != NULL)
                                                 <iframe width="50" height="50" src="{{ $featured_info->post_video }}" frameborder="0"></iframe>
+                                            @elseif($featured_info->post_audio != NULL)
+                                                <iframe width="50" height="50" src="{{ $featured_info->post_audio }}" frameborder="0"></iframe>
                                             @endif
                                         </td>
                                         <td>{{ $data->created_at->diffForHumans() }}</td>
