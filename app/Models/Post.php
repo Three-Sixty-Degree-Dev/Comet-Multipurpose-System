@@ -11,7 +11,7 @@ class Post extends Model
 
     protected $guarded = [];
 
-    public function author(){
-        return $this -> belongsTo('App\Models\User', 'created_by', 'id');
+    public function user(){
+        return $this -> belongsTo('App\Models\User');
     }
 }

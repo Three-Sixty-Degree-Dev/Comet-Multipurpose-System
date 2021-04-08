@@ -10,40 +10,42 @@
         <div class="widget">
             <h6 class="upper">Categories</h6>
             <ul class="nav">
-                <li><a href="#">Fashion</a>
+                @php
+                    $categories = App\Models\Category::where('status', true)->where('trash', false)->take(5)->latest()->get();
+                @endphp
+                @foreach($categories as $category)
+                <li><a href="{{ $category->slug }}">{{ $category->name }}</a>
                 </li>
-                <li><a href="#">Tech</a>
-                </li>
-                <li><a href="#">Gaming</a>
-                </li>
-                <li><a href="#">Food</a>
-                </li>
-                <li><a href="#">Lifestyle</a>
-                </li>
-                <li><a href="#">Money</a>
-                </li>
+                @endforeach
+
+
             </ul>
         </div>
         <!-- end of widget        -->
         <div class="widget">
             <h6 class="upper">Popular Tags</h6>
-            <div class="tags clearfix"><a href="#">Design</a><a href="#">Fashion</a><a href="#">Startups</a><a href="#">Tech</a><a href="#">Web</a><a href="#">Lifestyle</a>
+            <div class="tags clearfix">
+                @php
+                    $tags = App\Models\Tag::where('status', true)->where('trash', false)->take(5)->latest()->get();
+                @endphp
+                @foreach($tags as $tag)
+                    <a href="{{ $tag->slug }}">{{ $tag->name }}</a>
+                @endforeach
+
             </div>
         </div>
         <!-- end of widget      -->
         <div class="widget">
             <h6 class="upper">Latest Posts</h6>
             <ul class="nav">
-                <li><a href="#">Checklists for Startups<i class="ti-arrow-right"></i><span>30 Sep, 2015</span></a>
+                @php
+                    $posts = App\Models\Post::where('status', true)->where('trash', false)->take(5)->latest()->get();
+                @endphp
+                @foreach($posts as $post)
+                <li><a href="{{ $post->slug }}">{{ $post->title }}<i class="ti-arrow-right"></i><span>{{ date('d M, Y', strtotime($post->created_at)) }}</span></a>
                 </li>
-                <li><a href="#">The Death of Thought<i class="ti-arrow-right"></i><span>29 Sep, 2015</span></a>
-                </li>
-                <li><a href="#">Give it five minutes<i class="ti-arrow-right"></i><span>24 Sep, 2015</span></a>
-                </li>
-                <li><a href="#">Uber launches in Las Vegas<i class="ti-arrow-right"></i><span>20 Sep, 2015</span></a>
-                </li>
-                <li><a href="#">Fun with Product Hunt<i class="ti-arrow-right"></i><span>16 Sep, 2015</span></a>
-                </li>
+                @endforeach
+
             </ul>
         </div>
         <!-- end of widget          -->

@@ -154,11 +154,11 @@ class PostController extends Controller
 
 
         Post::create([
+            'user_id' => Auth::user()->id,
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'featured' => json_encode($post_featured),
             'content' => $request->content,
-            'created_by' => Auth::user()->id,
         ]);
         return redirect()->back()->with('success', 'Post added successfully ):');
     }

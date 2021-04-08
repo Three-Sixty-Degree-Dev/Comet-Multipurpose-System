@@ -48,6 +48,7 @@
                                 <tr>
                                     <th>SL</th>
                                     <th>Post Title</th>
+                                    <th>Author</th>
                                     <th>Post Type</th>
                                     <th>Featured</th>
                                     <th>Time</th>
@@ -63,6 +64,7 @@
                                     <tr class="{{ $data->id }}">
                                         <td>{{ $loop->index+1 }}</td>
                                         <td>{{ $data->title }}</td>
+                                        <td>{{ $data->user->name }}</td>
                                         <td>{{ $featured_info->post_type }}</td>
                                         <td>
                                             @if($featured_info -> post_image != NULL)

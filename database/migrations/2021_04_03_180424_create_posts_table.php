@@ -15,13 +15,13 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('title')->unique();
             $table->string('slug');
             $table->longText('featured')->nullable();
             $table->longText('content');
             $table->boolean('status')->default(true);
             $table->boolean('trash')->default(false);
-            $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });

@@ -31,7 +31,7 @@
                         <article class="post-single">
                             <div class="post-info">
                                 <h2><a href="#">{{ $data->title }}</a></h2>
-                                <h6 class="upper"><span>By</span><a href="#"> {{ @$data->author->name }}</a><span class="dot"></span><span>28 September 2015</span><span class="dot"></span><a href="#" class="post-tag">Startups</a></h6>
+                                <h6 class="upper"><span>By</span><a href="#"> {{ @$data->user->name }}</a><span class="dot"></span><span>{{ date('d F, Y', strtotime($data->created_at)) }}</span><span class="dot"></span><a href="#" class="post-tag">Startups</a></h6>
                             </div>
 
                             @if($media_data->post_type == 'Image')
