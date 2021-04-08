@@ -220,7 +220,11 @@
                             '<span class="gallery_image"><img width="100" style="margin: 5px;" src="/media/posts/'+gallery+'" alt=""></span>');
                     }
                     $('#post_details_modal #post_audio').html(data.post_audio);
-                    $('#post_details_modal #post_video').html(data.post_video);
+                    if(data.post_video != null){
+                        $('#post_details_modal #post_video').append('' +
+                            '<span class="p_video"><iframe width="300" height="250" src="'+data.post_video+'" frameborder="0"></iframe></span>');
+                    }
+
 
                     $('#post_details_modal').modal('show');
                 }
@@ -232,6 +236,7 @@
         $(document).on('click', '#remove_gallary_image', function (event){
             event.preventDefault();
             $('.gallery_image').remove();
+            $('.p_video').remove();
         });
 
     });
