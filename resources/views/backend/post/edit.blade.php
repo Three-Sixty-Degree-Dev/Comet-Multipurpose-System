@@ -41,7 +41,8 @@
                         <div class="card-body">
                             <form action="{{ route('post.update', $data->id) }}" method="POST" enctype="multipart/form-data" class="postValidate">
                                 @csrf
-                                @method('PATCH')
+                                @method('PUT')
+
                                 @php
                                     $featured = json_decode($data->featured);
                                 @endphp
@@ -123,7 +124,7 @@
                                         <font style="color: red;">{{ ($errors->has('content'))? $errors->first('content') : '' }}</font>
                                     </div>
                                     <div class="form-group col-md-12">
-                                        <input type="submit" class="btn btn-primary float-right mt-4" value="Submit">
+                                        <input type="submit" class="btn btn-primary float-right mt-4" value="Update">
                                     </div>
                                 </div>
                             </form>

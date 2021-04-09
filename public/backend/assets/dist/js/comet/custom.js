@@ -202,6 +202,33 @@
 
         });
 
+        //Edit featured post script /select post format script
+        let format = $('#post_format').children("option:selected").val();
+        if(format == "Image"){
+            $('.post_image').show();
+        }else {
+            $('.post_image').hide();
+        }
+        if(format == "Gallery"){
+            $('.post_image_g').show();
+        }else {
+            $('.post_image_g').hide();
+        }
+
+        if(format == "Audio"){
+            $('.post_image_a').show();
+        }else {
+            $('.post_image_a').hide();
+        }
+
+        if(format == "Video"){
+            $('.post_image_v').show();
+        }else {
+            $('.post_image_v').hide();
+        }
+
+
+
         //single post view
         $(document).on('click', '#Post_view', function (event){
             event.preventDefault();

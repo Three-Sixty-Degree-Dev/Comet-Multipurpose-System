@@ -131,23 +131,12 @@ class PostController extends Controller
             $video_url = str_replace('vimeo.com', 'player.vimeo.com/video', $url);
         }
 
-        //fix audio url
-        $a_url = $request->post_audio;
-        $audio_url = '';
-        if(strpos($a_url, 'soundcloud')){
-            $u = substr($a_url, 0,8);
-            $b = 'w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/51057943&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false
-';
-            $audio_url = $u.$b;
-        }
-
-
 
         $post_featured = [
             'post_type' => $request->post_type,
             'post_image' => $image_unique_name,
             'post_gallery' => $gallery_image_u_n,
-            'post_audio' => $audio_url,
+            'post_audio' => $request->post_audio,
             'post_video' => $video_url,
         ];
 
@@ -255,14 +244,102 @@ class PostController extends Controller
      */
     public function postUpdate(Request $request, $id)
     {
-        return $request->all();
-        return $request->all();
-        $tag_update = Post::find($id);
-//        if($tag_update != NULL){
-//
-//        }else{
-//            return redirect()->back()->with('error', 'Sorry! No data found');
-//        }
+        $post_data = Post::find($id);
+
+        if($post_data != NULL) {
+            $this->validate($request, [
+                'title' => "required | unique:posts,title," . $post_data->id,
+                'content' => "required"
+            ]);
+
+            $feature_data = json_decode($post_data->featured);
+
+            //post Image
+            $image_unique_name = '';
+            if ($request->hasFile('post_image')) {
+                $image = $request->file('post_image');
+                $image_unique_name = md5(time() . rand()) . '.' . $image->getClientOriginalExtension();
+                $extension = pathinfo($image_unique_name, PATHINFO_EXTENSION);
+                $valid_extension = array('jpg', 'jpeg', 'png', 'gif');
+                if (in_array($extension, $valid_extension)) {
+                    $image->move(public_path('media/posts/'), $image_unique_name);
+                } else {
+                    return redirect()->back()->with('error', 'Invalid file format!');
+                }
+                if (file_exists('media/posts/' . $feature_data->post_image) && !empty($feature_data->post_image)) {
+                    unlink('media/posts/' . $feature_data->post_image);
+                }
+            } else {
+                $image_unique_name = $feature_data->post_image;
+            }
+
+            //post gallery
+            $gallery_unique_name_u = [];
+            if ($request->hasFile('post_gallery_image')) {
+                $images = $request->file('post_gallery_image');
+                foreach ($images as $image) {
+                    $gallery_unique_name = md5(time() . rand()) . '.' . $image->getClientOriginalExtension();
+                    $extension = pathinfo($gallery_unique_name, PATHINFO_EXTENSION);
+                    $valid_extension = array('jpg', 'jpeg', 'png', 'gif');
+                    if (in_array($extension, $valid_extension)) {
+                        array_push($gallery_unique_name_u, $gallery_unique_name);
+                        $image->move(public_path('media/posts/'), $gallery_unique_name);
+                    } else {
+                        return redirect()->back()->with('error', 'Invalid file format!');
+                    }
+                    foreach ($feature_data->post_gallery as $gallery) {
+                        if (file_exists('media/posts/' . $gallery) && !empty($gallery)) {
+                            unlink('media/posts/' . $gallery);
+                        }
+                    }
+                }
+            } else {
+                $gallery_unique_name_u = $feature_data->post_gallery;
+            }
+
+            //fix youtube and vimeo url
+            $url = $request->post_video;
+            $text_pur_y = substr($url, 0, 30);
+            $text_pur_v = substr($url, 0, 17);
+            $video_url = '';
+            if($text_pur_y == 'https://www.youtube.com/watch?' || $text_pur_v == 'https://vimeo.com') {
+                if (strpos($url, 'youtube')) {
+                    $video_url = str_replace('watch?v=', 'embed/', $url);
+                } elseif (strpos($url, 'vimeo')) {
+                    $video_url = str_replace('vimeo.com', 'player.vimeo.com/video', $url);
+                }
+            }else{
+                $video_url = $feature_data->post_video;
+            }
+
+
+            $post_featured = [
+                'post_type' => $request->post_type,
+                'post_image' => $image_unique_name,
+                'post_gallery' => $gallery_unique_name_u,
+                'post_audio' => $request->post_audio,
+                'post_video' => $video_url,
+            ];
+
+            $post_data->user_id = Auth::user()->id;
+            $post_data->title = $request->title;
+            $post_data->slug = Str::slug($request->title);
+            $post_data->content = $request->content;
+            $post_data->featured = $post_featured;
+            $post_data->update();
+
+            $post_data->categories()->detach();
+            $post_data->categories()->attach($request->category);
+
+            $post_data->tags()->detach();
+            $post_data->tags()->attach($request->tag);
+
+            return redirect()->route('index')->with('success', 'Post data updated successfully ):');
+
+
+        }else{
+            return redirect()->back()->with('error', 'Sorry! No data found');
+        }
     }
 
     /**
