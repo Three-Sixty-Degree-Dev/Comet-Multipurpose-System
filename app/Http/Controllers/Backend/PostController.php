@@ -194,17 +194,6 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function postEdit($id)
     {
         $data = Post::find($id);
@@ -220,26 +209,8 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        return $request->all();
-        $tag_update = Post::find($id);
-//        if($tag_update != NULL){
-//
-//        }else{
-//            return redirect()->back()->with('error', 'Sorry! No data found');
-//        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request
+     * @param  int
      * @return \Illuminate\Http\Response
      */
     public function postUpdate(Request $request, $id)

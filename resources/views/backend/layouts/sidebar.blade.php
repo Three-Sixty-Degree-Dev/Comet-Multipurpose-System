@@ -42,6 +42,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('create') }}" class="nav-link {{ ($route == 'create')? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add Post</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('category.index') }}" class="nav-link {{ ($route == 'category.index')? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Category</p>

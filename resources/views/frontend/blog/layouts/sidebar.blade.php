@@ -11,11 +11,14 @@
             <h6 class="upper">Categories</h6>
             <ul class="nav">
                 @php
-                    $categories = App\Models\Category::where('status', true)->where('trash', false)->take(5)->latest()->get();
+                    $categories = App\Models\Category::withCount('posts')->where('status', true)->where('trash', false)->take(10)->latest()->get();
                 @endphp
                 @foreach($categories as $category)
-                <li><a href="{{ $category->slug }}">{{ $category->name }}</a>
-                </li>
+                   @if($category->posts_count > 0)
+                     <li>
+                         <a href="{{ $category->slug }}">{{ $category->name }}{{ " " }}{{ "( " }}{{ $category->posts_count }}{{ " )" }}</a>
+                     </li>
+                    @endif
                 @endforeach
 
 
@@ -26,10 +29,12 @@
             <h6 class="upper">Popular Tags</h6>
             <div class="tags clearfix">
                 @php
-                    $tags = App\Models\Tag::where('status', true)->where('trash', false)->take(5)->latest()->get();
+                    $tags = App\Models\Tag::withCount('posts')->where('status', true)->where('trash', false)->take(10)->latest()->get();
                 @endphp
                 @foreach($tags as $tag)
-                    <a href="{{ $tag->slug }}">{{ $tag->name }}</a>
+                    @if($tag->posts_count > 0)
+                        <a href="{{ $tag->slug }}">{{ $tag->name }}{{ " " }}{{ "( " }}{{ $tag->posts_count }}{{ " )" }}</a>
+                    @endif
                 @endforeach
 
             </div>
