@@ -73,7 +73,9 @@
                                     <td>
 {{--                                        <a title="View" href="" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>--}}
                                         <a title="Edit" edit_id="{{ $data->id }}" href="" class="btn btn-sm btn-warning edit_cats"><i class="fas fa-edit text-white"></i></a>
-                                        <a title="Trash" class="btn btn-sm btn-danger" href="{{route('post.category.trash.update', $data->id)}}"><i class="fa fa-trash"></i></a>
+                                        @if($data->posts_count < 1)
+                                            <a title="Trash" class="btn btn-sm btn-danger" href="{{route('post.category.trash.update', $data->id)}}"><i class="fa fa-trash"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

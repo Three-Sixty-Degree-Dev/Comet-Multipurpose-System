@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = Category::where('trash', false)->orderBy('id', 'desc')->get();
+        $data = Category::withCount('posts')->where('trash', false)->orderBy('id', 'desc')->get();
         $published = Category::where('trash', false)->get()->count();
         $trash = Category::where('trash', true)->get()->count();
         return view('backend.post.category.index', [

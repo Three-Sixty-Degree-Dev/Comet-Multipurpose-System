@@ -262,7 +262,7 @@
                         $('#p_c').show();
                         for (const category of data.categories) {
                             $('#post_details_modal #post_category').append('' +
-                                '<span>'+category['name']+','+'</span>');
+                                '<span class="select_category">'+category['name']+','+' '+'</span>');
                         }
                     }else {
                         $('#p_c').hide();
@@ -272,7 +272,7 @@
                         $('#p_tag').show();
                         for (const tag of data.tags) {
                             $('#post_details_modal #post_tag').append('' +
-                                '<span>'+tag['name']+','+'</span>');
+                                '<span class="select_tag">'+tag['name']+','+' '+'</span>');
                         }
                     }else {
                         $('#p_tag').hide();
@@ -338,6 +338,8 @@
             $('.gallery_image').remove();
             $('.p_video').remove();
             $('.p_audio').remove();
+            $('.select_category').remove();
+            $('.select_tag').remove();
         });
 
     });

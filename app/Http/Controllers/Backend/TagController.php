@@ -16,7 +16,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $data = Tag::where('trash', false)->orderBy('id', 'desc')->get();
+        $data = Tag::withCount('posts')->where('trash', false)->orderBy('id', 'desc')->get();
         $published = Tag::where('trash', false)->get()->count();
         $trash = Tag::where('trash', true)->get()->count();
         return view('backend.post.tag.index', [
