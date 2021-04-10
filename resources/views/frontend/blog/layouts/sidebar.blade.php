@@ -16,7 +16,7 @@
                 @foreach($categories as $category)
                    @if($category->posts_count > 0)
                      <li>
-                         <a href="{{ $category->slug }}">{{ $category->name }}{{ " " }}{{ "( " }}{{ $category->posts_count }}{{ " )" }}</a>
+                         <a href="{{ route('blog.category.wise.search', $category->slug) }}">{{ $category->name }}{{ " " }}{{ "( " }}{{ $category->posts_count }}{{ " )" }}</a>
                      </li>
                     @endif
                 @endforeach
@@ -47,7 +47,7 @@
                     $posts = App\Models\Post::where('status', true)->where('trash', false)->take(5)->latest()->get();
                 @endphp
                 @foreach($posts as $post)
-                <li><a href="{{ $post->slug }}">{{ $post->title }}<i class="ti-arrow-right"></i><span>{{ date('d M, Y', strtotime($post->created_at)) }}</span></a>
+                <li><a href="{{ route('single.blog.page', $post->slug) }}">{{ $post->title }}<i class="ti-arrow-right"></i><span>{{ date('d M, Y', strtotime($post->created_at)) }}</span></a>
                 </li>
                 @endforeach
 

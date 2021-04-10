@@ -16,7 +16,7 @@
                                 <h2><a href="#">{{ $data->title }}</a></h2>
                                 <h6 class="upper"><span>By</span><a href="#"> {{ @$data->user->name }}</a><span class="dot"></span><span>{{ date('d F, Y', strtotime($data->created_at)) }}</span><span class="dot"></span>
                                 @foreach($data->categories as $category)
-                                    <a href="{{ $category->slug }}" class="post-tag">{{ $category->name }}</a>,
+                                    <a href="{{ route('blog.category.wise.search', $category->slug) }}" class="post-tag">{{ $category->name }}</a>,
                                 @endforeach
                                 </h6>
                             </div>
