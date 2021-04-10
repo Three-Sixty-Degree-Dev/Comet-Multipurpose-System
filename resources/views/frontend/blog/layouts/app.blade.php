@@ -20,6 +20,7 @@
 <!-- Navigation Bar-->
 @include('frontend.blog.layouts.header')
 <!-- End Navigation Bar-->
+@include('frontend.blog.layouts.header-page')
 @section('main-content')
 @show
 <!-- Footer-->
