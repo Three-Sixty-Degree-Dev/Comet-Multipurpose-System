@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class BlogPageController extends Controller
@@ -25,10 +26,18 @@ class BlogPageController extends Controller
         ]);
     }
 
-    //single blog page
+    //blog category wise search
     public function blogCategoryWiseSearch($slug){
         $data = Category::where('slug', $slug)->first();
         return view('frontend.blog.blog-category-wise-search', [
+            'all_data' => $data
+        ]);
+    }
+
+    //blog tag wise search
+    public function blogTagWiseSearch($slug){
+        $data = Tag::where('slug', $slug)->first();
+        return view('frontend.blog.blog-tag-wise-search', [
             'all_data' => $data
         ]);
     }

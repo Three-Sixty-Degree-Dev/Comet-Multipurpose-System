@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('blog', [App\Http\Controllers\Frontend\BlogPageController::class, 'showBlogPage'])->name('show.blog.page');
 Route::get('blog/single-blog/{slug}', [App\Http\Controllers\Frontend\BlogPageController::class, 'singleBlogPage'])->name('single.blog.page');
 Route::get('blog/category/{slug}', [App\Http\Controllers\Frontend\BlogPageController::class, 'blogCategoryWiseSearch'])->name('blog.category.wise.search');
+Route::get('blog/tag/{slug}', [App\Http\Controllers\Frontend\BlogPageController::class, 'blogTagWiseSearch'])->name('blog.tag.wise.search');
 
 
 Route::get('/', function () {

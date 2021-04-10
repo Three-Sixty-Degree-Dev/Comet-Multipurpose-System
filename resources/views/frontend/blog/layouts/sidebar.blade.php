@@ -33,7 +33,7 @@
                 @endphp
                 @foreach($tags as $tag)
                     @if($tag->posts_count > 0)
-                        <a href="{{ $tag->slug }}">{{ $tag->name }}{{ " " }}{{ "( " }}{{ $tag->posts_count }}{{ " )" }}</a>
+                        <a href="{{ route('blog.tag.wise.search', $tag->slug) }}">{{ $tag->name }}{{ " " }}{{ "( " }}{{ $tag->posts_count }}{{ " )" }}</a>
                     @endif
                 @endforeach
 
