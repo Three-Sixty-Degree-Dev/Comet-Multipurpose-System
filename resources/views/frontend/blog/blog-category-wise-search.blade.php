@@ -14,7 +14,7 @@
                             <article class="post-single">
                                 <div class="post-info">
                                     <h2><a href="#">{{ $data->title }}</a></h2>
-                                    <h6 class="upper"><span>By</span><a href="#"> {{ @$data->user->name }}</a><span class="dot"></span><span>{{ date('d F, Y', strtotime($data->created_at)) }}</span><span class="dot"></span>
+                                    <h6 class="upper"><span>By</span><a href="{{ route('single.user.blog', @$data->user->id) }}"> {{ @$data->user->name }}</a><span class="dot"></span><span>{{ date('d F, Y', strtotime($data->created_at)) }}</span><span class="dot"></span>
                                         @foreach($data->categories as $category)
                                             <a href="{{ route('blog.category.wise.search', $category->slug) }}" class="post-tag">{{ $category->name }}</a>,
                                         @endforeach

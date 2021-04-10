@@ -19,6 +19,7 @@ Route::get('blog/single-blog/{slug}', [App\Http\Controllers\Frontend\BlogPageCon
 Route::get('blog/category/{slug}', [App\Http\Controllers\Frontend\BlogPageController::class, 'blogCategoryWiseSearch'])->name('blog.category.wise.search');
 Route::get('blog/tag/{slug}', [App\Http\Controllers\Frontend\BlogPageController::class, 'blogTagWiseSearch'])->name('blog.tag.wise.search');
 Route::post('blog/search', [App\Http\Controllers\Frontend\BlogPageController::class, 'blogSearch'])->name('blog.search');
+Route::get('blog/user/{id}', [App\Http\Controllers\Frontend\BlogPageController::class, 'singleUserBlog'])->name('single.user.blog');
 
 
 Route::get('/', function () {

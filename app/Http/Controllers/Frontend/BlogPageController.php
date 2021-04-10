@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BlogPageController extends Controller
@@ -47,6 +48,15 @@ class BlogPageController extends Controller
         $search = $request->search;
         $data = Post::where('title', 'like', '%'.$search.'%')->orWhere('content', 'like', '%'.$search.'%')->get();
         return view('frontend.blog.search', [
+            'all_data' => $data
+        ]);
+    }
+
+    //single user blog search
+    public function singleUserBlog($id){
+        $user = User::find($id);
+        $data = Post::where('user_id', $user->id)->where('status', true)->where('trash', false)->orderBy('id', 'desc')->paginate(5);
+        return view('frontend.blog.single-user-create-blog', [
             'all_data' => $data
         ]);
     }
