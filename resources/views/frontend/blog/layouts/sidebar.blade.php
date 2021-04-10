@@ -11,7 +11,7 @@
             <h6 class="upper">Categories</h6>
             <ul class="nav">
                 @php
-                    $categories = App\Models\Category::withCount('posts')->where('status', true)->where('trash', false)->take(10)->latest()->get();
+                    $categories = App\Models\Category::withCount('posts')->where('status', true)->where('trash', false)->take(7)->latest()->get();
                 @endphp
                 @foreach($categories as $category)
                    @if($category->posts_count > 0)
@@ -29,7 +29,7 @@
             <h6 class="upper">Popular Tags</h6>
             <div class="tags clearfix">
                 @php
-                    $tags = App\Models\Tag::withCount('posts')->where('status', true)->where('trash', false)->take(10)->latest()->get();
+                    $tags = App\Models\Tag::withCount('posts')->where('status', true)->where('trash', false)->take(7)->latest()->get();
                 @endphp
                 @foreach($tags as $tag)
                     @if($tag->posts_count > 0)
