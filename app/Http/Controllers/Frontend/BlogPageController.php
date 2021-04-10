@@ -41,4 +41,13 @@ class BlogPageController extends Controller
             'all_data' => $data
         ]);
     }
+
+    //blog search
+    public function blogSearch(Request $request){
+        $search = $request->search;
+        $data = Post::where('title', 'like', '%'.$search.'%')->orWhere('content', 'like', '%'.$search.'%')->get();
+        return view('frontend.blog.search', [
+            'all_data' => $data
+        ]);
+    }
 }

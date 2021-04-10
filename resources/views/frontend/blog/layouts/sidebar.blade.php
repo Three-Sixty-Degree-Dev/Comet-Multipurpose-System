@@ -2,8 +2,9 @@
     <div class="sidebar hidden-sm hidden-xs">
         <div class="widget">
             <h6 class="upper">Search blog</h6>
-            <form>
-                <input type="text" placeholder="Search.." class="form-control">
+            <form action="{{ route('blog.search') }}" method="POST">
+                @csrf
+                <input type="text" name="search" placeholder="Search.." class="form-control" autocomplete="off">
             </form>
         </div>
         <!-- end of widget        -->
