@@ -101,7 +101,10 @@
                                     <div class="form-group col-md-12 post_image_g">
                                         <div class="post_gallery_image">
                                             @foreach($featured->post_gallery as $gallery)
-                                                <img width="200" src="{{ URL::to('/') }}/media/posts/{{ $gallery }}" alt="">
+                                                <div class="shadow imgHolder">
+                                                    <img width="200" class="appendedImg" src="{{ URL::to('/') }}/media/posts/{{ $gallery }}" alt="">
+                                                    <span class="closeIT_removeImg">x</span>
+                                                </div>
                                             @endforeach
                                         </div>
                                         <br>

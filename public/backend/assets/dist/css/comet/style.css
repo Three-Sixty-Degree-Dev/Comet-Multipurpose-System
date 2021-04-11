@@ -2,15 +2,32 @@
     display: none;
 }
 
-.post_gallery_image img {
-    height: 180px;
-    width: 180px;
-    border: 5px solid #fff;
-    margin: 10px;
-}
 
 #p_type, #p_t, #p_s, #p_c, #p_tag, #p_t, #p_s, #p_sta, #p_i, #p_g, #p_a, #p_v, #p_con {
     display: none;
 }
 
+/*gallery image*/
+.appendedImg {
+    width: 150px;
+    height: 150px;
+}
 
+.imgHolder {
+    display: inline-block;
+    position: relative;
+    margin: 5px;
+}
+
+.closeIT_removeImg {
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    color: white;
+}
+
+.closeIT_removeImg:hover {
+    background-color: red;
+    color: white;
+    padding: 5px;
+}

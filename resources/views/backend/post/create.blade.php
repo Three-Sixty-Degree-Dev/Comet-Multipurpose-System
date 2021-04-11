@@ -128,6 +128,16 @@
     </div>
     <!-- ./wrapper -->
 
+    <!-- modal for edit remark -->
+    <div id="showModelB4Del_removeImg" class="px-2 py-2" style="">
+        <h4>Are You Sure, You want to delete.</h4>
+        <div class="d-flex">
+            <a href="javascript:void(0)" id="yesDelContact" class="btn btn-success mr-3">Yes</a>
+            <!-- <a href="javascript:void(0)" id='NoDelContact' class="btn btn-danger">No</a> -->
+        </div>
+        <span class="closModalMsg" id='closModalMsg'>X</span>
+    </div>
+
     <!--   jquery Validation-->
     <script>
         $(function () {
