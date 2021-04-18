@@ -1,5 +1,7 @@
 @extends('frontend.blog.layouts.app')
 
+@section('page-title', $data->title)
+
 
 @section('main-content')
 <section>
@@ -23,6 +25,7 @@
 
                     @if($media_data->post_type == 'Image')
                         <div class="post-media">
+                            @section('page-image', $media_data->post_image)
                             <a href="#">
                                 <img src="{{ URL::to('/') }}/media/posts/{{ $media_data->post_image }}" alt="">
                             </a>
@@ -35,6 +38,7 @@
                                 <ul class="slides">
                                     @foreach($media_data->post_gallery as $gallery)
                                         <li style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 1; display: block; z-index: 2;" class="flex-active-slide">
+                                            @section('page-image', $gallery)
                                             <img src="{{ URL::to('/') }}/media/posts/{{ $gallery }}" alt="" draggable="false">
                                         </li>
                                     @endforeach
