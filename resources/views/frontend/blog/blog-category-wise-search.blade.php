@@ -33,7 +33,7 @@
                                     <div class="post-media">
                                         <div data-options="{&quot;animation&quot;: &quot;slide&quot;, &quot;controlNav&quot;: true" class="flexslider nav-outside">
                                             <ul class="slides">
-                                                    @section('page-image', $gallery)
+                                                @foreach($media_data->post_gallery as $gallery)
                                                     <li style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 1; display: block; z-index: 2;" class="flex-active-slide">
                                                         <img src="{{ URL::to('/') }}/media/posts/{{ $gallery }}" alt="" draggable="false">
                                                     </li>

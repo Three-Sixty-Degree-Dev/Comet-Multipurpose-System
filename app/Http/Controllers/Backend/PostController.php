@@ -145,7 +145,7 @@ class PostController extends Controller
         $post_data = Post::create([
             'user_id' => Auth::user()->id,
             'title' => $request->title,
-            'slug' => Str::slug($request->title),
+            'slug' => str_replace(' ', '-', $request->title),
             'featured' => json_encode($post_featured),
             'content' => $request->content,
         ]);
@@ -294,7 +294,7 @@ class PostController extends Controller
 
             $post_data->user_id = Auth::user()->id;
             $post_data->title = $request->title;
-            $post_data->slug = Str::slug($request->title);
+            $post_data->slug = str_replace(' ', '-', $request->title);
             $post_data->content = $request->content;
             $post_data->featured = $post_featured;
             $post_data->update();
