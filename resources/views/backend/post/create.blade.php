@@ -39,7 +39,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data" >
+                            <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data" id="postValidate">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-12">

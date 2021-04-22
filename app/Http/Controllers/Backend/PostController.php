@@ -84,7 +84,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'title' => "required | unique:posts,title",
             'content' => "required"
@@ -145,7 +144,7 @@ class PostController extends Controller
         $post_data = Post::create([
             'user_id' => Auth::user()->id,
             'title' => $request->title,
-            'slug' => str_replace(' ', '-', $request->title),
+            'slug' => $this->getSlug($request->title),
             'featured' => json_encode($post_featured),
             'content' => $request->content,
         ]);
@@ -294,7 +293,7 @@ class PostController extends Controller
 
             $post_data->user_id = Auth::user()->id;
             $post_data->title = $request->title;
-            $post_data->slug = str_replace(' ', '-', $request->title);
+            $post_data->slug = $this->getSlug($request->title);
             $post_data->content = $request->content;
             $post_data->featured = $post_featured;
             $post_data->update();
