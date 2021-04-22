@@ -121,22 +121,13 @@ class PostController extends Controller
             }
         }
 
-        //fix youtube and vimeo url
-        $url = $request->post_video;
-        $video_url = '';
-        if(strpos($url,'youtube')){
-            $video_url = str_replace('watch?v=', 'embed/', $url);
-        }elseif (strpos($url, 'vimeo')){
-            $video_url = str_replace('vimeo.com', 'player.vimeo.com/video', $url);
-        }
-
 
         $post_featured = [
             'post_type' => $request->post_type,
             'post_image' => $image_unique_name,
             'post_gallery' => $gallery_image_u_n,
             'post_audio' => $request->post_audio,
-            'post_video' => $video_url,
+            'post_video' => $this->getVideo($request->post_video),
         ];
 
 
@@ -267,28 +258,13 @@ class PostController extends Controller
                 $gallery_unique_name_u = $feature_data->post_gallery;
             }
 
-            //fix youtube and vimeo url
-            $url = $request->post_video;
-            $text_pur_y = substr($url, 0, 30);
-            $text_pur_v = substr($url, 0, 17);
-            $video_url = '';
-            if($text_pur_y == 'https://www.youtube.com/watch?' || $text_pur_v == 'https://vimeo.com') {
-                if (strpos($url, 'youtube')) {
-                    $video_url = str_replace('watch?v=', 'embed/', $url);
-                } elseif (strpos($url, 'vimeo')) {
-                    $video_url = str_replace('vimeo.com', 'player.vimeo.com/video', $url);
-                }
-            }else{
-                $video_url = $feature_data->post_video;
-            }
-
 
             $post_featured = [
                 'post_type' => $request->post_type,
                 'post_image' => $image_unique_name,
                 'post_gallery' => $gallery_unique_name_u,
                 'post_audio' => $request->post_audio,
-                'post_video' => $video_url,
+                'post_video' => $this->getUpdateVideo($request->post_video, $feature_data),
             ];
 
             $post_data->user_id = Auth::user()->id;
