@@ -22,9 +22,19 @@ class BlogPageController extends Controller
     //single blog page
     public function singleBlogPage($slug){
         $data = Post::where('slug', $slug)->first();
+        //single blog post view count
+        $this->viewCount($data->id);
         return view('frontend.blog.blog-single', [
             'data' => $data
         ]);
+    }
+
+    //single blog post view count
+    private function viewCount($post_id){
+        $single_post = Post::find($post_id);
+        $old_views = $single_post->views;
+        $single_post->views = $old_views + 1;
+        $single_post->update();
     }
 
     //blog category wise search

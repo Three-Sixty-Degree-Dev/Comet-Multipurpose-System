@@ -42,10 +42,10 @@
         </div>
         <!-- end of widget      -->
         <div class="widget">
-            <h6 class="upper">Latest Posts</h6>
+            <h6 class="upper">Popular Posts</h6>
             <ul class="nav">
                 @php
-                    $posts = App\Models\Post::where('status', true)->where('trash', false)->take(5)->latest()->get();
+                    $posts = App\Models\Post::where('status', true)->where('trash', false)->orderBy('views', 'desc')->take(5)->latest()->get();
                 @endphp
                 @foreach($posts as $post)
                 <li><a href="{{ route('single.blog.page', $post->slug) }}">{{ $post->title }}<i class="ti-arrow-right"></i><span>{{ date('d M, Y', strtotime($post->created_at)) }}</span></a>

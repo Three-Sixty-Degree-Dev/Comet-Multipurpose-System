@@ -29,18 +29,20 @@ Route::get('/', function () {
 //Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//admin login and registration page
 Route::get('admin/login', [App\Http\Controllers\Backend\AdminController::class, 'showAdminLogin'])->name('admin.login');
 Route::get('admin/register', [App\Http\Controllers\Backend\AdminController::class, 'showAdminRegister'])->name('admin.register');
+//admin login
+Route::post('admin/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('admin.login');
+//admin register
+Route::post('admin/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('admin.register');
 
 Route::middleware(['auth'])->group(function (){
     Route::prefix('admin')->group(function (){
         //admin template load
         Route::get('dashboard', [App\Http\Controllers\Backend\AdminController::class, 'showAdminDashboard'])->name('admin.dashboard');
         //admin login
-        Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('admin.login');
         Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('admin.logout');
-        //admin register
-        Route::post('register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('admin.register');
     });
 
     Route::prefix('post')->group(function (){
