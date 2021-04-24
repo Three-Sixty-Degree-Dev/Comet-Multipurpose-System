@@ -37,6 +37,7 @@ Route::post('admin/login', [App\Http\Controllers\Auth\LoginController::class, 'l
 //admin register
 Route::post('admin/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('admin.register');
 
+
 Route::middleware(['auth'])->group(function (){
     Route::prefix('admin')->group(function (){
         //admin template load

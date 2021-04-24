@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    //set middleware for this controller
+    public function __construct(){
+        $this->middleware('guest')->except(['showAdminDashboard']);
+    }
 
     //admin login
     public function showAdminLogin(){
