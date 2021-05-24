@@ -1,3 +1,4 @@
+
 <footer id="footer-widgets">
     <div class="container">
         <div class="go-top">
@@ -67,7 +68,10 @@
                             <div class="footer-newsletter">
                                 <form data-mailchimp="true" class="inline-form">
                                     <div class="input-group">
-                                        <input type="email" name="email" placeholder="Your Email" class="form-control"><span class="input-group-btn"><button type="submit" data-loading-text="Loading..." class="btn btn-color">Subscribe</button></span>
+                                        <input type="email" name="email" placeholder="Your Email"
+                                            class="form-control"><span class="input-group-btn"><button type="submit"
+                                                data-loading-text="Loading..."
+                                                class="btn btn-color">Subscribe</button></span>
                                     </div>
                                 </form>
                             </div>

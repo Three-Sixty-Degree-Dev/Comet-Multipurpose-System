@@ -1,6 +1,20 @@
-(function($){
+(function($) {
 
-  'use strict';
+    'use strict';
+
+    // Custom scroll top
+    $(window).scroll(function () {
+        if($(window).scrollTop() > 600){
+            $('.scrollGoToTop').fadeIn('1000');
+        }else {
+            $('.scrollGoToTop').fadeOut('1000');
+        }
+    });
+    $('.scrollGoToTop').click(function (){
+        $('html, body').animate({
+            scrollTop: 0
+        }, 1000);
+    });
 
   function initNavbar () {
     if (!$('section:first').is('.parallax, #home, .splash')) {
@@ -13,7 +27,7 @@
     }
 
     $(window).scroll(function() {
-      
+
       if($('section:first').is('.parallax, #home, .splash')){
         if ($(window).scrollTop() >= 100 ) {
           $('#topnav').addClass('scroll');
@@ -372,7 +386,7 @@
       var centerY = (($(window).height() >> 1) - (videoEl.height() >> 1)) | 0;
 
       videoEl.css({ 'left': centerX, 'top': centerY });
-        
+
     }
 
     if (videoEl.length) {
@@ -526,7 +540,7 @@
           var errorTemplate = '<div role="alert" class="alert alert-danger alert-outline">'+ message +'</div>';
           $('#contact-form .alert').fadeOut(300);
           $(errorTemplate).insertBefore($('#contact-form button'));
-        })        
+        })
       }
 
     });
@@ -540,11 +554,11 @@
   }
 
   function initCounters () {
-    
+
     $('.counter').appear(function() {
       var counter = $(this).find('.number-count');
       var toCount = counter.data('count');
-      
+
       $(counter).countTo({
         from: 0,
         to: toCount,
@@ -589,7 +603,7 @@
           template += '</div>';
 
           $(template).modal().on('hidden.bs.modal', function () {
-            $(this).remove();      
+            $(this).remove();
           });
         }
       });
@@ -660,7 +674,7 @@
     });
 
     $('a[data-toggle=tab]').on('click', function(event) {
-      $(window).trigger('resize');      
+      $(window).trigger('resize');
     }).on('shown.bs.tab', function(e) {
       var container = $($(this).attr('href'));
 
@@ -679,7 +693,7 @@
     });
 
     $('.boxes [data-bg-color]').each(function(index, el) {
-      $(el).css('background-color', $(el).data('bg-color'));  
+      $(el).css('background-color', $(el).data('bg-color'));
     });
 
     $('.progress-bar').appear(function() {
