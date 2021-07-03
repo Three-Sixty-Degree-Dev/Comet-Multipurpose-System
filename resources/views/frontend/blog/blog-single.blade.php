@@ -86,42 +86,70 @@
                     <ul class="comments-list">
 
                         @foreach($data->comments as $comment)
-                        <li>
-                            <div class="comment">
-                                <div class="comment-pic">
-                                    <img src="{{ asset('frontend/assets/images/team/1.jpg') }}" alt="" class="img-circle">
-                                </div>
-                                <div class="comment-text">
-                                    <h5 class="upper">{{ $comment->user->name }}</h5><span class="comment-date">Posted on {{ date('d F, Y', strtotime($comment->created_at)) }} at {{ date('h:i a') }}</span>
-                                    <p>{{ $comment->text }}</p>
 
-                                    @guest
-                                        <p>For replay please <a href="{{ route('admin.login') }}">login</a> first</p>
-                                    @else
-                                    <a href="#" class="comment-reply">Reply</a>
-                                    @endguest
-
-
-                                </div>
-                            </div>
-                            {{-- <ul class="children">
+                            @if($comment->comment_id == NULL)
                                 <li>
                                     <div class="comment">
                                         <div class="comment-pic">
-                                            <img src="images/team/2.jpg" alt="" class="img-circle">
+                                            <img src="{{ asset('frontend/assets/images/team/1.jpg') }}" alt="" class="img-circle">
                                         </div>
                                         <div class="comment-text">
-                                            <h5 class="upper">Arya Stark</h5><span class="comment-date">Posted on 29
-                                                September at 10:41</span>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque porro
-                                                quae harum dolorem exercitationem voluptas illum ipsa sed hic, cum
-                                                corporis autem molestias suscipit, illo laborum, vitae, dicta ullam
-                                                minus.</p><a href="#" class="comment-reply">Reply</a>
+                                            <h5 class="upper">{{ $comment->user->name }}</h5><span class="comment-date">Posted on {{ date('d F, Y', strtotime($comment->created_at)) }} at {{ date('h:i a') }}</span>
+                                            <p>{{ $comment->text }}</p>
+
+                                            @guest
+
+                                                <p>For replay please <a href="{{ route('admin.login') }}">login</a> first</p>
+
+                                            @else
+
+                                            <a href="#" c_id="{{ $comment->id }}" class="comment-reply reply-box-btn">Reply</a>
+
+                                            <!--Reply form-->
+                                            <form class="reply-box reply-box-{{ $comment->id }}" action="{{ route('blog.post.reply-comment') }}" method="POST">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <input type="hidden" name="post_id" value="{{ $data->id }}">
+                                                    <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+                                                    <textarea placeholder="Comment" name="reply_comment" class="form-control"></textarea>
+                                                </div>
+                                                <div class="form-submit text-right">
+                                                    <button type="submit" class="btn btn-color-out">Reply</button>
+                                                </div>
+                                            </form>
+                                            <!--!Reply form-->
+                                            @endguest
+
+
                                         </div>
                                     </div>
+
+                                    <?php
+
+                                        $comments = App\Models\Comment::where('comment_id', '!=', null)->where('comment_id', $comment->id)->get();
+
+                                    ?>
+
+                                    @foreach($comments as $rep_com)
+                                    <ul class="children">
+                                            <li>
+                                                <div class="comment">
+                                                    <div class="comment-pic">
+                                                        <img src="images/team/2.jpg" alt="" class="img-circle">
+                                                    </div>
+                                                    <div class="comment-text">
+                                                        <h5 class="upper">Arya Stark</h5><span class="comment-date">Posted on 29
+                                                            September at 10:41</span>
+                                                        <p>{{ $rep_com->text }}</p><a href="#" class="comment-reply">Reply</a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                    </ul>
+                                    @endforeach
+
+
                                 </li>
-                            </ul> --}}
-                        </li>
+                            @endif
                         @endforeach
 
                     </ul>

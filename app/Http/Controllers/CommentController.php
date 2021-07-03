@@ -101,9 +101,16 @@ class CommentController extends Controller
     }
 
     /**
-     * Blog post comments show
+     * Blog post reply comments store
      */
-    public function postCommentShow(){
+    public function postCommentReplyStore(Request $request){
+        Comment::create([
+            'post_id'      =>  $request->post_id,
+            'user_id'      =>  Auth::user()->id,
+            'comment_id'   =>  $request->comment_id,
+            'text'         =>  $request->reply_comment,
+        ]);
 
+        return redirect()->back()->with('success', 'Comment reply added successfully ): ');
     }
 }

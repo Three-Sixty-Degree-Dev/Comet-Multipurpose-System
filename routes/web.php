@@ -24,7 +24,7 @@ Route::get('blog/user/{id}', [App\Http\Controllers\Frontend\BlogPageController::
 
 // User Comments
 Route::post('comments', [App\Http\Controllers\CommentController::class, 'postCommentStore'])->name('blog.post.comment');
-Route::get('comments/show', [App\Http\Controllers\CommentController::class, 'postCommentShow']);
+Route::post('comments/reply', [App\Http\Controllers\CommentController::class, 'postCommentReplyStore'])->name('blog.post.reply-comment');
 
 
 Route::get('/', function () {

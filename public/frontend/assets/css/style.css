@@ -4910,3 +4910,8 @@ footer.dark p {
         transform: scale(1);
     }
 }
+
+/* reply box */
+.reply-box {
+    display: none;
+}
