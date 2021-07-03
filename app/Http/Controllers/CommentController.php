@@ -99,4 +99,11 @@ class CommentController extends Controller
 
         return redirect()->back()->with('success', 'Comment added successfully ): ');
     }
+
+    /**
+     * Blog post comments show
+     */
+    public function postCommentShow(){
+
+    }
 }

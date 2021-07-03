@@ -10,4 +10,12 @@ class Comment extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function post(){
+        return $this->belongsTo('App\Http\Post');
+    }
+
+    public function user() {
+        return $this->belongsTo('App\Models\User');
+    }
 }

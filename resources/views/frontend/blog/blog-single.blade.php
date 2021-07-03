@@ -78,24 +78,26 @@
 
 
                 <!-- end of article-->
+                @if (Session::has('success'))
+                    <p class="alert alert-success">{{ Session::get('success') }}<button class="close" data-dismiss="alert">&times;</button></p>
+                @endif
                 <div id="comments">
                     <h5 class="upper">3 Comments</h5>
                     <ul class="comments-list">
+
+                        @foreach($data->comments as $comment)
                         <li>
                             <div class="comment">
                                 <div class="comment-pic">
-                                    <img src="images/team/1.jpg" alt="" class="img-circle">
+                                    <img src="{{ asset('frontend/assets/images/team/1.jpg') }}" alt="" class="img-circle">
                                 </div>
                                 <div class="comment-text">
-                                    <h5 class="upper">Jesse Pinkman</h5><span class="comment-date">Posted on 29
-                                        September at 10:41</span>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime distinctio et
-                                        quam possimus velit dolor sunt nisi neque, harum, dolores rem incidunt, esse
-                                        ipsa nam facilis eum doloremque numquam veniam.</p><a href="#"
-                                        class="comment-reply">Reply</a>
+                                    <h5 class="upper">{{ $comment->user->name }}</h5><span class="comment-date">Posted on {{ date('d F, Y', strtotime($comment->created_at)) }} at {{ date('h:i a') }}</span>
+                                    <p>{{ $comment->text }}</p>
+                                    <a href="#" class="comment-reply">Reply</a>
                                 </div>
                             </div>
-                            <ul class="children">
+                            {{-- <ul class="children">
                                 <li>
                                     <div class="comment">
                                         <div class="comment-pic">
@@ -111,23 +113,10 @@
                                         </div>
                                     </div>
                                 </li>
-                            </ul>
+                            </ul> --}}
                         </li>
-                        <li>
-                            <div class="comment">
-                                <div class="comment-pic">
-                                    <img src="images/team/3.jpg" alt="" class="img-circle">
-                                </div>
-                                <div class="comment-text">
-                                    <h5 class="upper">Rust Cohle</h5><span class="comment-date">Posted on 29 September
-                                        at 10:41</span>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deleniti sit beatae
-                                        natus! Beatae velit labore, numquam excepturi, molestias reiciendis, ipsam quas
-                                        iure distinctio quia, voluptate expedita autem explicabo illo.</p>
-                                    <a href="#" class="comment-reply">Reply</a>
-                                </div>
-                            </div>
-                        </li>
+                        @endforeach
+
                     </ul>
                 </div>
                 <!-- end of comments-->
