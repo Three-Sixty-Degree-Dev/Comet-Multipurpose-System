@@ -94,7 +94,14 @@
                                 <div class="comment-text">
                                     <h5 class="upper">{{ $comment->user->name }}</h5><span class="comment-date">Posted on {{ date('d F, Y', strtotime($comment->created_at)) }} at {{ date('h:i a') }}</span>
                                     <p>{{ $comment->text }}</p>
+
+                                    @guest
+                                        <p>For replay please <a href="{{ route('admin.login') }}">login</a> first</p>
+                                    @else
                                     <a href="#" class="comment-reply">Reply</a>
+                                    @endguest
+
+
                                 </div>
                             </div>
                             {{-- <ul class="children">
@@ -125,7 +132,7 @@
 
                 @guest
 
-                Please <a href="{{ route('admin.login') }}">login</a> first then you can comments
+                <p>Please <a href="{{ route('admin.login') }}">login</a> first before place a comments</p>
 
                 @else
                 <div id="respond">
