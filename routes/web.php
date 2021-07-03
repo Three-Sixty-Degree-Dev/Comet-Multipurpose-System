@@ -22,6 +22,10 @@ Route::post('blog/search', [App\Http\Controllers\Frontend\BlogPageController::cl
 Route::get('blog/user/{id}', [App\Http\Controllers\Frontend\BlogPageController::class, 'singleUserBlog'])->name('single.user.blog');
 
 
+// User Comments
+Route::post('comments', [App\Http\Controllers\CommentController::class, 'postCommentStore'])->name('blog.post.comment');
+
+
 Route::get('/', function () {
     return view('welcome');
 });

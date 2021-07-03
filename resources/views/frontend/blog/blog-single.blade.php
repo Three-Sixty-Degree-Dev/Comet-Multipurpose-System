@@ -74,6 +74,9 @@
                         {!! htmlspecialchars_decode($data->content) !!}
                     </div>
                 </article>
+
+
+
                 <!-- end of article-->
                 <div id="comments">
                     <h5 class="upper">3 Comments</h5>
@@ -128,28 +131,43 @@
                     </ul>
                 </div>
                 <!-- end of comments-->
+
+
+
+                @guest
+
+                Please <a href="{{ route('admin.login') }}">login</a> first then you can comments
+
+                @else
                 <div id="respond">
                     <h5 class="upper">Leave a comment</h5>
                     <div class="comment-respond">
-                        <form class="comment-form">
-                            <div class="form-double">
+                        <form class="comment-form" action="{{ route('blog.post.comment') }}" method="POST">
+                            @csrf
+                            {{-- <div class="form-double">
                                 <div class="form-group">
                                     <input name="author" type="text" placeholder="Name" class="form-control">
                                 </div>
                                 <div class="form-group last">
                                     <input name="email" type="text" placeholder="Email" class="form-control">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="form-group">
-                                <textarea placeholder="Comment" class="form-control"></textarea>
+                                <input type="hidden" name="post_id" value="{{ $data->id }}">
+                                <textarea placeholder="Comment" name="comment" class="form-control"></textarea>
                             </div>
                             <div class="form-submit text-right">
-                                <button type="button" class="btn btn-color-out">Post Comment</button>
+                                <button type="submit" class="btn btn-color-out">Post Comment</button>
                             </div>
                         </form>
                     </div>
                 </div>
+                @endguest
                 <!-- end of comment form-->
+
+
+
+
             </div>
         </div>
     </div>
