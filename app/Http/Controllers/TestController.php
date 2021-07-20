@@ -1,12 +1,11 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Http\Controllers;
 
-use {{ namespacedModel }};
-use {{ rootNamespace }}Http\Controllers\Controller;
+use App\Models\Test;
 use Illuminate\Http\Request;
 
-class {{ class }} extends Controller
+class TestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class {{ class }} extends Controller
      */
     public function index()
     {
-        $all_data = {{ namespacedModel }}::where('trash', false)->where('status', true)->latest()->get();
+        $all_data = {{  model  }}::where('trash', false)->where('status', true)->latest()->get();
         return view('view.index', [
             'all_data' => $all_data
         ]);
@@ -53,12 +52,12 @@ class {{ class }} extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Test  $test
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $data = {{ namespacedModel }}::find($id);
+        $data = {{  model  }}::find($id);
         return view('view.show', [
             'data' => $data
         ]);
@@ -67,12 +66,12 @@ class {{ class }} extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Test  $test
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $data = {{ namespacedModel }}::find($id);
+        $data = {{  model  }}::find($id);
         return view('view.edit', [
             'data' => $data
         ]);
@@ -82,12 +81,12 @@ class {{ class }} extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Test  $test
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $data = {{ namespacedModel }}::find($id);
+        $data = {{  model  }}::find($id);
 
         if($data){
             $this->validate($request, [
@@ -106,12 +105,12 @@ class {{ class }} extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param  \App\Models\Test  $test
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
     {
-        $data = {{ namespacedModel }}::find($request->id);
+        $data = Test::find($request->id);
         if($data){
 
             $data->delete();
@@ -128,7 +127,7 @@ class {{ class }} extends Controller
     *   Status update method
     */
     public function statusUpdate(Request $request){
-        $data = {{ model }}::find($request->id);
+        $data = Test::find($request->id);
         if($data){
             $data->status = status;
             $data->update;
@@ -145,7 +144,7 @@ class {{ class }} extends Controller
     *   Trash list page method
     */
     public function trashList(){
-        $all_data = {{ model }}::where('trash', true)->latest()->get();
+        $all_data = Test::where('trash', true)->latest()->get();
 
         return view('view.trash-list', [
             'all_data' => $all_data
@@ -158,7 +157,7 @@ class {{ class }} extends Controller
     *   Trash update method
     */
     public function statusUpdate(Request $request){
-        $data = {{ model }}::find($request->id);
+        $data = Test::find($request->id);
         if($data){
             $data->status = trash;
             $data->update;
