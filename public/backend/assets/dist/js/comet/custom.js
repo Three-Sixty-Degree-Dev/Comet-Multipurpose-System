@@ -443,5 +443,67 @@
             $(".select_category").remove();
             $(".select_tag").remove();
         });
+
+
+
+        //================== Product ===================//
+
+        //Brand Table load by yijra datatable
+        $('#brand_table').DataTable({
+            processing : true,
+            serverSide : true,
+            ajax : {
+                url: '/products/brand'
+            },
+            columns : [
+                {
+                    data : 'id',
+                    name : 'id',
+                },
+                {
+                    data : 'name',
+                    name : 'name'
+                },
+                {
+                    data : 'slug',
+                    name : 'slug'
+                },
+                {
+                    data : 'logo',
+                    name : 'logo'
+                },
+                {
+                    data : 'status',
+                    name : 'status'
+                },
+                {
+                    data : 'trash',
+                    name : 'trash'
+                },
+                {
+                    data : 'action',
+                    name : 'action'
+                }
+            ]
+        });
+
+
+        // Brand add by ajax
+        $(document).on('submit', '#brand_form', function (e){
+            e.preventDefault();
+
+            $.ajax({
+                url: '/products/brand',
+                method: 'POST',
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function(response){
+                    $('#brand_form')[0].reset();
+                    $('#add_brand_modal').modal('hide');
+                    $('#brand_table').DataTable().ajax.reload();
+                }
+            });
+        });
     });
 })(jQuery);

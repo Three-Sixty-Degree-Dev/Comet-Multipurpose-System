@@ -78,6 +78,25 @@ Route::middleware(['auth'])->group(function (){
         Route::post('tag/delete', 'App\Http\Controllers\Backend\TagController@tagDelete')->name('post.tag.delete');
         Route::get('tag-trash', 'App\Http\Controllers\Backend\TagController@tagTrash')->name('post.tag.trash');
         Route::get('tag/trash/update/{id}', 'App\Http\Controllers\Backend\TagController@tagTrashUpdate')->name('post.tag.trash.update');
+
+
+    });
+
+
+
+     //=============== Product ===============//
+
+
+    Route::prefix('products')->group(function () {
+
+
+        //Brand
+        Route::resource('brand', 'App\Http\Controllers\Backend\Product\BrandController');
+        Route::get('brand/status-inactive/{id}', 'App\Http\Controllers\Backend\Product\BrandController@brandUpdatedInactive');
+        Route::get('brand/status-active/{id}', 'App\Http\Controllers\Backend\Product\BrandController@brandUpdatedActive');
+        Route::post('brand/delete', 'App\Http\Controllers\Backend\Product\BrandController@brandDelete')->name('products.brand.delete');
+        Route::get('brand-trash', 'App\Http\Controllers\Backend\Product\BrandController@brandTrash')->name('products.tag.trash');
+        Route::get('brand/trash/update/{id}', 'App\Http\Controllers\Backend\Product\BrandController@brandTrashUpdate')->name('products.brand.trash.update');
     });
 });
 
