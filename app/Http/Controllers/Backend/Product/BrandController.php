@@ -29,7 +29,7 @@ class BrandController extends Controller
 
             // }) -> rawColumns(['action']) -> make(true);
 
-            return datatables()->of(Brand::latest()->get())->addColumn('action', function($data){
+            return datatables()->of(Brand::where('trash', false)->latest()->get())->addColumn('action', function($data){
                 $output = '<a title="Edit" edit_id="" href="" class="btn btn-sm btn-warning edit_cats"><i class="fas fa-edit text-white"></i></a>';
                 $output .= '<a title="Trash" class="btn btn-sm ml-1 btn-danger" href=""><i class="fa fa-trash"></i></a>';
                 return $output;
@@ -65,10 +65,11 @@ class BrandController extends Controller
         ]);
 
         // file upload
+        $unique_logo_file = '';
         if($request->hasFile('logo')){
             $img = $request->file('logo');
             $unique_logo_file = md5(time().rand()).'.'.$img->getClientOriginalExtension();
-            $img->move(public_path('media/brand/'), $unique_logo_file);
+            $img->move(public_path('media/products/brands/'), $unique_logo_file);
         }
 
         Brand::create([
@@ -156,21 +157,44 @@ class BrandController extends Controller
     }
 
 
-    // /**
-    // *
-    // *   Status update method
-    // */
-    // public function brandStatusUpdate(Request $request){
-    //     $data = Brand::find($request->id);
-    //     if($data){
-    //         $data->status = $request->status;
-    //         $data->update;
+    /**
+    *
+    *   Status update method
+    */
+    public function brandStatusUpdated($id, $val){
+        $data = Brand::find($id);
 
-    //         return redirect()->back()->with('success', 'Status updated successfully ): ');
-    //     }else {
-    //         return redirect()->back()->with('error', 'Sorry, Not found data! ');
-    //     }
-    // }
+        if($val == 1){
+            $data->status = false;
+            $data->update();
+            return 'Brand Inactive Succcessfully ): ';
+        }else {
+            $data->status = true;
+            $data->update();
+            return  'Brand Active Succcessfully ): ';
+        }
+
+    }
+
+
+    /**
+    *
+    *   Trash update method
+    */
+    public function brandTrashUpdated($id, $val){
+        $data = Brand::find($id);
+
+        if($val == 1){
+            $data->trash = false;
+            $data->update();
+            return 'Brand Remove Trash Succcessfully ): ';
+        }else {
+            $data->trash = true;
+            $data->update();
+            return  'Brand Trash Succcessfully ): ';
+        }
+
+    }
 
 
     // /**

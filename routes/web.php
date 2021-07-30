@@ -92,11 +92,11 @@ Route::middleware(['auth'])->group(function (){
 
         //Brand
         Route::resource('brand', 'App\Http\Controllers\Backend\Product\BrandController');
-        Route::get('brand/status-inactive/{id}', 'App\Http\Controllers\Backend\Product\BrandController@brandUpdatedInactive');
-        Route::get('brand/status-active/{id}', 'App\Http\Controllers\Backend\Product\BrandController@brandUpdatedActive');
+        Route::get('brand/status-update/{id}/{val}', 'App\Http\Controllers\Backend\Product\BrandController@brandStatusUpdated');
         Route::post('brand/delete', 'App\Http\Controllers\Backend\Product\BrandController@brandDelete')->name('products.brand.delete');
-        Route::get('brand-trash', 'App\Http\Controllers\Backend\Product\BrandController@brandTrash')->name('products.tag.trash');
-        Route::get('brand/trash/update/{id}', 'App\Http\Controllers\Backend\Product\BrandController@brandTrashUpdate')->name('products.brand.trash.update');
+        Route::get('brand/trash-update/{id}/{val}', 'App\Http\Controllers\Backend\Product\BrandController@brandTrashUpdated');
+        // Route::get('brand-trash', 'App\Http\Controllers\Backend\Product\BrandController@brandTrash')->name('products.tag.trash');
+        // Route::get('brand/trash/update/{id}', 'App\Http\Controllers\Backend\Product\BrandController@brandTrashUpdate')->name('products.brand.trash.update');
     });
 });
 

@@ -470,15 +470,30 @@
                 },
                 {
                     data : 'logo',
-                    name : 'logo'
+                    name : 'logo',
+                    render: function(data, type, full, meta){
+                        return `<img style="height: 62px;" src="/media/products/brands/${data}" />`;
+                    }
                 },
                 {
                     data : 'status',
-                    name : 'status'
+                    name : 'status',
+                    render: function(data, type, full, meta){
+                        return `<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                <input type="checkbox" brand_id="${full.id}" class="custom-control-input brand_ststus" ${full.status == true ? 'checked="checked"' : ''} id="customSwitch_${full.id}" value="${data}">
+                                <label class="custom-control-label" style="cursor:pointer;" for="customSwitch_${full.id}"></label>
+                            </div>`;
+                    }
                 },
                 {
                     data : 'trash',
-                    name : 'trash'
+                    name : 'trash',
+                    render: function(data, type, full, meta){
+                        return `<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                <input type="checkbox" brand_id="${full.id}" class="custom-control-input brand_trash" ${full.trash == true ? 'checked="checked"' : ''} id="customTrashSwitch_${full.id}" value="${data}">
+                                <label class="custom-control-label" style="cursor:pointer;" for="customTrashSwitch_${full.id}"></label>
+                            </div>`;
+                    }
                 },
                 {
                     data : 'action',
@@ -502,6 +517,46 @@
                     $('#brand_form')[0].reset();
                     $('#add_brand_modal').modal('hide');
                     $('#brand_table').DataTable().ajax.reload();
+                }
+            });
+        });
+
+
+        //Brand Status
+        $(document).on("change", "input.brand_ststus", function() {
+            let id = $(this).attr("brand_id");
+            let value = $(this).val();
+
+            $.ajax({
+                url: "brand/status-update/" + id +'/'+ value,
+                success: function(data) {
+                    $.notify(data, {
+                        globalPosition: "top right",
+                        className: "success"
+                    });
+
+                    $('#brand_table').DataTable().ajax.reload();
+
+                }
+            });
+        });
+
+
+        //Brand Status
+        $(document).on("change", "input.brand_trash", function() {
+            let id = $(this).attr("brand_id");
+            let value = $(this).val();
+
+            $.ajax({
+                url: "brand/trash-update/" + id +'/'+ value,
+                success: function(data) {
+                    $.notify(data, {
+                        globalPosition: "top right",
+                        className: "success"
+                    });
+
+                    $('#brand_table').DataTable().ajax.reload();
+
                 }
             });
         });
