@@ -503,6 +503,52 @@
         });
 
 
+        // Brand trash table load by yijra table
+        $('#brand_trash_table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url : '/products/brand-trash'
+            },
+            columns : [
+                {
+                    data : 'id',
+                    name : 'id'
+                },
+                {
+                    data : 'name',
+                    name : 'name'
+                },
+                {
+                    data : 'slug',
+                    name : 'slug'
+                },
+                {
+                    data : 'logo',
+                    name : 'logo',
+                    render: function(data, type, full, meta){
+                        return `<img style="height: 62px;" src="/media/products/brands/${data}" />`;
+                    }
+                },
+                {
+                    data : 'trash',
+                    name : 'trash',
+                    render: function(data, type, full, meta){
+                        return `<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                <input type="checkbox" brand_id="${full.id}" class="custom-control-input brand_trash" ${full.trash == true ? 'checked="checked"' : ''} id="customTrashSwitch_${full.id}" value="${data}">
+                                <label class="custom-control-label" style="cursor:pointer;" for="customTrashSwitch_${full.id}"></label>
+                            </div>`;
+                    }
+
+                },
+                {
+                    data : 'action',
+                    name : 'action'
+                }
+            ]
+        });
+
+
         // Brand add by ajax
         $(document).on('submit', '#brand_form', function (e){
             e.preventDefault();
@@ -522,7 +568,7 @@
         });
 
 
-        //Brand Status
+        //Brand Status update
         $(document).on("change", "input.brand_ststus", function() {
             let id = $(this).attr("brand_id");
             let value = $(this).val();
@@ -542,7 +588,7 @@
         });
 
 
-        //Brand Status
+        //Brand trash update
         $(document).on("change", "input.brand_trash", function() {
             let id = $(this).attr("brand_id");
             let value = $(this).val();
@@ -556,9 +602,73 @@
                     });
 
                     $('#brand_table').DataTable().ajax.reload();
+                    $('#brand_trash_table').DataTable().ajax.reload();
 
                 }
             });
         });
+
+
+        // Brand Delete
+        $(document).on('submit', '#brand_delete_form', function(e){
+            e.preventDefault();
+            let id = $('#delete_brand').val();
+
+
+            swal(
+                {
+                    title: "Are you sure?",
+                    type: "success",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+                            },
+                            url: 'brand/delete',
+                            method: 'POST',
+                            data: {id: id},
+                            success: function(data){
+                                swal(
+                                    {
+                                        title: "Deleted!",
+                                        type: "success"
+                                    },
+                                    function(isConfirm) {
+                                        if (isConfirm) {
+                                            $.notify(data, {
+                                                globalPosition: "top right",
+                                                className: 'error'
+                                            });
+
+                                            $('#brand_table').DataTable().ajax.reload();
+                                            $('#brand_trash_table').DataTable().ajax.reload();
+                                        }
+                                    }
+                                );
+                            }
+                        });
+
+                    } else {
+                        swal("Cancelled", "", "error");
+                    }
+                }
+            );
+
+
+
+
+
+        });
+
+
     });
 })(jQuery);

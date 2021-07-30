@@ -40,9 +40,9 @@
                         <h2 class="card-title">All Bands</h2>
                         <a class="btn btn-sm btn-primary float-right" data-toggle="modal" href="#add_brand_modal" ><i class="fas fa-plus"> Add New Brand</i></a>
                         <div style="display: flex; margin-left: 0px; width: 100%;">
-                            {{-- <a class="badge badge-primary" href="{{ route('category.index') }}">Published {{ ($published)? $published : '' }}</a>
-                            <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('post.category.trash') }}">Trash {{ ($trash)? $trash : '' }}</a>
-                        </div> --}}
+                            <a class="badge badge-primary" href="{{ route('brand.index') }}">Published </a>
+                            <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('products.brand.trash') }}">Trash </a>
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

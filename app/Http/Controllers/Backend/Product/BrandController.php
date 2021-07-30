@@ -20,26 +20,38 @@ class BrandController extends Controller
         // check ajax request by yjra datatable
         if( request() -> ajax() ){
 
-            // return datatables() -> of(Brand::latest()->get()) -> addColumn('action'. function($data){
-
-            //     $output = '<a title="Edit" edit_id="" href="" class="btn btn-sm btn-warning edit_cats"><i class="fas fa-edit text-white"></i></a>';
-            //     $output .= '<a title="Trash" class="btn btn-sm btn-danger" href=""><i class="fa fa-trash"></i></a>';
-
-            //     return $output;
-
-            // }) -> rawColumns(['action']) -> make(true);
-
             return datatables()->of(Brand::where('trash', false)->latest()->get())->addColumn('action', function($data){
                 $output = '<a title="Edit" edit_id="" href="" class="btn btn-sm btn-warning edit_cats"><i class="fas fa-edit text-white"></i></a>';
-                $output .= '<a title="Trash" class="btn btn-sm ml-1 btn-danger" href=""><i class="fa fa-trash"></i></a>';
                 return $output;
             })->rawColumns(['action'])->make(true);
+
         }
 
 
         return view('backend.product.brand.index');
 
     }
+
+
+    /**
+     * Display a brand trash list
+     */
+    public function brandTrashList(){
+
+        // check ajax request by yjra datatable
+        if( request() -> ajax() ){
+
+            return datatables()->of(Brand::where('trash', true)->latest()->get())->addColumn('action', function($data){
+                $output = '<form style="display: inline;" action="#" method="POST" id="brand_delete_form"><input type="hidden" name="id" id="delete_brand" value="'.$data['id'].'"><button type="submit" class="btn btn-sm ml-1 btn-danger" ><i class="fa fa-trash"></i></button></form>';
+                return $output;
+            })->rawColumns(['action'])->make(true);
+
+        }
+
+        return view('backend.product.brand.trash');
+
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -121,6 +133,7 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         // $data = Brand::find($id);
 
         // if($data){
@@ -137,23 +150,31 @@ class BrandController extends Controller
         // }
     }
 
+
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \Brand  ${{ modelVariable }}
-     * @return \Illuminate\Http\Response
+     * Brand Delete
      */
-    public function destroy(Request $request)
-    {
-        // $data = Brand::find($request->id);
-        // if($data){
+    public function brandDelete(Request $request){
+        $delete_id = $request->id;
+        $data = Brand::find($delete_id);
 
-        //     $data->delete();
+        try {
 
-        //      return redirect()->back()->with('success', 'Data deleted successfully ): ');
-        // }else {
-        //     return redirect()->back()->with('error', 'Sorry, Not found data! ');
-        // }
+            if($data){
+                $result = $data->delete();
+                if($result){
+
+                    if(file_exists('media/products/brands/'.$data->logo)){
+                        unlink('media/products/brands/'.$data->logo);
+                    }
+
+                }
+
+            }
+
+        } catch (\Throwable $th) {
+            return 'Brand deleted failed badly!';
+        }
     }
 
 
