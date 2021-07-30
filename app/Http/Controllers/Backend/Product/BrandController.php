@@ -21,7 +21,7 @@ class BrandController extends Controller
         if( request() -> ajax() ){
 
             return datatables()->of(Brand::where('trash', false)->latest()->get())->addColumn('action', function($data){
-                $output = '<a title="Edit" edit_id="" href="" class="btn btn-sm btn-warning edit_cats"><i class="fas fa-edit text-white"></i></a>';
+                $output = '<a title="Edit" edit_id="'.$data.'" href="#" class="btn btn-sm btn-warning edit_brand"><i class="fas fa-edit text-white"></i></a>';
                 return $output;
             })->rawColumns(['action'])->make(true);
 

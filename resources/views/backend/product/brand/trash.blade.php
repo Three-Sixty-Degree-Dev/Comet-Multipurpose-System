@@ -39,8 +39,8 @@
                     <div class="card-header">
                         <h2 class="card-title">All Trash Bands</h2>
                         <div style="display: flex; margin-left: 0px; width: 100%;">
-                            <a class="badge badge-primary" href="{{ route('brand.index') }}">Published </a>
-                            <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('products.brand.trash') }}">Trash </a>
+                            <a class="badge badge-primary" href="{{ route('brand.index') }}">Published <span class="brand_publish"></span></a>
+                            <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('products.brand.trash') }}">Trash <span class="brand_trash"></a>
                         </div>
                     </div>
                     <!-- /.card-header -->

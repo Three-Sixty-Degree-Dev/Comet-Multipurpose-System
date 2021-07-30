@@ -452,6 +452,10 @@
         $('#brand_table').DataTable({
             processing : true,
             serverSide : true,
+            drawCallback: function(settings) {
+                var api = this.api();
+                $('.brand_publish').html('('+api.rows().data().length+')');
+            },
             ajax : {
                 url: '/products/brand'
             },
@@ -507,6 +511,10 @@
         $('#brand_trash_table').DataTable({
             processing: true,
             serverSide: true,
+            drawCallback: function(settings) {
+                var api = this.api();
+                $('.brand_trash').html('('+api.rows().data().length+')');
+            },
             ajax: {
                 url : '/products/brand-trash'
             },
