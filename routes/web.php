@@ -97,6 +97,7 @@ Route::middleware(['auth'])->group(function (){
         Route::get('brand/trash-update/{id}/{val}', 'App\Http\Controllers\Backend\Product\BrandController@brandTrashUpdated');
         Route::post('brand/delete', 'App\Http\Controllers\Backend\Product\BrandController@brandDelete');
         Route::get('brand-trash', 'App\Http\Controllers\Backend\Product\BrandController@brandTrashList')->name('products.brand.trash');
+        Route::post('brand-update', 'App\Http\Controllers\Backend\Product\BrandController@brandUpdate')->name('products.brand.update');
         // Route::get('brand/trash/update/{id}', 'App\Http\Controllers\Backend\Product\BrandController@brandTrashUpdate')->name('products.brand.trash.update');
     });
 });

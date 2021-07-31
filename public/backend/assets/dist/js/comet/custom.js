@@ -448,6 +448,9 @@
 
         //================== Product ===================//
 
+
+                //========== Brand ==========//
+
         //Brand Table load by yijra datatable
         $('#brand_table').DataTable({
             processing : true,
@@ -573,6 +576,69 @@
                     $('#brand_table').DataTable().ajax.reload();
                 }
             });
+        });
+
+
+        // Brand edit by ajax
+        $(document).on('click', '.edit_brand', function(e){
+            e.preventDefault();
+            let edit_id = $(this).attr('edit_id');
+
+            $.ajax({
+                url: '/products/brand/'+edit_id+'/edit',
+                type:"GET",
+                success: function(data){
+                    $('.brand_id').val(data.id);
+                    $('.brand_name').val(data.name);
+                    $('img.brand_photo_edit').attr('src', '/media/products/brands/'+data.logo);
+
+                    $('#edit_brand_modal').modal('show');
+                }
+            });
+
+        });
+
+
+        // Brand update by ajax
+        $(document).on('submit', '#edit_brand_form', function(e){
+            e.preventDefault();
+            let id   = $('.brand_id').val();
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '/products/brand-update',
+                method: "POST",
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function(data){
+                    $.notify(data, {
+                        globalPosition: 'top right',
+                        className: 'success'
+                    });
+
+                    $('#brand_table').DataTable().ajax.reload();
+                    $('#edit_brand_modal').modal('hide');
+                },
+
+            });
+
+        });
+
+
+        //  Add Brand logo load
+        $(document).on('change', '.brand_logo_add', function(e){
+            let logo_url = URL.createObjectURL(e.target.files[0]);
+            $('.brand_photo_add').attr('src', logo_url);
+        });
+
+
+        // Edit Brand logo load
+        $(document).on('change', '.brand_logo_edit', function(e){
+            let logo_url = URL.createObjectURL(e.target.files[0]);
+            $('.brand_photo_edit').attr('src', logo_url);
         });
 
 

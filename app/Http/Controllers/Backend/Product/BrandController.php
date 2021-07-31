@@ -21,7 +21,7 @@ class BrandController extends Controller
         if( request() -> ajax() ){
 
             return datatables()->of(Brand::where('trash', false)->latest()->get())->addColumn('action', function($data){
-                $output = '<a title="Edit" edit_id="'.$data.'" href="#" class="btn btn-sm btn-warning edit_brand"><i class="fas fa-edit text-white"></i></a>';
+                $output = '<a title="Edit" edit_id="'.$data['id'].'" href="#" class="btn btn-sm btn-warning edit_brand"><i class="fas fa-edit text-white"></i></a>';
                 return $output;
             })->rawColumns(['action'])->make(true);
 
@@ -118,10 +118,8 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        // $data = Brand::find($id);
-        // return view('view.edit', [
-        //     'data' => $data
-        // ]);
+        $data = Brand::find($id);
+        return $data;
     }
 
     /**
@@ -134,20 +132,52 @@ class BrandController extends Controller
     public function update(Request $request, $id)
     {
 
-        // $data = Brand::find($id);
+    }
 
-        // if($data){
-        //     $this->validate($request, [
-        //         'name' => 'required',
-        //     ]);
 
-        //     $data->name = $request->name;
-        //     $data->update();
+    /**
+     * Brand update
+     */
+    public function brandUpdate(Request $request){
+        $data = Brand::find($request->id);
 
-        //     return redirect()->back()->with('success', 'Data added successfully ): ');
-        // }else {
-        //     return redirect()->back()->with('error', 'Sorry, Not found data! ');
-        // }
+        if($data){
+            $this->validate($request, [
+                'name' => 'required',
+            ]);
+
+
+
+            try {
+
+                // file upload
+                $unique_logo_file = '';
+                if($request->hasFile('logo')){
+                    $img = $request->file('logo');
+                    $unique_logo_file = md5(time().rand()).'.'.$img->getClientOriginalExtension();
+                    $img->move(public_path('media/products/brands/'), $unique_logo_file);
+                    if(file_exists('media/products/brands/'.$data->logo) && !empty($data->logo)){
+                        unlink('media/products/brands/'.$data->logo);
+                    }
+                }else {
+                    $unique_logo_file = $data->logo;
+                }
+
+                $data->name = $request->name;
+                $data->slug = $this->getSlug($request->name);
+                $data->logo = $unique_logo_file;
+                $data->update();
+
+                return  'Data updated successfully ):';
+            } catch (\Throwable $th) {
+                return  'Data not update successfully';
+            }
+
+
+        }else {
+            return 'Sorry, Not found data! ';
+        }
+
     }
 
 

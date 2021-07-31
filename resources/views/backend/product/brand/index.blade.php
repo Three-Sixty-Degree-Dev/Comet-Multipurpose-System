@@ -91,7 +91,7 @@
                 <div class="modal-body">
                     <h2>Add New Category <button class="close" data-dismiss="modal">&times;</button></h2>
                     <hr>
-                    <form action="#" method="POST" id="brand_form" class="categoryValidate" enctype="multipart/form-data">
+                    <form action="#" method="POST" id="brand_form" class="brandValidate" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label>Name</label>
@@ -99,7 +99,8 @@
                         </div>
                         <div class="form-group">
                             <label>Logo</label>
-                            <input type="file" name="logo" class="form-control">
+                            <input type="file" name="logo" class="form-control brand_logo_add">
+                            <img style="height: 120px;" class="brand_photo_add" src="" alt="">
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-sm btn-primary">
@@ -111,20 +112,24 @@
     </div>
 
 
-{{--    Edit Category Modal--}}
-    <div id="edit_category_modal" class="modal fade">
+{{--    Edit Brand Modal--}}
+    <div id="edit_brand_modal" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h2>Edit Category <button class="close" data-dismiss="modal">&times;</button></h2>
+                    <h2>Edit Brand <button class="close" data-dismiss="modal">&times;</button></h2>
                     <hr>
-                    <form action="{{ route('category.update', 1) }}" method="POST" class="categoryValidate">
+                    <form method="POST" id="edit_brand_form" class="brandValidate" enctype="multipart/form-data">
                         @csrf
-                        @method('PATCH')
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="hidden" name="id">
-                            <input type="text" name="name" class="form-control">
+                            <input type="hidden" name="id" class="brand_id">
+                            <input type="text" name="name" class="form-control brand_name">
+                        </div>
+                        <div class="form-group">
+                            <label>Logo</label>
+                            <input type="file" name="logo" class="form-control brand_logo_edit">
+                            <img style="height: 120px;" class="brand_photo_edit" src="" alt="">
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-sm btn-primary" value="Update">
@@ -139,7 +144,7 @@
 {{--    jquery Validation--}}
 <script>
     $(function () {
-        $('.categoryValidate').validate({
+        $('.brandValidate').validate({
             rules: {
                 name: {
                     required: true,
@@ -147,7 +152,7 @@
             },
             messages: {
                 name: {
-                    required: "Please enter a category name",
+                    required: "Please enter a brand name",
                 },
             },
             errorElement: 'span',
