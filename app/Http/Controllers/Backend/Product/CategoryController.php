@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Backend\Product;
 
-use Yajra\DataTables\EloquentDataTable;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Backend\Product\Brand;
+use App\Models\Backend\Product\ProductCategory;
+use Illuminate\Http\Request;
 
-class BrandController extends Controller
+class CategoryController extends Controller
 {
-    /**
+/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -20,7 +19,7 @@ class BrandController extends Controller
         // check ajax request by yjra datatable
         if( request() -> ajax() ){
 
-            return datatables()->of(Brand::where('trash', false)->latest()->get())->addColumn('action', function($data){
+            return datatables()->of(ProductCategory::where('trash', false)->latest()->get())->addColumn('action', function($data){
                 $output = '<a title="Edit" edit_id="'.$data['id'].'" href="#" class="btn btn-sm btn-warning edit_brand"><i class="fas fa-edit text-white"></i></a>';
                 return $output;
             })->rawColumns(['action'])->make(true);
@@ -42,7 +41,7 @@ class BrandController extends Controller
         }
 
 
-        return view('backend.product.brand.index');
+        return view('backend.product.category.index');
 
     }
 

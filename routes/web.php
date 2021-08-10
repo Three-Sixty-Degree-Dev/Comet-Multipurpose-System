@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\Product\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -99,6 +100,11 @@ Route::middleware(['auth'])->group(function (){
         Route::get('brand-trash', 'App\Http\Controllers\Backend\Product\BrandController@brandTrashList')->name('products.brand.trash');
         Route::post('brand-update', 'App\Http\Controllers\Backend\Product\BrandController@brandUpdate')->name('products.brand.update');
         // Route::get('brand/trash/update/{id}', 'App\Http\Controllers\Backend\Product\BrandController@brandTrashUpdate')->name('products.brand.trash.update');
+
+
+        //Category
+        Route::resource('categories', CategoryController::class);
+
     });
 });
 

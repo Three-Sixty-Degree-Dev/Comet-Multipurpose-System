@@ -458,6 +458,7 @@
             drawCallback: function(settings) {
                 var api = this.api();
                 $('.brand_publish').html('('+api.rows().data().length+')');
+                // $('.brand_trash').html('('+api.rows().data().length+')');
             },
             ajax : {
                 url: '/products/brand'
