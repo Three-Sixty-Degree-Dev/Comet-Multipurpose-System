@@ -38,7 +38,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">All Categories</h2>
-                        <a class="btn btn-sm btn-primary float-right" data-toggle="modal" href="#add_brand_modal" ><i class="fas fa-plus"> Add New Brand</i></a>
+                        <a class="btn btn-sm btn-primary float-right" data-toggle="modal" href="#add_product_category_modal" ><i class="fas fa-plus"> Add New Category</i></a>
                         <div style="display: flex; margin-left: 0px; width: 100%;">
                             <a class="badge badge-primary" href="{{ route('brand.index') }}">Published <span class="brand_publish"></span></a>
                             <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('products.brand.trash') }}">Trash <span class="brand_trash"></span></a>
@@ -46,7 +46,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="brand_table" class="table table-striped table-hover">
+                        <table id="product_category_table" class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>#SL</th>
@@ -90,23 +90,22 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h2>Add New Brand <button class="close" data-dismiss="modal">&times;</button></h2>
+                    <h2>Add New Category <button class="close" data-dismiss="modal">&times;</button></h2>
                     <hr>
-                    <form action="#" method="POST" id="product_categroy_form" class="pcategroyValidate" enctype="multipart/form-data">
+                    <form method="POST" id="product_categroy_form" class="pcategroyValidate" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" name="name" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>Image</label>
-                            <input type="file" name="image" class="form-control category_image_add">
-                            <img style="height: 120px;" class="category_photo_show" src="" alt="">
+                            <label>Icon</label>
+                            <input type="text" name="icon" class="form-control category_icon_add">
                         </div>
                         <div class="form-group">
-                            <label>Icon</label>
-                            <input type="file" name="Icon" class="form-control category_icon_add">
-                            <img style="height: 120px;" class="category_icon_show" src="" alt="">
+                            <label for="p_image_l"><i class="fas fa-file-image fa-4x text-success" ></i></label>
+                            <input type="file" name="image" class="form-control category_image_add d-none" id="p_image_l">
+                            {{-- <img style="height: 120px;" class="category_photo_show" src="" alt=""> --}}
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-sm btn-primary">

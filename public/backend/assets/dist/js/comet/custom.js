@@ -745,5 +745,29 @@
         });
 
 
+        //==================== Category =======================//
+        //add category
+        $(document).on('submit', '#product_categroy_form', function (e){
+            e.preventDefault();
+
+            $.ajax({
+                url: '/products/categories',
+                method: 'POST',
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function(data){
+                    $.notify(data, {
+                        globalPosition: 'top right',
+                        className: 'success'
+                    });
+                    $('#product_categroy_form')[0].reset();
+                    $('#add_product_category_modal').modal('hide');
+                    // $('#brand_table').DataTable().ajax.reload();
+                }
+            });
+            return false;
+        });
+
     });
 })(jQuery);

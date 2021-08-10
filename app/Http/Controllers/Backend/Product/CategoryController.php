@@ -86,26 +86,20 @@ class CategoryController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'logo' => 'required',
         ]);
 
         // file upload
-        $unique_logo_file = '';
-        if($request->hasFile('logo')){
-            $img = $request->file('logo');
-            $unique_logo_file = md5(time().rand()).'.'.$img->getClientOriginalExtension();
-            $img->move(public_path('media/products/brands/'), $unique_logo_file);
-        }
+        $unique_image_name = '';
+        $unique_image_name = $this->imageUpload($request, 'image', 'media/products/category/');
 
-        Brand::create([
+        ProductCategory::create([
             'name'      => $request->name,
             'slug'      => $this->getSlug($request->name),
-            'logo'      => $unique_logo_file
+            'icon'      => $request->icon,
+            'image'      => $unique_image_name
         ]);
 
-        return response()->json([
-            'success' => 'Data added successfully'
-        ]);
+        return 'Data added successfully';
 
     }
 

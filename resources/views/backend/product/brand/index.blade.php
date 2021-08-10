@@ -84,7 +84,7 @@
 </div>
 <!-- ./wrapper -->
 
-{{--    Add Category Modal--}}
+{{--    Add Brand Modal--}}
     <div id="add_brand_modal" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

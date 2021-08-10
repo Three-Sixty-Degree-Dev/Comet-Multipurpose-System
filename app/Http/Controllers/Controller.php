@@ -46,4 +46,16 @@ class Controller extends BaseController
             return $video_url = $feature_data->post_video;
         }
     }
+
+
+    // Image upload
+    public function imageUpload($request, $file, $path){
+        if($request->hasFile($file)){
+            $img = $request->file($file);
+            $unique_name = md5(time().rand()).'.'.$img->getClientOriginalExtension();
+            $img->move(public_path($path), $unique_name);
+        }
+
+        return $unique_name;
+    }
 }
