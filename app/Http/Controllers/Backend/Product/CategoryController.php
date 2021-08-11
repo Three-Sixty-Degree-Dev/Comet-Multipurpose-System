@@ -90,12 +90,25 @@ class CategoryController extends Controller
         $unique_image_name = '';
         $unique_image_name = $this->imageUpload($request, 'image', 'media/products/category/');
 
-        ProductCategory::create([
-            'name'      => $request->name,
-            'slug'      => $this->getSlug($request->name),
-            'icon'      => $request->icon,
-            'image'      => $unique_image_name
-        ]);
+        if(empty($request->parent_id)){
+            ProductCategory::create([
+                'name'          => $request->name,
+                'slug'          => $this->getSlug($request->name),
+                'icon'          => $request->icon,
+                'image'         => $unique_image_name
+            ]);
+        }else {
+            $parent = ProductCategory::find($request->parent_id);
+
+            ProductCategory::create([
+                'name'          => $request->name,
+                'slug'          => $this->getSlug($request->name),
+                'icon'          => $request->icon,
+                'image'         => $unique_image_name,
+                'level'         => ($parent->level+1),
+                'parent'        => $parent->id,
+            ]);
+        }
 
         return 'Data added successfully';
 

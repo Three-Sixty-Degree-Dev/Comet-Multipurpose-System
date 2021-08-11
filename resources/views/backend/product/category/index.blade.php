@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Parent Category</label>
-                                        <select class="form-control select2" name="parent" id="parent_category" style="width: 100%;">
+                                        <select class="form-control select2" name="parent_id" id="parent_category" style="width: 100%;">
                                           <option value="">-Select-</option>
 
 
