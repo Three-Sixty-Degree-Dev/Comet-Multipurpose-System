@@ -109,6 +109,8 @@ Route::middleware(['auth'])->group(function (){
         Route::get('categories-trash', [CategoryController::class, 'categoryTrashList'])->name('products.category.trash');
         Route::post('category/delete', [CategoryController::class, 'categoryDelete']);
 
+        Route::get('category/list', [CategoryController::class, 'allProductCategoryByAjax']);
+
     });
 });
 

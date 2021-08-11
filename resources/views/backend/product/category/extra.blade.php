@@ -35,52 +35,35 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                              <h3 class="card-title">Add New Categorey</h3>
-                            </div>
-                            <form method="POST" id="product_categroy_form" class="pcategroyValidate" enctype="multipart/form-data">
-                                @csrf
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label>Category Name</label>
-                                        <input type="text" name="name" class="form-control" placeholder="Enter name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Parent Category</label>
-                                        <select class="form-control select2" name="parent" id="parent_category" style="width: 100%;">
-                                          <option value="">-Select-</option>
-
-
-
-                                        </select>
-                                    </div>
-
-                                    <div class="input-group">
-                                        <label for="" class="w-100">Icon</label><br>
-                                        <span class="input-group-prepend">
-                                            <button class="btn btn-secondary" name="icon" id="category_icon" data-icon="" role="iconpicker"></button>
-                                        </span>
-                                        <input type="text" id="icon_name" class="form-control">
-                                    </div><br>
-                                    <div class="form-group">
-                                        <label for="p_image_l"><i class="fas fa-file-image fa-4x text-success" ></i></label>
-                                        <input type="file" name="image" class="form-control category_image_add d-none" id="p_image_l">
-                                        <img style="height: 120px; margin-left: 50px;" class="category_photo_show" src="" alt="">
-                                    </div>
-                                </div>
-                                <!-- /.card-body -->
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                            </form>
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">All Categories</h2>
+                        <a class="btn btn-sm btn-primary float-right" data-toggle="modal" href="#add_product_category_modal" ><i class="fas fa-plus"> Add New Category</i></a>
+                        <div style="display: flex; margin-left: 0px; width: 100%;">
+                            <a class="badge badge-primary" href="{{ route('categories.index') }}">Published <span class="p_category_publish"></span></a>
+                            <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('products.category.trash') }}">Trash <span class="p_category_trash"></span></a>
                         </div>
                     </div>
-                </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="product_category_table" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#SL</th>
+                                    <th>Name</th>
+                                    <th>Image</th>
+                                    <th>Icon</th>
+                                    <th>Status</th>
+                                    <th>Trash</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
 
+
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
@@ -102,7 +85,7 @@
 <!-- ./wrapper -->
 
 {{--    Add Category Modal--}}
-    {{-- <div id="add_product_category_modal" class="modal fade">
+    <div id="add_product_category_modal" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
@@ -114,14 +97,17 @@
                             <label>Name</label>
                             <input type="text" name="name" class="form-control">
                         </div>
-
                         <div class="input-group">
                             <span class="input-group-prepend">
                                 <button class="btn btn-secondary" name="icon" data-icon="" role="iconpicker"></button>
                             </span>
                             <input type="text" class="form-control">
                         </div><br>
-
+                        <div class="form-group">
+                            <label for="p_image_l"><i class="fas fa-file-image fa-4x text-success" ></i></label>
+                            <input type="file" name="image" class="form-control category_image_add d-none" id="p_image_l">
+                            <img style="height: 120px;" class="category_photo_show" src="" alt="">
+                        </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-sm btn-primary">
                         </div>
@@ -129,16 +115,47 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
 
-
+{{--    Edit Brand Modal--}}
+    <div id="edit_product_category_modal" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h2>Edit Category <button class="close" data-dismiss="modal">&times;</button></h2>
+                    <hr>
+                    <form method="POST" id="edit_product_category_form" class="pcategoryValidate" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="hidden" name="id" class="brand_id">
+                            <input type="text" name="name" class="form-control product_category_name">
+                        </div>
+                        <div class="form-group">
+                            <label>Image</label>
+                            <input type="file" name="image" class="form-control product_category_image_edit">
+                            <img style="height: 120px;" class="product_category_image_show" src="" alt="">
+                        </div>
+                        <div class="form-group">
+                            <label>Icon</label>
+                            <input type="file" name="icon" class="form-control product_category_icon_edit">
+                            <img style="height: 120px;" class="product_category_icon_show" src="" alt="">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-sm btn-primary" value="Update">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 {{--    jquery Validation--}}
 <script>
     $(function () {
-        $('.product_categroy_form').validate({
+        $('.pcategoryValidate').validate({
             rules: {
                 name: {
                     required: true,
@@ -146,7 +163,7 @@
             },
             messages: {
                 name: {
-                    required: "Please enter a category name",
+                    required: "Please enter a brand name",
                 },
             },
             errorElement: 'span',
@@ -166,8 +183,3 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
 @include('validation')
 @endsection
-
-
-
-
-

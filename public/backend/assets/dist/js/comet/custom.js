@@ -746,12 +746,12 @@
 
         //================ Image uploaed global function =================//
         function loadImage(source, destination){
-            
+
             $(document).on('change', source, function(e){
                 let image_url = URL.createObjectURL(e.target.files[0]);
                 $(destination).attr('src', image_url);
             });
-            
+
         }
 
 
@@ -817,7 +817,7 @@
                     data: 'action',
                     name: 'action'
                 },
-                
+
             ]
         });
 
@@ -870,8 +870,33 @@
                     data: 'action',
                     name: 'action'
                 },
-                
+
             ]
+        });
+
+        // categoyr fetch by normal function with ajax request
+        function allProductCategory(){
+
+            $.ajax({
+                url: '/products/category/list',
+                success: function(data){
+                    // console.log(data);
+                    for(item of data){
+                        $('#parent_category').append(`
+                                                        <option value="${item.id}">${item.name}</option>
+                                                    `);
+                    }
+                }
+            });
+
+        }
+        allProductCategory();
+
+        $(document).on('change', '#category_icon', function(e){
+            let icon = $(this).children();
+
+            $('#icon_name').val(icon[0].className);
+
         });
 
         //add category
@@ -890,11 +915,10 @@
                         className: 'success'
                     });
                     $('#product_categroy_form')[0].reset();
-                    $('#add_product_category_modal').modal('hide');
-                    // $('#brand_table').DataTable().ajax.reload();
+                    // $('#add_product_category_modal').modal('hide');
+                    // // $('#brand_table').DataTable().ajax.reload();
                 }
             });
-            return false;
         });
 
         //Category add picture show

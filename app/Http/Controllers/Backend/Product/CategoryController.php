@@ -34,7 +34,7 @@ class CategoryController extends Controller
 
 
     /**
-     * Display a brand trash list
+     * Display a category trash list
      */
     public function categoryTrashList(){
 
@@ -49,6 +49,17 @@ class CategoryController extends Controller
         }
 
         return view('backend.product.category.trash');
+
+    }
+
+
+    /**
+     * Fetch category all data by ajax
+     */
+    public function allProductCategoryByAjax(){
+
+        $all_data = ProductCategory::where('status', true)->orderBy('name', 'ASC')->get();
+        return $all_data;
 
     }
 
@@ -194,7 +205,7 @@ class CategoryController extends Controller
                     }
                     return 'Category deleted ): ';
                 }
-               
+
             }
 
         } catch (\Throwable $th) {
