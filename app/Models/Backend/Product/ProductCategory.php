@@ -10,4 +10,10 @@ class ProductCategory extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+
+    public function parentCat(){
+        return $this->hasMany('App\Models\Backend\Product\ProductCategory', 'parent');
+    }
+
 }

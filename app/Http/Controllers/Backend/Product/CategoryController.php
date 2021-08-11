@@ -58,8 +58,21 @@ class CategoryController extends Controller
      */
     public function allProductCategoryByAjax(){
 
-        $all_data = ProductCategory::where('status', true)->orderBy('name', 'ASC')->get();
-        return $all_data;
+        $catego = ProductCategory::where('status', true)->orderBy('name', 'ASC')->get();
+        $level1 = ProductCategory::where('status', true)->where('level', 1)->where('parent', null)->orderBy('name', 'ASC')->get();
+        $level2 = ProductCategory::where('status', true)->where('level', 2)->orderBy('name', 'ASC')->get();
+        $level3 = ProductCategory::where('status', true)->where('level', 3)->orderBy('name', 'ASC')->get();
+        $level4 = ProductCategory::where('status', true)->where('level', 4)->orderBy('name', 'ASC')->get();
+        $level5 = ProductCategory::where('status', true)->where('level', 5)->orderBy('name', 'ASC')->get();
+
+        return [
+            'catego' => $catego,
+            'level1' => $level1,
+            'level2' => $level2,
+            'level3' => $level3,
+            'level4' => $level4,
+            'level5' => $level5,
+        ];
 
     }
 
@@ -86,31 +99,42 @@ class CategoryController extends Controller
             'name' => 'required',
         ]);
 
-        // file upload
-        $unique_image_name = '';
-        $unique_image_name = $this->imageUpload($request, 'image', 'media/products/category/');
+        $level_check = ProductCategory::find($request->parent_id);
 
-        if(empty($request->parent_id)){
-            ProductCategory::create([
-                'name'          => $request->name,
-                'slug'          => $this->getSlug($request->name),
-                'icon'          => $request->icon,
-                'image'         => $unique_image_name
-            ]);
+        // check level
+        if($level_check->level <= 4){
+
+            // file upload
+            $unique_image_name = '';
+            $unique_image_name = $this->imageUpload($request, 'image', 'media/products/category/');
+
+            if(empty($request->parent_id)){
+                ProductCategory::create([
+                    'name'          => $request->name,
+                    'slug'          => $this->getSlug($request->name),
+                    'icon'          => $request->icon,
+                    'image'         => $unique_image_name
+                ]);
+            }else {
+                $parent = ProductCategory::find($request->parent_id);
+
+                ProductCategory::create([
+                    'name'          => $request->name,
+                    'slug'          => $this->getSlug($request->name),
+                    'icon'          => $request->icon,
+                    'image'         => $unique_image_name,
+                    'level'         => ($parent->level+1),
+                    'parent'        => $parent->id,
+                ]);
+            }
+
+            return 'Data added successfully';
+
         }else {
-            $parent = ProductCategory::find($request->parent_id);
 
-            ProductCategory::create([
-                'name'          => $request->name,
-                'slug'          => $this->getSlug($request->name),
-                'icon'          => $request->icon,
-                'image'         => $unique_image_name,
-                'level'         => ($parent->level+1),
-                'parent'        => $parent->id,
-            ]);
+            return  "Level up! level limit 5, don't try to level 5 up.";
+
         }
-
-        return 'Data added successfully';
 
     }
 

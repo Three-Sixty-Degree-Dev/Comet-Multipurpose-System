@@ -47,12 +47,12 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Category Name</label>
-                                        <input type="text" name="name" class="form-control" placeholder="Enter name">
+                                        <input type="text" name="name" class="form-control" placeholder="Enter name" autocomplete="off">
                                     </div>
                                     <div class="form-group">
                                         <label>Parent Category</label>
                                         <select class="form-control select2" name="parent_id" id="parent_category" style="width: 100%;">
-                                          <option value="">-Select-</option>
+
 
 
 
@@ -64,7 +64,7 @@
                                         <span class="input-group-prepend">
                                             <button class="btn btn-secondary" name="icon" id="category_icon" data-icon="" role="iconpicker"></button>
                                         </span>
-                                        <input type="text" id="icon_name" class="form-control">
+                                        <input type="text" id="icon_name" class="form-control" autocomplete="off">
                                     </div><br>
                                     <div class="form-group">
                                         <label for="p_image_l"><i class="fas fa-file-image fa-4x text-success" ></i></label>
@@ -77,6 +77,29 @@
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card">
+                            <div class="card-header"><h3>Category Structure</h3></div>
+                            <div class="card-body" id="category_structure">
+
+                                {{-- <ul>
+                                    <li>Man
+                                        <ul>
+                                            <li>Panjabi
+                                                <ul>
+                                                    <li>Seroayni</li>
+                                                    <li>Kabli</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>Women</li>
+                                    <li>Electronic</li>
+                                </ul> --}}
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -101,35 +124,7 @@
 </div>
 <!-- ./wrapper -->
 
-{{--    Add Category Modal--}}
-    {{-- <div id="add_product_category_modal" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <h2>Add New Category <button class="close" data-dismiss="modal">&times;</button></h2>
-                    <hr>
-                    <form method="POST" id="product_categroy_form" class="pcategroyValidate" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" name="name" class="form-control">
-                        </div>
 
-                        <div class="input-group">
-                            <span class="input-group-prepend">
-                                <button class="btn btn-secondary" name="icon" data-icon="" role="iconpicker"></button>
-                            </span>
-                            <input type="text" class="form-control">
-                        </div><br>
-
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-sm btn-primary">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 
 
 

@@ -880,12 +880,125 @@
             $.ajax({
                 url: '/products/category/list',
                 success: function(data){
+                    $('#category_structure').empty();
+                    $('#parent_category').empty();
                     // console.log(data);
-                    for(item of data){
-                        $('#parent_category').append(`
-                                                        <option value="${item.id}">${item.name}</option>
-                                                    `);
+                    // all category show by select option
+                    let select_option = '<option value="">-Select-</option>';
+                    for(item of data.level1){
+                                   select_option += `
+                                                        <option value="${item.id}">&check;&nbsp;${item.name}`;
+
+                                                        if(data.level2.length > 0){
+                                                            for(cat2 of data.level2){
+                                                                if(cat2.parent == item.id){
+                                                                    select_option += `<option value="${cat2.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x26AC;&nbsp;${cat2.name}`;
+
+                                                                        if(data.level3.length > 0){
+                                                                            for(cat3 of data.level3){
+                                                                                if(cat3.parent == cat2.id){
+                                                                                    select_option += `<option value="${cat3.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25FE;&nbsp;${cat3.name}`;
+
+                                                                                        if(data.level4.length > 0){
+                                                                                            for(cat4 of data.level4){
+                                                                                                if(cat4.parent == cat3.id){
+                                                                                                    select_option += `<option value="${cat4.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25FE;&nbsp;${cat4.name}`;
+
+                                                                                                        if(data.level5.length > 0){
+                                                                                                            for(cat5 of data.level5){
+                                                                                                                if(cat5.parent == cat4.id){
+                                                                                                                    select_option += `<option value="${cat5.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25FE;&nbsp;${cat5.name}</option>`;
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+
+                                                                                                    select_option += `</option>`;
+                                                                                                }
+                                                                                            }
+                                                                                        }
+
+                                                                                    select_option += `</option>`;
+                                                                                }
+                                                                            }
+                                                                        }
+
+                                                                    select_option += `</option>`;
+                                                                }
+                                                            }
+                                                        }
+
+                                    select_option += `</option>
+                                                    `;
                     }
+                    $('#parent_category').append(select_option);
+
+
+                    // all category show by display user
+                    let container = '';
+                    for(item of data.level1){
+                        // console.log(data.level2.length);
+                                        //level 1
+                                        container   +=  `<ul>
+                                                            <li>${item.name}
+                                                            `;
+                                                            // level 2
+                                                            if(data.level2.length > 0){
+                                                                // console.log(data.level2);
+                                                                container += `<ul>`;
+                                                                    for(cat2 of data.level2){
+                                                                        if(cat2.parent == item.id){
+                                                                            container  += `<li>${cat2.name}
+                                                                            `;
+                                                                            // level 3
+                                                                            if(data.level3.length > 0){
+                                                                                // console.log(data.level2);
+                                                                                container += `<ul>`;
+                                                                                    for(cat3 of data.level3){
+                                                                                        if(cat3.parent == cat2.id){
+                                                                                            container  += `<li>${cat3.name}
+                                                                                            `;
+                                                                                                //level 4
+                                                                                                if(data.level4.length > 0){
+                                                                                                    // console.log(data.level2);
+                                                                                                    container += `<ul>`;
+                                                                                                        for(cat4 of data.level4){
+                                                                                                            if(cat4.parent == cat3.id){
+                                                                                                                container  += `<li>${cat4.name}
+                                                                                                                `;
+                                                                                                                    // level 5
+                                                                                                                    if(data.level5.length > 0){
+                                                                                                                        // console.log(data.level2);
+                                                                                                                        container += `<ul>`;
+                                                                                                                            for(cat5 of data.level5){
+                                                                                                                                if(cat5.parent == cat4.id){
+                                                                                                                                    container  += `<li>${cat5.name}</li>`;
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        container += `</ul>`;
+                                                                                                                    }
+
+                                                                                                                container  += `</li>`;
+                                                                                                            }
+                                                                                                        }
+                                                                                                    container += `</ul>`;
+                                                                                                }
+
+                                                                                            container  += `</li>`;
+                                                                                        }
+                                                                                    }
+                                                                                container += `</ul>`;
+                                                                            }
+
+                                                                            container += `</li>`;
+                                                                                }
+                                                                            }
+                                                                        container += `</ul>`;
+                                                                    }
+                                        container   +=        `</li>
+                                                         </ul>
+                                                        `;
+                    }
+                    $('#category_structure').append(container);
                 }
             });
 
@@ -910,11 +1023,15 @@
                 processData: false,
                 contentType: false,
                 success: function(data){
+
                     $.notify(data, {
                         globalPosition: 'top right',
                         className: 'success'
                     });
+
                     $('#product_categroy_form')[0].reset();
+                    $('.category_photo_show').attr('src', '');
+                    allProductCategory();
                     // $('#add_product_category_modal').modal('hide');
                     // // $('#brand_table').DataTable().ajax.reload();
                 }
@@ -1050,3 +1167,19 @@
 
     });
 })(jQuery);
+
+
+{/* <ul>
+    <li>Man
+        <ul>
+            <li>Panjabi
+                <ul>
+                    <li>Seroayni</li>
+                    <li>Kabli</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>Women</li>
+    <li>Electronic</li>
+</ul> */}
