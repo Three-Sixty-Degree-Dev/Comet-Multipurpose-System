@@ -37,6 +37,10 @@
 <script src="{{asset('backend/assets/')}}/sweetalert/sweetalert.js"></script>
 <link href="{{asset('backend/assets/')}}/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
 
+<!-- Icon Picker --> 
+<link rel="stylesheet" href="{{ asset('backend/assets/dist/css/bootstrap-iconpicker.css') }}">
+<link rel="stylesheet" href="{{ asset('backend/assets/dist/css/bootstrap-iconpicker.min.css') }}">
+
 <!-- comet style -->
 <link rel="stylesheet" href="{{ asset('backend/assets/dist/css/comet/style.css') }}">
 

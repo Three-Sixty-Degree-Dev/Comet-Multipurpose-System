@@ -98,14 +98,16 @@
                             <label>Name</label>
                             <input type="text" name="name" class="form-control">
                         </div>
-                        <div class="form-group">
-                            <label>Icon</label>
-                            <input type="text" name="icon" class="form-control category_icon_add">
-                        </div>
+                        <div class="input-group">
+                            <span class="input-group-prepend">
+                                <button class="btn btn-secondary" name="icon" data-icon="" role="iconpicker"></button>
+                            </span>
+                            <input type="text" class="form-control">
+                        </div><br>
                         <div class="form-group">
                             <label for="p_image_l"><i class="fas fa-file-image fa-4x text-success" ></i></label>
                             <input type="file" name="image" class="form-control category_image_add d-none" id="p_image_l">
-                            {{-- <img style="height: 120px;" class="category_photo_show" src="" alt=""> --}}
+                            <img style="height: 120px;" class="category_photo_show" src="" alt="">
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-sm btn-primary">

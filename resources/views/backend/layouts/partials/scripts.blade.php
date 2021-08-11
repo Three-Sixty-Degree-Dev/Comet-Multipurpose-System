@@ -54,6 +54,14 @@
 <!-- jquery-validation -->
 <script src="{{ asset('backend/assets/plugins/') }}/jquery-validation/jquery.validate.min.js"></script>
 <script src="{{ asset('backend/assets/plugins/') }}/jquery-validation/additional-methods.min.js"></script>
+
+<!-- Icon Picker -->
+<script src="{{ asset('backend/assets/dist/') }}/js/bootstrap-iconpicker.bundle.min.js"></script>
+<script src="{{ asset('backend/assets/dist/') }}/js/bootstrap-iconpicker.js"></script>
+<script src="{{ asset('backend/assets/dist/') }}/js/bootstrap-iconpicker.min.js"></script>
+<script src="{{ asset('backend/assets/dist/') }}/js/bootstrap-iconpicker-iconset-all.js"></script>
+<script src="{{ asset('backend/assets/dist/') }}/js/bootstrap-iconpicker-iconset-all.min.js"></script>
+
 <!-- Comet Custom JS -->
 <script src="{{ asset('backend/assets/dist/') }}/js/comet/custom.js"></script>
 
@@ -98,4 +106,7 @@
         });
     });
 </script>
+
+
+
 

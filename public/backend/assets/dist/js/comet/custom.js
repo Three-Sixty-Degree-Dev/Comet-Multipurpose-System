@@ -744,6 +744,15 @@
 
         });
 
+        //================ Image uploaed global function =================//
+        function loadImage(source, destination){
+            
+            $(document).on('change', source, function(e){
+                let image_url = URL.createObjectURL(e.target.files[0]);
+                $(destination).attr('src', image_url);
+            });
+            
+        }
 
         //==================== Category =======================//
         //add category
@@ -768,6 +777,10 @@
             });
             return false;
         });
+
+        //Category add picture show
+        loadImage('#p_image_l', '.category_photo_show');
+
 
     });
 })(jQuery);
