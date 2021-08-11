@@ -24,19 +24,6 @@ class CategoryController extends Controller
                 return $output;
             })->rawColumns(['action'])->make(true);
 
-            // $data['t_false'] = Brand::where('trash', false)->latest()->get();
-            // $data['t_true'] = Brand::where('trash', true)->latest()->get();
-
-            // return datatables()->of($data['t_false'], $data['t_true'])->addColumn('action', function($data){
-            //     $output = '<a title="Edit" edit_id="'.$data['id'].'" href="#" class="btn btn-sm btn-warning edit_brand"><i class="fas fa-edit text-white"></i></a>';
-            //     return $output;
-            // })->rawColumns(['action'])->make(true);
-
-
-            // return EloquentDataTable::eloquent(Brand::where('trash', false)->latest()->get())->addColumn('action', function($data){
-            //     $output = '<a title="Edit" edit_id="'.$data['id'].'" href="#" class="btn btn-sm btn-warning edit_brand"><i class="fas fa-edit text-white"></i></a>';
-            //     return $output;
-            // })->rawColumns(['action'])->make(true);
 
         }
 
@@ -49,19 +36,19 @@ class CategoryController extends Controller
     /**
      * Display a brand trash list
      */
-    public function brandTrashList(){
+    public function categoryTrashList(){
 
         // check ajax request by yjra datatable
         if( request() -> ajax() ){
 
-            return datatables()->of(Brand::where('trash', true)->latest()->get())->addColumn('action', function($data){
-                $output = '<form style="display: inline;" action="#" method="POST" id="brand_delete_form"><input type="hidden" name="id" id="delete_brand" value="'.$data['id'].'"><button type="submit" class="btn btn-sm ml-1 btn-danger" ><i class="fa fa-trash"></i></button></form>';
+            return datatables()->of(ProductCategory::where('trash', true)->latest()->get())->addColumn('action', function($data){
+                $output = '<form style="display: inline;" action="#" method="POST" id="category_delete_form"><input type="hidden" name="id" id="delete_product_category" value="'.$data['id'].'"><button type="submit" class="btn btn-sm ml-1 btn-danger" ><i class="fa fa-trash"></i></button></form>';
                 return $output;
             })->rawColumns(['action'])->make(true);
 
         }
 
-        return view('backend.product.brand.trash');
+        return view('backend.product.category.trash');
 
     }
 
@@ -192,9 +179,9 @@ class CategoryController extends Controller
     /**
      * Brand Delete
      */
-    public function brandDelete(Request $request){
+    public function categoryDelete(Request $request){
         $delete_id = $request->id;
-        $data = Brand::find($delete_id);
+        $data = ProductCategory::find($delete_id);
 
         try {
 
@@ -202,16 +189,16 @@ class CategoryController extends Controller
                 $result = $data->delete();
                 if($result){
 
-                    if(file_exists('media/products/brands/'.$data->logo)){
-                        unlink('media/products/brands/'.$data->logo);
+                    if(file_exists('media/products/category/'.$data->image)){
+                        unlink('media/products/category/'.$data->image);
                     }
-
+                    return 'Category deleted ): ';
                 }
-
+               
             }
 
         } catch (\Throwable $th) {
-            return 'Brand deleted failed badly!';
+            return 'Category deleted failed badly!';
         }
     }
 
@@ -220,17 +207,18 @@ class CategoryController extends Controller
     *
     *   Status update method
     */
-    public function brandStatusUpdated($id, $val){
-        $data = Brand::find($id);
+    public function categoryStatusUpdated($id, $val){
+
+        $data = ProductCategory::find($id);
 
         if($val == 1){
             $data->status = false;
             $data->update();
-            return 'Brand Inactive Succcessfully ): ';
+            return 'Category Inactive Succcessfully ): ';
         }else {
             $data->status = true;
             $data->update();
-            return  'Brand Active Succcessfully ): ';
+            return  'Category Active Succcessfully ): ';
         }
 
     }
@@ -240,17 +228,17 @@ class CategoryController extends Controller
     *
     *   Trash update method
     */
-    public function brandTrashUpdated($id, $val){
-        $data = Brand::find($id);
+    public function categoryTrashUpdated($id, $val){
+        $data = ProductCategory::find($id);
 
         if($val == 1){
             $data->trash = false;
             $data->update();
-            return 'Brand Remove Trash Succcessfully ): ';
+            return 'Category Remove Trash Succcessfully ): ';
         }else {
             $data->trash = true;
             $data->update();
-            return  'Brand Trash Succcessfully ): ';
+            return  'Category Trash Succcessfully ): ';
         }
 
     }

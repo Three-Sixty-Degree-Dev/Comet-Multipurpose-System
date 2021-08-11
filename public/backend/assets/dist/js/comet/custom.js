@@ -754,7 +754,126 @@
             
         }
 
+
+
         //==================== Category =======================//
+
+        //categroy all data fetch by yajra datatable
+        $('#product_category_table').DataTable({
+            processing: true,
+            serverSide: true,
+            drawCallback: function(settings) {
+                var api = this.api();
+                $('.p_category_publish').html('('+api.rows().data().length+')');
+                // $('.brand_trash').html('('+api.rows().data().length+')');
+            },
+            ajax: {
+                url: '/products/categories'
+            },
+            columns: [
+                {
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'image',
+                    name: 'image',
+                    render: function(data, type, full, meta){
+                        return `<img style="height:62px; width: 62px;" src="/media/products/category/${data}" />`;
+                    }
+                },
+                {
+                    data: 'icon',
+                    name: 'icon',
+                    render: (data, type, full, meta) => {
+                        return `<i class="${data}"></i>`;
+                    }
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    render: (data, type, full, meta) => {
+                        return `<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" pcategory_id="${full.id}" class="custom-control-input pcategory_ststus" ${full.status == true ? 'checked="checked"' : ''} id="customSwitch_${full.id}" value="${data}">
+                                    <label class="custom-control-label" style="cursor:pointer;" for="customSwitch_${full.id}"></label>
+                                </div>`;
+                    }
+                },
+                {
+                    data: 'trash',
+                    name: 'trash',
+                    render: (data, type, full, meta) => {
+                        return `<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" pcategoryt_id="${full.id}" class="custom-control-input pcategory_trash" ${full.trash == false ? 'checked="checked"' : ''} id="customTrashSwitch_${full.id}" value="${data}">
+                                    <label class="custom-control-label" style="cursor:pointer;" for="customTrashSwitch_${full.id}"></label>
+                                </div>`;
+                    }
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                },
+                
+            ]
+        });
+
+        //categroy all trash data fetch by yajra datatable
+        $('#p_category_trash_table').DataTable({
+            processing: true,
+            serverSide: true,
+            drawCallback: function(settings) {
+                var api = this.api();
+                $('.p_category_trash').html('('+api.rows().data().length+')');
+                // $('.brand_trash').html('('+api.rows().data().length+')');
+            },
+            ajax: {
+                url: '/products/categories-trash'
+            },
+            columns: [
+                {
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'image',
+                    name: 'image',
+                    render: function(data, type, full, meta){
+                        return `<img style="height:62px; width: 62px;" src="/media/products/category/${data}" />`;
+                    }
+                },
+                {
+                    data: 'icon',
+                    name: 'icon',
+                    render: (data, type, full, meta) => {
+                        return `<i class="${data}"></i>`;
+                    }
+                },
+                {
+                    data: 'trash',
+                    name: 'trash',
+                    render: (data, type, full, meta) => {
+                        return `<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" pcategoryt_id="${full.id}" class="custom-control-input pcategory_trash_page" ${full.trash == true ? 'checked="checked"' : ''} id="customTrashSwitch_${full.id}" value="${data}">
+                                    <label class="custom-control-label" style="cursor:pointer;" for="customTrashSwitch_${full.id}"></label>
+                                </div>`;
+                    }
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                },
+                
+            ]
+        });
+
         //add category
         $(document).on('submit', '#product_categroy_form', function (e){
             e.preventDefault();
@@ -780,6 +899,129 @@
 
         //Category add picture show
         loadImage('#p_image_l', '.category_photo_show');
+
+        //Status update
+        $(document).on('change', '.pcategory_ststus', function(e){
+            let id        = $(this).attr('pcategory_id');
+            let value     = $(this).val();
+
+            $.ajax({
+                // url: 'categories/status-update/'+id+'/'+cat_val,
+                url: '/products/categories/status-update/'+id+'/'+value,
+                success: function(data){
+                    $.notify(data, {
+                        globalPosition: 'top right',
+                        className: 'success'
+                    });
+
+                    $('#product_category_table').DataTable().ajax.reload();
+                }
+            });
+
+        });
+
+
+        //Trash update by category Publish page
+        $(document).on('change', '.pcategory_trash', function(e){
+            let id        = $(this).attr('pcategoryt_id');
+            let value     = $(this).val();
+
+            $.ajax({
+                // url: 'categories/status-update/'+id+'/'+cat_val,
+                url: '/products/categories/trash-update/'+id+'/'+value,
+                success: function(data){
+                    $.notify(data, {
+                        globalPosition: 'top right',
+                        className: 'success'
+                    });
+
+                    $('#product_category_table').DataTable().ajax.reload();
+                }
+            });
+
+        });
+
+
+        //Trash update by category Trash page
+        $(document).on('change', '.pcategory_trash_page', function(e){
+            let id        = $(this).attr('pcategoryt_id');
+            let value     = $(this).val();
+
+            $.ajax({
+                // url: 'categories/status-update/'+id+'/'+cat_val,
+                url: '/products/categories/trash-update/'+id+'/'+value,
+                success: function(data){
+                    $.notify(data, {
+                        globalPosition: 'top right',
+                        className: 'success'
+                    });
+
+                    $('#p_category_trash_table').DataTable().ajax.reload();
+                }
+            });
+
+        });
+
+
+        // Category Delete
+        $(document).on('submit', '#category_delete_form', function(e){
+            e.preventDefault();
+            let id = $('#delete_product_category').val();
+
+
+            swal(
+                {
+                    title: "Are you sure?",
+                    type: "success",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+                            },
+                            url: '/products/category/delete',
+                            method: 'POST',
+                            data: {id: id},
+                            success: function(data){
+                                swal(
+                                    {
+                                        title: "Deleted!",
+                                        type: "success"
+                                    },
+                                    function(isConfirm) {
+                                        if (isConfirm) {
+                                            $.notify(data, {
+                                                globalPosition: "top right",
+                                                className: 'success'
+                                            });
+
+                                            $('#p_category_trash_table').DataTable().ajax.reload();
+                                        }
+                                    }
+                                );
+                            }
+                        });
+
+                    } else {
+                        swal("Cancelled", "", "error");
+                    }
+                }
+            );
+
+
+
+
+
+        });
+
 
 
     });

@@ -40,8 +40,8 @@
                         <h2 class="card-title">All Categories</h2>
                         <a class="btn btn-sm btn-primary float-right" data-toggle="modal" href="#add_product_category_modal" ><i class="fas fa-plus"> Add New Category</i></a>
                         <div style="display: flex; margin-left: 0px; width: 100%;">
-                            <a class="badge badge-primary" href="{{ route('brand.index') }}">Published <span class="brand_publish"></span></a>
-                            <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('products.brand.trash') }}">Trash <span class="brand_trash"></span></a>
+                            <a class="badge badge-primary" href="{{ route('categories.index') }}">Published <span class="p_category_publish"></span></a>
+                            <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('products.category.trash') }}">Trash <span class="p_category_trash"></span></a>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -51,7 +51,6 @@
                                 <tr>
                                     <th>#SL</th>
                                     <th>Name</th>
-                                    <th>Slug</th>
                                     <th>Image</th>
                                     <th>Icon</th>
                                     <th>Status</th>

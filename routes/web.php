@@ -104,6 +104,10 @@ Route::middleware(['auth'])->group(function (){
 
         //Category
         Route::resource('categories', CategoryController::class);
+        Route::get('categories/status-update/{id}/{val}', [CategoryController::class, 'categoryStatusUpdated']);
+        Route::get('categories/trash-update/{id}/{val}', [CategoryController::class, 'categoryTrashUpdated']);
+        Route::get('categories-trash', [CategoryController::class, 'categoryTrashList'])->name('products.category.trash');
+        Route::post('category/delete', [CategoryController::class, 'categoryDelete']);
 
     });
 });

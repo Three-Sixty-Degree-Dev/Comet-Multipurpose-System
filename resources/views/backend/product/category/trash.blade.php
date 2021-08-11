@@ -19,12 +19,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Manage Bands</h1>
+                        <h1 class="m-0">Manage Category</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Bands</li>
+                            <li class="breadcrumb-item active">Categories</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -37,21 +37,21 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">All Trash Bands</h2>
+                        <h2 class="card-title">All Trash Categories</h2>
                         <div style="display: flex; margin-left: 0px; width: 100%;">
-                            <a class="badge badge-primary" href="{{ route('brand.index') }}">Published <span class="brand_publish"></span></a>
-                            <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('products.brand.trash') }}">Trash <span class="brand_trash"></a>
+                            <a class="badge badge-primary" href="{{ route('categories.index') }}">Published <span class="brand_publish"></span></a>
+                            <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('products.category.trash') }}">Trash <span class="p_category_trash"></a>
                         </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="brand_trash_table" class="table table-striped table-hover">
+                        <table id="p_category_trash_table" class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>#SL</th>
-                                    <th>Band Name</th>
-                                    <th>Band Slug</th>
-                                    <th>Logo</th>
+                                    <th>Name</th>
+                                    <th>Image</th>
+                                    <th>Icon</th>
                                     <th>Trash</th>
                                     <th>Action</th>
                                 </tr>
