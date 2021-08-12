@@ -32,6 +32,19 @@
     padding: 5px;
 }
 
+.edit_del {
+    display: none;
+}
+
+
+.currentLI:hover > .edit_del {
+    display: inline-block;
+}
+
+/* li.currentLI > .edit_del {
+    display: inline-block;
+} */
+
 
 
 

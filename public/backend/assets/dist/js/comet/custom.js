@@ -940,6 +940,10 @@
                                         //level 1
                                         container   +=  `<ul>
                                                             <li>${item.name}
+                                                                <div  class="edit_del">
+                                                                    <a href="#" class="btn btn-sm btn-outline-info mr-1"><i class="fas fa-edit"></i></a>
+                                                                    <a href="#" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a>
+                                                                </div>
                                                             `;
                                                             // level 2
                                                             if(data.level2.length > 0){
@@ -948,6 +952,10 @@
                                                                     for(cat2 of data.level2){
                                                                         if(cat2.parent == item.id){
                                                                             container  += `<li>${cat2.name}
+                                                                                <div class="edit_del">
+                                                                                    <a href="#" class="btn btn-sm btn-outline-info mr-1"><i class="fas fa-edit"></i></a>
+                                                                                    <a href="#" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a>
+                                                                                </div>
                                                                             `;
                                                                             // level 3
                                                                             if(data.level3.length > 0){
@@ -956,6 +964,10 @@
                                                                                     for(cat3 of data.level3){
                                                                                         if(cat3.parent == cat2.id){
                                                                                             container  += `<li>${cat3.name}
+                                                                                                <div class="edit_del">
+                                                                                                    <a href="#" class="btn btn-sm btn-outline-info mr-1"><i class="fas fa-edit"></i></a>
+                                                                                                    <a href="#" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a>
+                                                                                                </div>
                                                                                             `;
                                                                                                 //level 4
                                                                                                 if(data.level4.length > 0){
@@ -964,6 +976,10 @@
                                                                                                         for(cat4 of data.level4){
                                                                                                             if(cat4.parent == cat3.id){
                                                                                                                 container  += `<li>${cat4.name}
+                                                                                                                    <div class="edit_del">
+                                                                                                                        <a href="#" class="btn btn-sm btn-outline-info mr-1"><i class="fas fa-edit"></i></a>
+                                                                                                                        <a href="#" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a>
+                                                                                                                    </div>
                                                                                                                 `;
                                                                                                                     // level 5
                                                                                                                     if(data.level5.length > 0){
@@ -971,7 +987,12 @@
                                                                                                                         container += `<ul>`;
                                                                                                                             for(cat5 of data.level5){
                                                                                                                                 if(cat5.parent == cat4.id){
-                                                                                                                                    container  += `<li>${cat5.name}</li>`;
+                                                                                                                                    container  += `<li>${cat5.name}
+                                                                                                                                        <div class="edit_del">
+                                                                                                                                            <a href="#" class="btn btn-sm btn-outline-info mr-1"><i class="fas fa-edit"></i></a>
+                                                                                                                                            <a href="#" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a>
+                                                                                                                                        </div>
+                                                                                                                                    </li>`;
                                                                                                                                 }
                                                                                                                             }
                                                                                                                         container += `</ul>`;
@@ -1005,6 +1026,18 @@
         }
         allProductCategory();
 
+        // hover current ul li for category edit or delete
+        $(document).on('mouseover', 'li', function(e){
+            e.stopPropagation();
+            $(this).addClass('currentLI');
+        });
+        // hover out ul li for category edit or delete
+        $(document).on('mouseout', 'li', function(){
+            $(this).removeClass('currentLI');
+        });
+
+
+        //icon name get and set input field
         $(document).on('change', '#category_icon', function(e){
             let icon = $(this).children();
 
