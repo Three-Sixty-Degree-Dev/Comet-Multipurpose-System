@@ -930,7 +930,7 @@
                                     select_option += `</option>
                                                     `;
                     }
-                    $('#parent_category').append(select_option);
+                    $('#parent_category').append(select_option);// end all category show by select option
 
 
                     // all category show by display user
@@ -941,8 +941,8 @@
                                         container   +=  `<ul>
                                                             <li>${item.name}
                                                                 <div  class="edit_del">
-                                                                    <a href="#" class="btn btn-sm btn-outline-info mr-1"><i class="fas fa-edit"></i></a>
-                                                                    <a href="#" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a>
+                                                                    <a href="#" edit_cat="${item.id}" class="btn btn-sm btn-outline-info mr-1 p_edit_cat"><i class="fas fa-edit"></i></a>
+                                                                    <a href="#" delete_cat="${item.id}" class="btn btn-sm btn-outline-danger p_delete_cat"><i class="fas fa-trash"></i></a>
                                                                 </div>
                                                             `;
                                                             // level 2
@@ -953,44 +953,44 @@
                                                                         if(cat2.parent == item.id){
                                                                             container  += `<li>${cat2.name}
                                                                                 <div class="edit_del">
-                                                                                    <a href="#" class="btn btn-sm btn-outline-info mr-1"><i class="fas fa-edit"></i></a>
-                                                                                    <a href="#" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a>
+                                                                                    <a href="#" edit_cat="${cat2.id}" class="btn btn-sm btn-outline-info mr-1 p_edit_cat"><i class="fas fa-edit"></i></a>
+                                                                                    <a href="#" delete_cat="${cat2.id}" class="btn btn-sm btn-outline-danger p_delete_cat"><i class="fas fa-trash"></i></a>
                                                                                 </div>
                                                                             `;
                                                                             // level 3
                                                                             if(data.level3.length > 0){
-                                                                                // console.log(data.level2);
+                                                                                // console.log(data.level3);
                                                                                 container += `<ul>`;
                                                                                     for(cat3 of data.level3){
                                                                                         if(cat3.parent == cat2.id){
                                                                                             container  += `<li>${cat3.name}
                                                                                                 <div class="edit_del">
-                                                                                                    <a href="#" class="btn btn-sm btn-outline-info mr-1"><i class="fas fa-edit"></i></a>
-                                                                                                    <a href="#" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a>
+                                                                                                    <a href="#" edit_cat="${cat3.id}" class="btn btn-sm btn-outline-info mr-1 p_edit_cat"><i class="fas fa-edit"></i></a>
+                                                                                                    <a href="#" delete_cat="${cat3.id}" class="btn btn-sm btn-outline-danger p_delete_cat"><i class="fas fa-trash"></i></a>
                                                                                                 </div>
                                                                                             `;
                                                                                                 //level 4
                                                                                                 if(data.level4.length > 0){
-                                                                                                    // console.log(data.level2);
+                                                                                                    // console.log(data.level4);
                                                                                                     container += `<ul>`;
                                                                                                         for(cat4 of data.level4){
                                                                                                             if(cat4.parent == cat3.id){
                                                                                                                 container  += `<li>${cat4.name}
                                                                                                                     <div class="edit_del">
-                                                                                                                        <a href="#" class="btn btn-sm btn-outline-info mr-1"><i class="fas fa-edit"></i></a>
-                                                                                                                        <a href="#" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a>
+                                                                                                                        <a href="#" edit_cat="${cat4.id}" class="btn btn-sm btn-outline-info mr-1 p_edit_cat"><i class="fas fa-edit"></i></a>
+                                                                                                                        <a href="#" delete_cat="${cat4.id}" class="btn btn-sm btn-outline-danger p_delete_cat"><i class="fas fa-trash"></i></a>
                                                                                                                     </div>
                                                                                                                 `;
                                                                                                                     // level 5
                                                                                                                     if(data.level5.length > 0){
-                                                                                                                        // console.log(data.level2);
+                                                                                                                        // console.log(data.level5);
                                                                                                                         container += `<ul>`;
                                                                                                                             for(cat5 of data.level5){
                                                                                                                                 if(cat5.parent == cat4.id){
                                                                                                                                     container  += `<li>${cat5.name}
                                                                                                                                         <div class="edit_del">
-                                                                                                                                            <a href="#" class="btn btn-sm btn-outline-info mr-1"><i class="fas fa-edit"></i></a>
-                                                                                                                                            <a href="#" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a>
+                                                                                                                                            <a href="#" edit_cat="${cat5.id}" class="btn btn-sm btn-outline-info mr-1 p_edit_cat"><i class="fas fa-edit"></i></a>
+                                                                                                                                            <a href="#" delete_cat="${cat5.id}" class="btn btn-sm btn-outline-danger p_delete_cat"><i class="fas fa-trash"></i></a>
                                                                                                                                         </div>
                                                                                                                                     </li>`;
                                                                                                                                 }
@@ -1019,7 +1019,7 @@
                                                          </ul>
                                                         `;
                     }
-                    $('#category_structure').append(container);
+                    $('#category_structure').append(container);// End all category show by display user
                 }
             });
 
@@ -1044,6 +1044,8 @@
             $('#icon_name').val(icon[0].className);
 
         });
+
+
 
         //add category
         $(document).on('submit', '#product_categroy_form', function (e){
@@ -1071,8 +1073,69 @@
             });
         });
 
-        //Category add picture show
+
+        
+        //Category add picture show function
         loadImage('#p_image_l', '.category_photo_show');
+
+
+        // category delete by structure
+        $(document).on('click', '.p_delete_cat', function(e){
+            e.preventDefault();
+            let delete_id = $(this).attr('delete_cat');
+            
+
+            swal(
+                {
+                    title: "Are you sure?",
+                    type: "success",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+                            },
+                            url: '/products/category/delete/'+delete_id,
+                            success: function(data){
+                                // alert(data);
+                                // console.log(data);
+                                swal(
+                                    {
+                                        title: "Deleted!",
+                                        type: "success"
+                                    },
+                                    function(isConfirm) {
+                                        if (isConfirm) {
+                                            $.notify(data, {
+                                                globalPosition: "top right",
+                                                className: 'success'
+                                            });
+
+                                            allProductCategory();
+                                            // $('#brand_table').DataTable().ajax.reload();
+                                            // $('#brand_trash_table').DataTable().ajax.reload();
+                                        }
+                                    }
+                                );
+                            }
+                        });
+
+                    } else {
+                        swal("Cancelled", "", "error");
+                    }
+                }
+            );
+
+        });
+
 
         //Status update
         $(document).on('change', '.pcategory_ststus', function(e){

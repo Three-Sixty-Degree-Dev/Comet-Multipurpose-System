@@ -99,10 +99,14 @@ class CategoryController extends Controller
             'name' => 'required',
         ]);
 
-        $level_check = ProductCategory::find($request->parent_id);
+        $level_check = 0;
+        if($request->parent_id){
+            $level = ProductCategory::find($request->parent_id);
+            $level_check = $level->level;
+        }
 
         // check level
-        if($level_check->level <= 4){
+        if($level_check <= 4){
 
             // file upload
             $unique_image_name = '';
@@ -225,7 +229,7 @@ class CategoryController extends Controller
 
 
     /**
-     * Brand Delete
+     * Category Delete by yajra table
      */
     public function categoryDelete(Request $request){
         $delete_id = $request->id;
@@ -247,6 +251,98 @@ class CategoryController extends Controller
 
         } catch (\Throwable $th) {
             return 'Category deleted failed badly!';
+        }
+    }
+
+    /**
+     * Category delete by wordpress structure
+     */
+    public function productCategoryDeleteByAjax($id){
+
+        $data = ProductCategory::find($id);
+
+        try {
+
+            if($data){
+
+                if($data->parent == null || $data->parent == 0){
+                    
+
+                    $child_cat = $data->parentCat;
+                
+                    foreach($child_cat as $ch){
+                        $parent_child         = ProductCategory::find($ch->id);
+                        $parent_child->level  = 1;
+                        $parent_child->parent = null;
+                        $parent_child->update();
+
+                        $child = $parent_child->parentCat;
+                        foreach($child as $cl){
+                            $this->findChild($cl->id);
+                        }
+                    }
+
+
+
+                    $result = $data->delete();
+                    if($result){
+
+                        if(file_exists('media/products/category/'.$data->image)){
+                            unlink('media/products/category/'.$data->image);
+                        }
+                        return 'Category deleted ): ';
+                    }
+
+
+                }else if($data->parent != null || $data->parent != 0) {
+                    
+
+                    $child_cat = $data->parentCat;
+                
+                    foreach($child_cat as $ch){
+                        $parent_child         = ProductCategory::find($ch->id);
+                        $parent_child->level  = ($parent_child->level - 1);
+                        $parent_child->parent = $data->parent;
+                        $parent_child->update();
+
+                        $child = $parent_child->parentCat;
+                        foreach($child as $cl){
+                            $this->findChild($cl->id);
+                        }
+                    }
+
+
+
+                    $result = $data->delete();
+                    if($result){
+
+                        if(file_exists('media/products/category/'.$data->image)){
+                            unlink('media/products/category/'.$data->image);
+                        }
+                        return 'Category deleted ): ';
+                    }
+
+                }
+
+                
+
+            }
+
+        } catch (\Throwable $th) {
+            return 'Category deleted failed badly!';
+        }
+
+    }
+
+    /**
+     * Find the category delete child
+     */
+    public function findChild($id){
+        $child = ProductCategory::where('id', $id)->get();
+
+        foreach($child as $ch){
+            $ch->level = $ch->level - 1;
+            $ch->update();
         }
     }
 

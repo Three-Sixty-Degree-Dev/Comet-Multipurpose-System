@@ -110,6 +110,7 @@ Route::middleware(['auth'])->group(function (){
         Route::post('category/delete', [CategoryController::class, 'categoryDelete']);
 
         Route::get('category/list', [CategoryController::class, 'allProductCategoryByAjax']);
+        Route::get('category/delete/{id}', [CategoryController::class, 'productCategoryDeleteByAjax']);
 
     });
 });
