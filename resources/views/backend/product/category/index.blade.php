@@ -124,8 +124,58 @@
 </div>
 <!-- ./wrapper -->
 
+<!-- Category Edit Model -->
+<div class="modal fade" id="product_category_edit_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><p style="margin-left: auto;"><button class="close" data-dismiss="modal">&times;</button></p></div>
+            <div class="modal-body">
+                <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">Edit Categorey</h3>
+                    </div>
+                    <form method="POST" id="edit_product_categroy_form" class="pcategroyValidate" enctype="multipart/form-data">
+                        @csrf
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>Category Name</label>
+                                <input type="text" name="name" class="form-control" id="edit_category_name" placeholder="Enter name" autocomplete="off">
+                                <input type="hidden" name="id" id="edit_category_id">
+                            </div>
+                            <div class="form-group">
+                                <label>Parent Category</label>
+                                <select class="form-control select2" name="parent_id" id="edit_parent_category_name" style="width: 100%;">
 
 
+
+
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="" class="w-100">Icon</label><br>
+                                <span class="input-group-prepend">
+                                    <button class="btn btn-secondary" name="icon" id="category_icon" data-icon="" role="iconpicker"></button>
+                                </span>
+                                <input type="text" id="edit_category_icon_name" class="form-control" autocomplete="off">
+                            </div><br>
+                            <div class="form-group">
+                                <label for="edit_p_image_l"><i class="fas fa-file-image fa-4x text-success" ></i></label>
+                                <input type="file" name="image" class="form-control category_image_add d-none" id="edit_p_image_l">
+                                <img style="height: 120px; margin-left: 50px;" class="edit_category_photo_show" src="" alt="">
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Category Edit Model -->
 
 
 

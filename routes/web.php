@@ -109,8 +109,11 @@ Route::middleware(['auth'])->group(function (){
         Route::get('categories-trash', [CategoryController::class, 'categoryTrashList'])->name('products.category.trash');
         Route::post('category/delete', [CategoryController::class, 'categoryDelete']);
 
+        //wp structure category
         Route::get('category/list', [CategoryController::class, 'allProductCategoryByAjax']);
         Route::get('category/delete/{id}', [CategoryController::class, 'productCategoryDeleteByAjax']);
+        Route::get('category/edit/{id}', [CategoryController::class, 'productCategoryEditByAjax']);
+        Route::post('category/update', [CategoryController::class, 'productCategoryUpdateByAjax']);
 
     });
 });

@@ -266,10 +266,10 @@ class CategoryController extends Controller
             if($data){
 
                 if($data->parent == null || $data->parent == 0){
-                    
+
 
                     $child_cat = $data->parentCat;
-                
+
                     foreach($child_cat as $ch){
                         $parent_child         = ProductCategory::find($ch->id);
                         $parent_child->level  = 1;
@@ -295,10 +295,10 @@ class CategoryController extends Controller
 
 
                 }else if($data->parent != null || $data->parent != 0) {
-                    
+
 
                     $child_cat = $data->parentCat;
-                
+
                     foreach($child_cat as $ch){
                         $parent_child         = ProductCategory::find($ch->id);
                         $parent_child->level  = ($parent_child->level - 1);
@@ -324,7 +324,7 @@ class CategoryController extends Controller
 
                 }
 
-                
+
 
             }
 
@@ -345,6 +345,36 @@ class CategoryController extends Controller
             $ch->update();
         }
     }
+
+    /**
+     * Category edit by wp structure
+     */
+    public function productCategoryEditByAjax($id){
+
+        $catego = ProductCategory::where('status', true)->where('id', $id)->first();
+        $level1 = ProductCategory::where('status', true)->where('level', 1)->where('parent', null)->orderBy('name', 'ASC')->get();
+        $level2 = ProductCategory::where('status', true)->where('level', 2)->orderBy('name', 'ASC')->get();
+        $level3 = ProductCategory::where('status', true)->where('level', 3)->orderBy('name', 'ASC')->get();
+        $level4 = ProductCategory::where('status', true)->where('level', 4)->orderBy('name', 'ASC')->get();
+        $level5 = ProductCategory::where('status', true)->where('level', 5)->orderBy('name', 'ASC')->get();
+
+        return [
+            'catego' => $catego,
+            'level1' => $level1,
+            'level2' => $level2,
+            'level3' => $level3,
+            'level4' => $level4,
+            'level5' => $level5,
+        ];
+    }
+
+    /**
+     * Category update by wp structure
+     */
+    public function productCategoryUpdateByAjax(Request $request){
+        return $request;
+    }
+
 
 
     /**

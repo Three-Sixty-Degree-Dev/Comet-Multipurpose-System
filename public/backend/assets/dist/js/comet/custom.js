@@ -1074,16 +1074,16 @@
         });
 
 
-        
+
         //Category add picture show function
         loadImage('#p_image_l', '.category_photo_show');
 
 
-        // category delete by structure
+        // category delete by wp structure
         $(document).on('click', '.p_delete_cat', function(e){
             e.preventDefault();
             let delete_id = $(this).attr('delete_cat');
-            
+
 
             swal(
                 {
@@ -1134,6 +1134,112 @@
                 }
             );
 
+        });
+
+
+        // category edit by wp struectrue
+        $(document).on('click', '.p_edit_cat', function(e){
+            e.preventDefault();
+            let edit_id = $(this).attr('edit_cat');
+
+            $.ajax({
+                url: '/products/category/edit/'+edit_id,
+                success: function(data){
+                    // alert(data);
+                    // console.log(data);
+                    // console.log(data.catego.parent);
+
+                    $('#edit_parent_category_name').empty();
+                    // console.log(data);
+                    // all category show by select option
+                    let select_option = '<option value="">-Select-</option>';
+                    for(item of data.level1){
+                                   select_option += `
+                                                        <option `; if(item.id == data.catego.parent){ select_option += `selected` } select_option += ` value="${item.id}">&check;&nbsp;${item.name}`;
+
+                                                        if(data.level2.length > 0){
+                                                            for(cat2 of data.level2){
+                                                                if(cat2.parent == item.id){
+                                                                    select_option += `<option `; if(cat2.id == data.catego.parent){ select_option += `selected` } select_option += ` value="${cat2.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x26AC;&nbsp;${cat2.name}`;
+
+                                                                        if(data.level3.length > 0){
+                                                                            for(cat3 of data.level3){
+                                                                                if(cat3.parent == cat2.id){
+                                                                                    select_option += `<option `; if(cat3.id == data.catego.parent){ select_option += `selected` } select_option += ` value="${cat3.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25FE;&nbsp;${cat3.name}`;
+
+                                                                                        if(data.level4.length > 0){
+                                                                                            for(cat4 of data.level4){
+                                                                                                if(cat4.parent == cat3.id){
+                                                                                                    select_option += `<option `; if(cat4.id == data.catego.parent){ select_option += `selected` } select_option += ` value="${cat4.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25FE;&nbsp;${cat4.name}`;
+
+                                                                                                        if(data.level5.length > 0){
+                                                                                                            for(cat5 of data.level5){
+                                                                                                                if(cat5.parent == cat4.id){
+                                                                                                                    select_option += `<option `; if(cat5.id == data.catego.parent){ select_option += `selected` } select_option += ` value="${cat5.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#x25FE;&nbsp;${cat5.name}</option>`;
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+
+                                                                                                    select_option += `</option>`;
+                                                                                                }
+                                                                                            }
+                                                                                        }
+
+                                                                                    select_option += `</option>`;
+                                                                                }
+                                                                            }
+                                                                        }
+
+                                                                    select_option += `</option>`;
+                                                                }
+                                                            }
+                                                        }
+
+                                    select_option += `</option>
+                                                    `;
+                    }
+                    $('#edit_parent_category_name').append(select_option);// end all category show by select option
+
+                    $("#edit_category_name").val(data.catego.name);
+                    $("#edit_category_id").val(data.catego.id);
+                    $('#edit_category_icon_name').val(data.catego.icon);
+                    $('.edit_category_photo_show').attr('src', '/media/products/category/'+data.catego.image);
+
+
+                    $("#product_category_edit_modal").modal('show');
+                }
+            });
+
+        });
+
+        //Category edit picture show function
+        loadImage('#edit_p_image_l', '.edit_category_photo_show');
+
+
+        //update category by wp struectur
+        $(document).on('submit', '#edit_product_categroy_form', function (e){
+            e.preventDefault();
+            alert();
+            // $.ajax({
+            //     url: '/products/categories',
+            //     method: 'POST',
+            //     data: new FormData(this),
+            //     processData: false,
+            //     contentType: false,
+            //     success: function(data){
+
+            //         $.notify(data, {
+            //             globalPosition: 'top right',
+            //             className: 'success'
+            //         });
+
+            //         $('#product_categroy_form')[0].reset();
+            //         $('.category_photo_show').attr('src', '');
+            //         allProductCategory();
+            //         // $('#add_product_category_modal').modal('hide');
+            //         // // $('#brand_table').DataTable().ajax.reload();
+            //     }
+            // });
         });
 
 
