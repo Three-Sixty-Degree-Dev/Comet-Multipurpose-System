@@ -50,12 +50,35 @@ class Controller extends BaseController
 
     // Image upload
     public function imageUpload($request, $file, $path){
+
         if($request->hasFile($file)){
             $img = $request->file($file);
             $unique_name = md5(time().rand()).'.'.$img->getClientOriginalExtension();
             $img->move(public_path($path), $unique_name);
+            return $unique_name;
+        }else {
+            return $unique_name = '';
         }
 
-        return $unique_name;
     }
+
+    // Image upload
+    public function updateImageUpload($request, $file, $path, $old_image){
+
+        if($request->hasFile($file)){
+            $img = $request->file($file);
+            $unique_name = md5(time().rand()).'.'.$img->getClientOriginalExtension();
+            $img->move(public_path($path), $unique_name);
+            if(file_exists($path.$old_image) && !empty($old_image)){
+                unlink($path.$old_image);
+            }
+            return $unique_name;
+        }else {
+            return $unique_name = $old_image;
+        }
+
+    }
+
+
+
 }

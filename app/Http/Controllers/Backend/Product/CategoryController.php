@@ -109,7 +109,6 @@ class CategoryController extends Controller
         if($level_check <= 4){
 
             // file upload
-            $unique_image_name = '';
             $unique_image_name = $this->imageUpload($request, 'image', 'media/products/category/');
 
             if(empty($request->parent_id)){
@@ -372,7 +371,152 @@ class CategoryController extends Controller
      * Category update by wp structure
      */
     public function productCategoryUpdateByAjax(Request $request){
-        return $request;
+
+        $data = ProductCategory::where('id', $request->id)->first();
+
+        if($data){
+            $this->validate($request, [
+                'name' => 'required',
+            ]);
+
+            // file upload
+            $unique_image_name = $this->updateImageUpload($request, 'image', 'media/products/category/', $data->image);
+
+            $icon_name = '';
+            if(empty($request->icon) && $request->icon == null){
+               $icon_name = $data->icon;
+            }else {
+                $icon_name = $request->icon;
+            }
+
+
+            // not change parent id, then direct update
+            if($request->parent_id == $data->parent){
+
+                $data->name          = $request->name;
+                $data->slug          = $this->getSlug($request->name);
+                $data->icon          = $icon_name;
+                $data->image         = $unique_image_name;
+                $data->update();
+
+                return "Category Updated successfully ):";
+
+            }else {
+
+
+                // parent id not found
+                if($request->parent_id == null || $request->parent_id == 0){
+
+                    $child_cat = $data->parentCat;
+
+                    foreach($child_cat as $ch){
+                        $parent_child         = ProductCategory::find($ch->id);
+                        $parent_child->level  = ($parent_child->level - 1);
+                        $parent_child->parent = $data->parent;
+                        $parent_child->update();
+
+                        $child = $parent_child->parentCat;
+                        foreach($child as $cl){
+                            $this->findChild($cl->id);
+                        }
+                    }
+
+
+                    $data->name          = $request->name;
+                    $data->slug          = $this->getSlug($request->name);
+                    $data->icon          = $icon_name;
+                    $data->parent        = null;
+                    $data->level         = 1;
+                    $data->image         = $unique_image_name;
+                    $data->update();
+
+                    return "Category Updated successfully ):";
+
+                }else {
+
+                     // parent id has found
+                    $child_cat = $data->parentCat;
+
+                    foreach($child_cat as $ch){
+                        $parent_child         = ProductCategory::find($ch->id);
+                        $parent_child->level  = ($parent_child->level - 1);
+                        $parent_child->parent = $data->parent;
+                        $parent_child->update();
+
+                        $child = $parent_child->parentCat;
+                        foreach($child as $cl){
+                            $this->findChild($cl->id);
+                        }
+                    }
+
+                    $category = ProductCategory::where('id', $request->parent_id)->first();
+
+
+                    $data->name          = $request->name;
+                    $data->slug          = $this->getSlug($request->name);
+                    $data->icon          = $icon_name;
+                    $data->parent        = $request->parent_id;
+                    $data->level         = ($category->level+1);
+                    $data->image         = $unique_image_name;
+                    $data->update();
+
+                    return "Category Updated successfully ):";
+
+                }
+
+
+
+
+            }
+
+
+            // $this->validate($request, [
+            //     'name' => 'required',
+            // ]);
+
+            // $level_check = 0;
+            // if($request->parent_id){
+            //     $level = ProductCategory::find($request->parent_id);
+            //     $level_check = $level->level;
+            // }
+
+            // // check level
+            // if($level_check <= 4){
+
+            //     // file upload
+            //     $unique_image_name = '';
+            //     $unique_image_name = $this->imageUpload($request, 'image', 'media/products/category/');
+
+            //     if(empty($request->parent_id)){
+            //         ProductCategory::create([
+            //             'name'          => $request->name,
+            //             'slug'          => $this->getSlug($request->name),
+            //             'icon'          => $request->icon,
+            //             'image'         => $unique_image_name
+            //         ]);
+            //     }else {
+            //         $parent = ProductCategory::find($request->parent_id);
+
+            //         ProductCategory::create([
+            //             'name'          => $request->name,
+            //             'slug'          => $this->getSlug($request->name),
+            //             'icon'          => $request->icon,
+            //             'image'         => $unique_image_name,
+            //             'level'         => ($parent->level+1),
+            //             'parent'        => $parent->id,
+            //         ]);
+            //     }
+
+            //     return 'Data added successfully';
+
+            // }else {
+
+            //     return  "Level up! level limit 5, don't try to level 5 up.";
+
+            // }
+
+        }
+
     }
 
 

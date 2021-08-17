@@ -1042,6 +1042,15 @@
             let icon = $(this).children();
 
             $('#icon_name').val(icon[0].className);
+            $('#edit_category_icon_name').val(icon[0].className);
+
+        });
+
+        //icon name get and set input field edit category
+        $(document).on('change', '#update_category_icon', function(e){
+            let icon = $(this).children();
+
+            $('#edit_category_icon_name').val(icon[0].className);
 
         });
 
@@ -1152,7 +1161,7 @@
                     $('#edit_parent_category_name').empty();
                     // console.log(data);
                     // all category show by select option
-                    let select_option = '<option value="">-Select-</option>';
+                    let select_option = '<option value="">Parent</option>';
                     for(item of data.level1){
                                    select_option += `
                                                         <option `; if(item.id == data.catego.parent){ select_option += `selected` } select_option += ` value="${item.id}">&check;&nbsp;${item.name}`;
@@ -1219,27 +1228,26 @@
         //update category by wp struectur
         $(document).on('submit', '#edit_product_categroy_form', function (e){
             e.preventDefault();
-            alert();
-            // $.ajax({
-            //     url: '/products/categories',
-            //     method: 'POST',
-            //     data: new FormData(this),
-            //     processData: false,
-            //     contentType: false,
-            //     success: function(data){
 
-            //         $.notify(data, {
-            //             globalPosition: 'top right',
-            //             className: 'success'
-            //         });
+            $.ajax({
+                url: '/products/category/update',
+                method: 'POST',
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function(data){
+                    console.log(data);
+                    $.notify(data, {
+                        globalPosition: 'top right',
+                        className: 'success'
+                    });
 
-            //         $('#product_categroy_form')[0].reset();
-            //         $('.category_photo_show').attr('src', '');
-            //         allProductCategory();
-            //         // $('#add_product_category_modal').modal('hide');
-            //         // // $('#brand_table').DataTable().ajax.reload();
-            //     }
-            // });
+                    allProductCategory();
+                    $("#product_category_edit_modal").modal('hide');
+                    // $('#add_product_category_modal').modal('hide');
+                    // // $('#brand_table').DataTable().ajax.reload();
+                }
+            });
         });
 
 

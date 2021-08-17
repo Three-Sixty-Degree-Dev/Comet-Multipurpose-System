@@ -155,7 +155,7 @@
                             <div class="input-group">
                                 <label for="" class="w-100">Icon</label><br>
                                 <span class="input-group-prepend">
-                                    <button class="btn btn-secondary" name="icon" id="category_icon" data-icon="" role="iconpicker"></button>
+                                    <button class="btn btn-secondary" name="icon" id="update_category_icon" data-icon="" role="iconpicker"></button>
                                 </span>
                                 <input type="text" id="edit_category_icon_name" class="form-control" autocomplete="off">
                             </div><br>
