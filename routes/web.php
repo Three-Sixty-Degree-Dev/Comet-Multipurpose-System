@@ -125,6 +125,7 @@ Route::middleware(['auth'])->group(function (){
         Route::post('tag/update/{id}', 'App\Http\Controllers\Backend\Product\TagController@updateProductTagByAjax');
         Route::get('tag/status/update/{id}/{value}', 'App\Http\Controllers\Backend\Product\TagController@statusUpdateProductTag');
         Route::get('tag/trash/update/{id}/{value}', 'App\Http\Controllers\Backend\Product\TagController@trashUpdateProductTag');
+        Route::post('tag/delete/{id}', 'App\Http\Controllers\Backend\Product\TagController@deleteProductTag')->name('products.tag.delete');
 
     });
 });

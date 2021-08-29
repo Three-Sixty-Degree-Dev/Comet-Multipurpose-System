@@ -128,5 +128,12 @@ class TagController extends Controller
 
     }
 
+    /**
+     * Proudct tag delete
+     */
+    public function deleteProductTag($id){
+        ProductTag::findOrFail($id)->delete();
+        return 'Tag deleted successfully :) ';
+    }
 
 }

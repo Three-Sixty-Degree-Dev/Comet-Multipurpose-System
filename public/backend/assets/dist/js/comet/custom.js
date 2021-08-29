@@ -1602,6 +1602,65 @@
 
         });
 
+        // Tag Delete
+        $(document).on('submit', '#product_tag_delete_form', function (e) {
+            e.preventDefault();
+            let id = $(this).attr('delete_id');
+
+            swal(
+                {
+                    title: "Are you sure?",
+                    type: "success",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Yes",
+                    cancelButtonText: "No",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            url: '/products/tag/delete/' + id,
+                            method: 'POST',
+                            success: function (data) {
+                                // console.log(data);
+                                swal(
+                                    {
+                                        title: "Deleted!",
+                                        type: "success"
+                                    },
+                                    function (isConfirm) {
+                                        if (isConfirm) {
+                                            $.notify(data, {
+                                                globalPosition: "top right",
+                                                className: 'success'
+                                            });
+
+                                            $('#product_tag_trash_table').DataTable().ajax.reload();
+                                        }
+                                    }
+                                );
+                            }
+                        });
+
+                    } else {
+                        swal("Cancelled", "", "error");
+                    }
+                }
+            );
+
+
+
+
+
+        });
+
+
 
     });
 })(jQuery);
