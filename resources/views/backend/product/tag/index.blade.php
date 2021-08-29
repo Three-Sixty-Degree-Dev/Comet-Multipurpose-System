@@ -41,7 +41,7 @@
                         <a class="btn btn-sm btn-primary float-right" data-toggle="modal" href="#add_product_tag_modal" ><i class="fas fa-plus"> Add New Tag</i></a>
                         <div style="display: flex; margin-left: 0px; width: 100%;">
                             <a class="badge badge-primary" href="{{ route('products.tags') }}">Published <span class="product_tag_publish"></span></a>
-                            <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('products.brand.trash') }}">Trash <span class="brand_trash"></span></a>
+                            <a style="margin-left: 5px;" class="badge badge-danger" href="{{ route('products.tag.trash') }}">Trash <span class="product_tag_trash"></span></a>
                         </div>
                     </div>
                     <!-- /.card-header -->
