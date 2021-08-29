@@ -83,7 +83,7 @@
 </div>
 <!-- ./wrapper -->
 
-{{--    Add Brand Modal--}}
+{{--    Add Product Tag Modal--}}
     <div id="add_product_tag_modal" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -106,24 +106,19 @@
     </div>
 
 
-{{--    Edit Brand Modal--}}
-    <div id="edit_brand_modal" class="modal fade">
+{{--    Edit Product Tag Modal--}}
+    <div id="edit_product_tag_modal" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h2>Edit Brand <button class="close" data-dismiss="modal">&times;</button></h2>
+                    <h2>Edit Tag <button class="close" data-dismiss="modal">&times;</button></h2>
                     <hr>
-                    <form method="POST" id="edit_brand_form" class="brandValidate" enctype="multipart/form-data">
+                    <form method="POST" id="edit_product_tag_form" class="productTagValidate">
                         @csrf
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="hidden" name="id" class="brand_id">
-                            <input type="text" name="name" class="form-control brand_name">
-                        </div>
-                        <div class="form-group">
-                            <label>Logo</label>
-                            <input type="file" name="logo" class="form-control brand_logo_edit">
-                            <img style="height: 120px;" class="brand_photo_edit" src="" alt="">
+                            <input type="hidden" name="id" class="p_tag_id">
+                            <input type="text" name="name" class="form-control p_tag_name">
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-sm btn-primary" value="Update">

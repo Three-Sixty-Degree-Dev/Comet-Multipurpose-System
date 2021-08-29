@@ -1453,6 +1453,57 @@
 
         });
 
+        // edit tag
+        $(document).on('click', '.edit_product_tag', function(e){
+            e.preventDefault();
+            let id = $(this).attr('edit_id');
+
+            $.ajax({
+                url: '/products/tag/edit/'+id,
+                success: function(data){
+                    $('.p_tag_id').val(data.id);
+                    $('.p_tag_name').val(data.name);
+
+                    $('#edit_product_tag_modal').modal('show');
+                }
+            });
+
+
+        });
+
+        // update tag
+        $(document).on('submit', '#edit_product_tag_form', function(e){
+            e.preventDefault();
+            let name = $('.p_tag_name').val();
+            let id   = $('.p_tag_id').val();
+
+            if(name == '' || name == null){
+                $.notify('Please inset your product name',{
+                    globalPosition: "top right",
+                    className: "warning"
+                });
+                return;
+            }
+
+            $.ajax({
+                url: '/products/tag/update/'+id,
+                method: "POST",
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function(data){
+                    $.notify(data, {
+                        globalPosition: 'top right',
+                        className: 'success'
+                    });
+
+                    $("#product_tag_table").DataTable().ajax.reload();
+                   $('#edit_product_tag_modal').modal('hide');
+                }
+            });
+
+        });
+
 
     });
 })(jQuery);

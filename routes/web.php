@@ -120,6 +120,8 @@ Route::middleware(['auth'])->group(function (){
         //Tags Route
         Route::get('tag/list', 'App\Http\Controllers\Backend\Product\TagController@allProductTagByAjax')->name('products.tags');
         Route::post('tag/add', 'App\Http\Controllers\Backend\Product\TagController@addProductTagByAjax');
+        Route::get('tag/edit/{id}', 'App\Http\Controllers\Backend\Product\TagController@editProductTagByAjax');
+        Route::post('tag/update/{id}', 'App\Http\Controllers\Backend\Product\TagController@updateProductTagByAjax');
 
     });
 });
