@@ -1374,12 +1374,78 @@
         });
 
 
+        //======================== Product Tag =======================//
+
+        // get all product tag
+        $("#product_tag_table").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax : {
+                url: '/products/tag/list'
+            },
+            columns: [
+                {
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'slug',
+                    name: 'slug'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
+                    data: 'trash',
+                    name: 'trash'
+                }
+            ]
+        });
+
+        // add new tag
+        $(document).on('submit', '#product_tag_form', function(e){
+            e.preventDefault();
+            let name = $('#add_product_tag_modal input[name=name]').val();
+            if(name == '' || name == null){
+                $.notify('Please enter tag name',{
+                    globalPosition: "top right",
+                    className: 'warning'
+                });
+            }
+
+            $.ajax({
+                url: '/products/tag/add',
+                method: "POST",
+                data: new FormData(this),
+                processData: false,
+                contentType: false,
+                success: function(data){
+                    $.notify(data, {
+                        globalPosition: 'top right',
+                        className: 'success'
+                    });
+
+                    $("#product_tag_table").DataTable().ajax.reload();
+                    $('#add_product_tag_modal').modal('hide');
+                }
+            });
+
+        });
+
 
     });
 })(jQuery);
 
 
-{/* <ul>
+
+// multilevel category structure
+
+/* <ul>
     <li>Man
         <ul>
             <li>Panjabi
@@ -1392,4 +1458,4 @@
     </li>
     <li>Women</li>
     <li>Electronic</li>
-</ul> */}
+</ul> */

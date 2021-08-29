@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Backend\Product\CategoryController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Backend\Product\ProductTag;
+use App\Http\Controllers\Backend\Product\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,7 +86,7 @@ Route::middleware(['auth'])->group(function (){
 
 
 
-     //=============== Product ===============//
+     //=============== Products ===============//
 
 
     Route::prefix('products')->group(function () {
@@ -114,6 +115,11 @@ Route::middleware(['auth'])->group(function (){
         Route::get('category/delete/{id}', [CategoryController::class, 'productCategoryDeleteByAjax']);
         Route::get('category/edit/{id}', [CategoryController::class, 'productCategoryEditByAjax']);
         Route::post('category/update', [CategoryController::class, 'productCategoryUpdateByAjax']);
+
+
+        //Tags Route
+        Route::get('tag/list', 'App\Http\Controllers\Backend\Product\TagController@allProductTagByAjax')->name('products.tags');
+        Route::post('tag/add', 'App\Http\Controllers\Backend\Product\TagController@addProductTagByAjax');
 
     });
 });
