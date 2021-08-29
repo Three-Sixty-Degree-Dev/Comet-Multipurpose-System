@@ -1398,11 +1398,27 @@
                 },
                 {
                     data: 'status',
-                    name: 'status'
+                    name: 'status',
+                    render: function(data, type, full, meta){
+                        return `<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" p_tag_id="${full.id}" class="custom-control-input p_tag_status" ${full.status == true ? 'checked="checked"' : ''} id="customStatusSwitch_${full.id}" value="${data}">
+                                    <label class="custom-control-label" style="cursor:pointer;" for="customStatusSwitch_${full.id}"></label>
+                                </div>`;
+                    }
                 },
                 {
                     data: 'trash',
-                    name: 'trash'
+                    name: 'trash',
+                    render: function(data, type, full, meta){
+                        return `<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                    <input type="checkbox" p_tag_id="${full.id}" class="custom-control-input p_tag_trash_page" ${full.trash == true ? 'checked="checked"' : ''} id="customTrashSwitch_${full.id}" value="${data}">
+                                    <label class="custom-control-label" style="cursor:pointer;" for="customTrashSwitch_${full.id}"></label>
+                                </div>`;
+                    }
+                },
+                {
+                    data: 'action',
+                    name: 'action'
                 }
             ]
         });

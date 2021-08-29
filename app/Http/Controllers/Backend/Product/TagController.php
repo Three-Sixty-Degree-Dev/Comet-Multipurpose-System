@@ -15,7 +15,10 @@ class TagController extends Controller
     public function allProductTagByAjax(){
 
         if( request()->ajax() ){
-            return datatables()->of(ProductTag::latest()->get())->make(true);
+            return datatables()->of(ProductTag::latest()->get())->addColumn('action', function($data){
+                $output = '<a title="Edit" edit_id="'.$data['id'].'" href="#" class="btn btn-sm btn-warning edit_brand"><i class="fas fa-edit text-white"></i></a>';
+                return $output;
+            })->make(true);
         }
 
         return view('backend.product.tag.index');
