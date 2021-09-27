@@ -1661,6 +1661,94 @@
         });
 
 
+        // Add valuable product size 
+        $("#add_p_size").click(function(e){
+            e.preventDefault();
+
+            let rand_size = Math.round(Math.random() * 1000);
+
+            let size_continer = `
+                <div class="card p_size_box_card">
+                    <div class="card-header" data-toggle="collapse" data-target="#size-${rand_size}" aria-expanded="false"  aria-controls="${rand_size}">
+                        <h2 class="card-title">Size - ${rand_size}</h2>
+                        <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
+                        <button class="close mr-2 mt-1 size_close_btn">&times;</button>
+                    </div>
+                    <div class="card-body collapse crd_b" id="size-${rand_size}">
+                        <div class="form-group">
+                            <input type="text" name="sizename[]" class="form-control" placeholder="Product Size">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="sizeprice[]" class="form-control" placeholder="Price">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="sizesaleprice[]" class="form-control" placeholder="Sale Price">
+                        </div>
+                    </div>
+                </div>
+            `;
+            $(".p_size_box").append(size_continer);
+
+        });
+
+        // Remove Variable Product Size
+        $(document).on("click", ".size_close_btn", function(e){
+            e.preventDefault();
+            $(this).parent('.card-header').parent('.card').remove();
+        });
+
+
+        // Add valuable product size 
+        $("#add_p_color").click(function(e){
+            e.preventDefault();
+
+            let rand_color = Math.round(Math.random() * 1000);
+
+            let color_continer = `
+                <div class="card p_color_box_card">
+                    <div class="card-header" data-toggle="collapse" data-target="#color-${rand_color}" aria-expanded="false"  aria-controls="${rand_color}">
+                        <h2 class="card-title">Color - ${rand_color}</h2>
+                        <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
+                        <button class="close mr-2 mt-1 color_close_btn">&times;</button>
+                    </div>
+                    <div class="card-body collapse crd_b" id="color-${rand_color}">
+                        <div class="form-group">
+                            <input type="text" name="colorname[]" class="form-control" placeholder="Product Color">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="colorprice[]" class="form-control" placeholder="Price">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="colorsaleprice[]" class="form-control" placeholder="Sale Price">
+                        </div>
+                    </div>
+                </div>
+            `;
+            $(".p_color_box").append(color_continer);
+
+        });
+
+        // Remove Variable Product Color
+        $(document).on("click", ".color_close_btn", function(e){
+            e.preventDefault();
+            $(this).parent('.card-header').parent('.card').remove();
+        });
+
+
+        // Check variable product
+        $("#variable_box").change(function(){
+            let opt = $("#variable_box:checked").val();
+            $(".v_box").show();
+
+            if(opt == 'variables'){
+                $(".v_box").show();
+            }else {
+                $(".v_box").hide();
+                $(".v_box input").val(null);
+            }
+
+        });
+
 
     });
 })(jQuery);

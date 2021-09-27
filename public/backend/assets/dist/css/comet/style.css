@@ -45,6 +45,68 @@
     display: inline-block;
 } */
 
+.cat_list li {
+    list-style: none;
+}
+
+.cat_list input,
+.cat_list label {
+    cursor: pointer;
+}
+
+
+/* ============= Card Collapseble ============= */
+.card-header .title {
+    font-size: 17px;
+    color: #000;
+}
+.card-header .accicon {
+  float: right;
+  font-size: 20px;
+  width: 1.2em;
+}
+.card-header{
+  cursor: pointer;
+  border-bottom: none;
+}
+.card{
+  border: 1px solid #ddd;
+}
+.card-body{
+  border-top: 1px solid #ddd;
+}
+.card-header:not(.collapsed) .rotate-icon {
+  transform: rotate(180deg);
+}
+
+/*================ Size Box ===============*/
+.p_size_box,
+.p_color_box {
+    width: 405px;
+}
+
+.p_size_box_card .card-header,
+.p_color_box_card .card-header {
+    padding: 5px;
+    
+}
+
+.card {
+    border: none;
+}
+
+.crd_b {
+    padding: 5px;
+}
+
+.v_box {
+    display: none;
+}
+
+.v_b {
+    cursor: pointer;
+}
+
 
 
 

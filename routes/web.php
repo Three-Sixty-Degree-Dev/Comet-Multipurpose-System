@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Backend\Product\ProductTag;
 use App\Http\Controllers\Backend\Product\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,6 +128,10 @@ Route::middleware(['auth'])->group(function (){
         Route::get('tag/status/update/{id}/{value}', 'App\Http\Controllers\Backend\Product\TagController@statusUpdateProductTag');
         Route::get('tag/trash/update/{id}/{value}', 'App\Http\Controllers\Backend\Product\TagController@trashUpdateProductTag');
         Route::post('tag/delete/{id}', 'App\Http\Controllers\Backend\Product\TagController@deleteProductTag')->name('products.tag.delete');
+
+
+        //Prodcuts Route
+        Route::resource('product', ProductController::class);
 
     });
 });
