@@ -1662,34 +1662,34 @@
 
 
         // Add valuable product size 
-        $("#add_p_size").click(function(e){
-            e.preventDefault();
+        // $("#add_p_size").click(function(e){
+        //     e.preventDefault();
 
-            let rand_size = Math.round(Math.random() * 1000);
+        //     let rand_size = Math.round(Math.random() * 1000);
 
-            let size_continer = `
-                <div class="card p_size_box_card">
-                    <div class="card-header" data-toggle="collapse" data-target="#size-${rand_size}" aria-expanded="false"  aria-controls="${rand_size}">
-                        <h2 class="card-title">Size - ${rand_size}</h2>
-                        <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
-                        <button class="close mr-2 mt-1 size_close_btn">&times;</button>
-                    </div>
-                    <div class="card-body collapse crd_b" id="size-${rand_size}">
-                        <div class="form-group">
-                            <input type="text" name="sizename[]" class="form-control" placeholder="Product Size">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="sizeprice[]" class="form-control" placeholder="Price">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="sizesaleprice[]" class="form-control" placeholder="Sale Price">
-                        </div>
-                    </div>
-                </div>
-            `;
-            $(".p_size_box").append(size_continer);
+        //     let size_continer = `
+        //         <div class="card p_size_box_card">
+        //             <div class="card-header" data-toggle="collapse" data-target="#size-${rand_size}" aria-expanded="false"  aria-controls="${rand_size}">
+        //                 <h2 class="card-title">Size - ${rand_size}</h2>
+        //                 <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
+        //                 <button class="close mr-2 mt-1 size_close_btn">&times;</button>
+        //             </div>
+        //             <div class="card-body collapse crd_b" id="size-${rand_size}">
+        //                 <div class="form-group">
+        //                     <input type="text" name="sizename[]" class="form-control" placeholder="Product Size">
+        //                 </div>
+        //                 <div class="form-group">
+        //                     <input type="text" name="sizeprice[]" class="form-control" placeholder="Price">
+        //                 </div>
+        //                 <div class="form-group">
+        //                     <input type="text" name="sizesaleprice[]" class="form-control" placeholder="Sale Price">
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     `;
+        //     $(".p_size_box").append(size_continer);
 
-        });
+        // });
 
         // Remove Variable Product Size
         $(document).on("click", ".size_close_btn", function(e){
@@ -1747,6 +1747,105 @@
                 $(".v_box input").val(null);
             }
 
+        });
+
+        //Add Variables Features modal show
+        $(document).on("click", "#add_v_ftr", function(e){
+            e.preventDefault();
+            $('#variable_model').modal("show");
+        });
+
+        // Add Variable Items
+        $(document).on('click', '#add_new_var_btn', function(e){
+            e.preventDefault();
+
+            $(".add_var_btn").show();
+
+            let randnum = Math.round(Math.random() * 1000);
+
+            $('.var_element').append(`
+                <div class="card p_v_card">
+                    <div class="card-header p_v_card_h" data-toggle="collapse" data-target="#card-box-${randnum}">
+                        <h6 class="float-left">Variable Box #${randnum}</h6>
+                        <button class="close var_close_btn float-right">&times;</button>
+                    </div>
+                    <div class="collapse" id="card-box-${randnum}">
+                        <div class="card-body var_all_inputs">
+                            <div class="form-group">
+                                <label for="">Variable Name</label>
+                                <input type="text" name="var_name" class="form-control var_name">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Variable Item</label>
+                                <input type="text" name="var_item" class="form-control var_item">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `);
+
+            return false;
+
+        });
+
+        //Variable Product close btn
+        $(document).on('click', '.var_close_btn', function(e){
+            $(this).parent('.card-header').parent('.card').remove();
+        });
+
+        // Add Variable Product Metabox
+        $(document).on('click', '.add_var_btn', function(){
+            // Variable Container Card
+            $('.variable_container').show();
+
+            // Get input value
+            let arr = [];
+            $(".var_all_inputs input[name]").each(function(){
+                let a = $(this).val();
+                arr.push(a);
+            });
+            console.log(arr);
+
+            // item 1 and item 2 convert string to array
+            let var_item_1  = arr[1].split('|');
+            let var_item_2  = arr[3].split('|');
+
+            for(let i=0; i < var_item_1.length; i++){
+                for(let j=0; j < var_item_2.length; j++){
+                    let rand_size = Math.round(Math.random() * 1000);
+
+                    // console.log(var_item_1[i][j]);
+
+                    $(".p_size_box").append(`
+                        <div class="card p_size_box_card">
+                            <div class="card-header" data-toggle="collapse" data-target="#size-${rand_size}" aria-expanded="false"  aria-controls="${rand_size}">
+                                <h2 class="card-title">${arr[0]} - ${var_item_1[i]} & ${arr[2]} - ${var_item_2[j]}</h2>
+                                <span class="accicon"><i class="fas fa-angle-down rotate-icon"></i></span>
+                                <button class="close mr-2 mt-1 size_close_btn">&times;</button>
+                            </div>
+                            <div class="card-body collapse crd_b" id="size-${rand_size}">
+                                <div class="form-group">
+                                    <input type="text" name="sizename[]" class="form-control" placeholder="Product Size" value="${var_item_1[i]}">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="colorname[]" class="form-control" placeholder="Product Color" value="${var_item_2[j]}">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="sizeprice[]" class="form-control" placeholder="Price">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="sizesaleprice[]" class="form-control" placeholder="Sale Price">
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                }
+            }
+
+
+            
+
+            
         });
 
 

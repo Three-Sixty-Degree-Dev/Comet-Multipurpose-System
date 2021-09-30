@@ -107,10 +107,32 @@
     cursor: pointer;
 }
 
+.vm_h {
+    min-height: 400px;
+    background: #eee;
+}
 
+.vm_h a {
+    margin-bottom: 10px;
+}
 
+.p_v_card {
+    margin-bottom: 3px;
+}
 
+.p_v_card_h {
+    padding-bottom: 0px;
+}
 
+.add_var_btn {
+    margin-top: 20px;
+    display: none;
+}
+
+.variable_container {
+    display: none;
+    margin-top: 10px;
+}
 
 
 

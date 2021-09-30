@@ -39,7 +39,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h2 class="card-title">Add Product</h2>
-                                        <input type="submit" class="btn btn-primary float-right" value="Save">
+                                        <input type="submit" class="btn btn-primary btn-sm float-right" value="Save">
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
@@ -186,16 +186,12 @@
 
 
                                 <!-- CHeck Variable Product Add Or Not -->
-                                <input type="checkbox" value="variables" class="mr-1 v_b" id="variable_box"><label for="variable_box">Variable Option</label>
+                                {{-- <input type="checkbox" value="variables" class="mr-1 v_b" id="variable_box"><label for="variable_box">Variable Option</label> --}}
 
-                                <div class="v_box">
+                                {{-- <div class="">
                                     <!-- Start Size -->
                                     <div class="card">
-                                        <div class="card-header">
-                                            <h2 class="card-title">Product Size</h2>
-                                        </div>
                                         <div class="card-body">
-                                            <button class="btn btn-primary btn-sm mb-1" id="add_p_size">Add Size</button>
 
                                             <div class="p_size_box">
                                             
@@ -205,7 +201,7 @@
                                     </div>
                                     <!-- End Size -->
 
-                                    <!-- Start Color -->
+                                    {{-- <!-- Start Color -->
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="card-title">Product Color</h2>
@@ -218,9 +214,23 @@
                                                 
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <!-- End Color -->
-                                </div>
+                                <!--</div> --}}-->
+
+
+                                <a id="add_v_ftr" class="btn btn-primary btn-sm" href="#">Add variables features</a>
+
+                                <!-- Variable Container -->
+                                <div class="card variable_container">
+                                    <div class="card-body">
+                                        <div class="p_size_box">
+                                        
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div><!-- !Variable Container -->
 
                             </div>
 
@@ -247,6 +257,25 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+
+    <!-- Products Variables Model -->
+    <div id="variable_model" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body vm_h">
+                    <a id="add_new_var_btn" class="btn btn-primary btn-sm" href="#">Add new variable</a>
+                    <div class="var_element">
+
+                        
+                        
+                    </div>
+                    <div class="form-group">
+                        <input type="button" class="btn btn-primary btn-sm float-right add_var_btn" value="Add new">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- !Products Variables Model -->
 
     <!--   jquery Validation-->
     <script>
